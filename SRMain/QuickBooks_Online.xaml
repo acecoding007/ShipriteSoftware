@@ -1,0 +1,120 @@
+﻿<local:CommonWindow x:Name="QuickBooks_Window" x:Class="QuickBooks_Online"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/QuickBooks.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="QUICKBOOKS ONLINE" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SetupButton" Grid.Column="3" ToolTip="Setup" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Save_Image" Source="Resources/Gear.png"/>
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="338" Margin="10,79,0,0" VerticalAlignment="Top" Width="148" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                            <ListBox x:Name="PostedDates_LB" ItemContainerStyle="{StaticResource ListBoxItem_Color}" Margin="1,6,0,6" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" FontWeight="Bold" BorderThickness="0" Background="White"/>
+                        </Border>
+                        <Label Content="View:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="99" FontWeight="Bold" FontSize="14"/>
+                        <RadioButton Content="Unposted" HorizontalAlignment="Left" Margin="24,29,0,0" VerticalAlignment="Top" Width="108" Height="20" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="Posted (History)" HorizontalAlignment="Left" Margin="24,54,0,0" VerticalAlignment="Top" Width="108" Height="20" VerticalContentAlignment="Center"/>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="407" Margin="174,10,0,0" VerticalAlignment="Top" Width="792" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                            <local:CommonListView x:Name="PostedDates_LV" Margin="1,6,0,6" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" FontWeight="Bold" BorderThickness="0" Background="White">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Date" Width="65"/>
+                                        <GridViewColumn Header="Account#" Width="145"/>
+                                        <GridViewColumn Header="Description" Width="345"/>
+                                        <GridViewColumn Header="DR" Width="105"/>
+                                        <GridViewColumn Header="CR" Width="105"/>
+                                    </GridView>
+                                </ListView.View>
+                            </local:CommonListView>
+                        </Border>
+                        <Button Style="{StaticResource POSKeypadButton_Style}" Content="Post Selected" HorizontalAlignment="Left" Margin="838,422,0,0" VerticalAlignment="Top" Width="128" Height="41" FontSize="14"/>
+                        <Button Style="{StaticResource POSKeypadButton_Style}" Content="POST ALL" HorizontalAlignment="Left" Margin="710,422,0,0" VerticalAlignment="Top" Width="128" Height="41" FontSize="14"/>
+
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

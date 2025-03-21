@@ -1,0 +1,8 @@
+<AccessLicenseResponse>
+    <Response>
+        <TransactionReference/>
+        <ResponseStatusCode>1</ResponseStatusCode>
+        <ResponseStatusDescription>Success</ResponseStatusDescription>
+    </Response>
+    <AccessLicenseNumber>TEST357720083CAT</AccessLicenseNumber>
+</AccessLicenseResponse>

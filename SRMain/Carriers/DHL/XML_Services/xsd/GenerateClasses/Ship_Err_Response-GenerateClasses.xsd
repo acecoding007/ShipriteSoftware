@@ -1,0 +1,7 @@
+<xsd xmlns='http://microsoft.com/dotnet/tools/xsd/'>
+	<generateClasses language='VB' namespace='DHL_ShipErrorRes'>
+		<schema>..\Global\ship-val-err-res.xsd</schema>
+		<schema>..\Global\datatypes.xsd</schema>
+		<schema>.\ClassNames\Ship_Err_Response.xsd</schema> <!--Empty XML Schema just for naming output file-->
+	</generateClasses>
+</xsd>

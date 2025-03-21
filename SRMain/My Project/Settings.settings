@@ -1,0 +1,189 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="UPS_WebReference_ShipService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://onlinetools.ups.com/webservices/Ship</Value>
+    </Setting>
+    <Setting Name="UPS_RegWebReference_RegisterMgrAcctService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://onlinetools.ups.com/webservices/Registration</Value>
+    </Setting>
+    <Setting Name="UPS_TinTWebReference_TimeInTransitService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://onlinetools.ups.com/webservices/TimeInTransit</Value>
+    </Setting>
+    <Setting Name="UPS_VoidWebReference_VoidService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://onlinetools.ups.com/webservices/Void</Value>
+    </Setting>
+    <Setting Name="StoreOwner_Username" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StoreOwner_Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UPS_production_url" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://onlinetools.ups.com/webservices</Value>
+    </Setting>
+    <Setting Name="UPS_test_url" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://wwwcie.ups.com/webservices</Value>
+    </Setting>
+    <Setting Name="FedEx_RegistrationService_RegistrationService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws.fedex.com:443/web-services</Value>
+    </Setting>
+    <Setting Name="FedEx_ShipService_ShipService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws.fedex.com:443/web-services/ship</Value>
+    </Setting>
+    <Setting Name="FedEx_RateService_RateService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws.fedex.com:443/web-services/rate</Value>
+    </Setting>
+    <Setting Name="FedEx_AddressValidationService_AddressValidationService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws.fedex.com:443/web-services/addressvalidation</Value>
+    </Setting>
+    <Setting Name="FedEx_CloseService_CloseService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws.fedex.com:443/web-services/close</Value>
+    </Setting>
+    <Setting Name="FedEx_OpenShipService_OpenShipService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws.fedex.com:443/web-services/openship</Value>
+    </Setting>
+    <Setting Name="FedEx_ScanPostingService_ScanPostingService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws.fedex.com:443/web-services/scanposting</Value>
+    </Setting>
+    <Setting Name="Endicia_EwsLabelService_EwsLabelService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://labelserver.endicia.com/LabelService/EwsLabelService.asmx</Value>
+    </Setting>
+    <Setting Name="Endicia_DYMOStampsService_DYMOStampsService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://labelserver.endicia.com/LabelService/DYMOStampsservice.asmx</Value>
+    </Setting>
+    <Setting Name="Endicia_LastPostageAmountAdded" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="PackMaster_Print_Details_OnReceipt" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DropOff_chkPrintReceipt" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DropOff_chkSendEmails" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DropOff_chkSendSMS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DropOff_CarrierOther" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Other</Value>
+    </Setting>
+    <Setting Name="PackageValet_JPNReceiptCopies" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="PackageValet_JPNLabelCopies" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="PackageValet_JSSLaserCopies" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="PackageValet_JPLLabelCopies" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Notify_Email" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Notify_Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Notify_SmtpServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Notify_SmtpPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Notify_KeepLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Notify_SendCopy" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Notify_SmtpEncrypted" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PackageValet_CheckIn_PrintNotice" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PackageValet_CheckIn_PrintLabel" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PackageValet_CheckIn_PrintSignatureSheet" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PackageValet_CheckIn_SendSMS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PackageValet_CheckIn_SendEmail" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PackageValet_CheckIn_NoticePrintOption" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DropOff_chkAutoDetect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DHL_XML_Test_Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://xmlpitest-ea.dhl.com/XMLShippingServlet</Value>
+    </Setting>
+    <Setting Name="DHL_XML_Production_Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://xmlpi-ea.dhl.com/XMLShippingServlet</Value>
+    </Setting>
+    <Setting Name="DHL_XML_IsTest" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UPS_DropOff_Test_Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://b2c.ams1907.com</Value>
+    </Setting>
+    <Setting Name="UPS_DropOff_Production_Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://b2c.ups.com</Value>
+    </Setting>
+    <Setting Name="UPS_DropOff_IsTest" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MBXDailyNotice_chkEmail" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MBXDailyNotice_chkSMS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Window_Height" Type="System.String" Scope="User">
+      <Value Profile="(Default)">576</Value>
+    </Setting>
+    <Setting Name="Window_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1024</Value>
+    </Setting>
+    <Setting Name="Window_IsMaximized" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="POS_InvoiceHistory_DaysToShow" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="Contacts_SearchType" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Use_Store_From_Address" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UPS_Steppingstone_TinT_Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://onlinetools.ups.com/api/webservices/TimeInTransit</Value>
+    </Setting>
+    <Setting Name="UPS_Steppingstone_Ship_Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://onlinetools.ups.com/api/webservices/Ship</Value>
+    </Setting>
+    <Setting Name="UPS_Steppingstone_Void_Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://onlinetools.ups.com/api/webservices/Void</Value>
+    </Setting>
+    <Setting Name="DropOff_FocusTracking" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Enable_ReceiptView" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Suggest_BoxSelections" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

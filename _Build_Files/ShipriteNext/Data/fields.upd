@@ -1,0 +1,12 @@
+$Database SHIPRITE
+InvoiceNotes InvNum, LONG, 0, SIMPLEBOX
+InvoiceNotes Note, MEMO, 50, MEMO
+Payments, Charges, DOUBLE, 0, SIMPLEBOX
+GiftRegistry InvNum, LONG, 0
+GiftRegistry CID, LONG, 0
+GiftRegistry SoldToBlock, CHAR, 255
+GiftRegistry Amount, DOUBLE, 0
+GiftRegistry Completed, YESNO, 0
+GiftRegistry GiftIDNumber, CHAR, 55
+GiftRegistry Status, CHAR, 55
+$END

@@ -1,0 +1,446 @@
+﻿<local:CommonWindow x:Name="Utilities_Window" x:Class="UtilitiesManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image HorizontalAlignment="Left" Height="35" VerticalAlignment="Center" Width="30" Source="Resources/Utilities_Light.png"/>
+                    <Border Grid.Column="1" Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="UTILITIES" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Utility Button Content-->
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                           
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Accounts Button-->
+                        <Button x:Name="AccountsButton" Style="{DynamicResource UtilityManager_Button}" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Account.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="ACCOUNTS" Padding="0" />
+                            </Grid>
+                        </Button>
+                        
+                        
+                        <!--Contacts Button-->
+                        <Button x:Name="ContactsButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Contacts_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="CONTACTS" Padding="0" />
+                            </Grid>
+                        </Button>
+
+                        <!--Drop Off Manager Button-->
+                        <Button x:Name="DropOffManagerButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/DropOff_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="DROP OFF" />
+                            </Grid>
+                        </Button>
+
+
+                        <Button x:Name="Manifest_EOD_Button" Style="{DynamicResource UtilityManager_Button}" Grid.Row="0" Grid.Column="4" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/EODManifest.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="END OF DAY &#xD;&#xA; MANIFEST"/>
+                            </Grid>
+                        </Button>
+
+
+
+
+                        <Button x:Name="Backup_Button" Style="{DynamicResource UtilityManager_Button}" Grid.Column="1" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Backup.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="BACKUP" />
+                            </Grid>
+                        </Button>
+
+                        <!--Inventory Button-->
+                        <Button x:Name="InventoryButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="5" Grid.Row="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Inventory_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="INVENTORY" />
+                            </Grid>
+                        </Button>
+
+
+                        <Button x:Name="LetterMasterButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="0" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/LetterMaster_Logo.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="LETTER MASTER" />
+                            </Grid>
+                        </Button>
+
+
+                        <!--Mailbox Manager Button-->
+                        <Button x:Name="MailboxManagerButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="1" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Mailbox_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="MAILBOX MANAGER" />
+                            </Grid>
+                        </Button>
+
+
+                        <Button x:Name="MailMasterButton" Style="{DynamicResource UtilityManager_Button}" Grid.Row="1" Grid.Column="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/MailMasterIcons/Print_Postage_Stamps.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="MAIL MASTER"/>
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="StatisticsButton" Style="{DynamicResource UtilityManager_Button}" Grid.Row="2" Grid.Column="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Statistics.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="STATISTICS"/>
+                            </Grid>
+                        </Button>
+
+                        <!--Package Valet Button-->
+                        <Button x:Name="PackageValetButton" Style="{DynamicResource UtilityManager_Button}" Grid.Row="1" Grid.Column="3" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/PackageValet_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="PACKAGE VALET"/>
+                            </Grid>
+                        </Button>
+
+                        <!--PackMaster Button-->
+                        <Button x:Name="PackMasterButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="4" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/PackMaster_Light.png" Margin="5" />
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Style="{DynamicResource UtilityButton_Label}" Content="PACK MASTER" HorizontalAlignment="Right" />
+                                    <Label Grid.Column="1" Style="{DynamicResource UtilityButton_Label}" Content="TM" HorizontalAlignment="Left" FontSize="8" VerticalAlignment="Bottom" Margin="3,0,0,13" />
+                                </Grid>
+
+                            </Grid>
+                        </Button>
+
+
+                        <!--Program Info Button-->
+                        <Button x:Name="ProgramInfoButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="5" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/ProgramInfo_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="PROGRAM INFO"/>
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="QuickBooksButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="0" Grid.Row="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Quickbooks.png" Margin="5"/>
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="QUICKBOOKS" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="ReportsButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="2" Grid.Row="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Reports_Light.png" Margin="5"/>
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="REPORTS" />
+                            </Grid>
+                        </Button>
+
+
+
+                        <!--Reports Button-->
+                        <Button x:Name="RateChartsButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="1" Grid.Row="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/RateChart.png" Margin="5"/>
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="RATE CHARTS" />
+                            </Grid>
+                        </Button>
+
+                        <!--Shipment History Button-->
+                        <Button x:Name="ShipmentHistoryButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="3" Grid.Row="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/ShipHistory_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="SHIPMENT HISTORY" />
+                            </Grid>
+                        </Button>
+
+
+                        <Button x:Name="ShipsuranceButton" Style="{DynamicResource UtilityManager_Button}" Grid.Row="2" Grid.Column="4" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Shipsurance.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="SHIPSURANCE" />
+                            </Grid>
+                        </Button>
+
+                       
+                        <Button x:Name="Support_Utilities_Btn" Style="{DynamicResource UtilityManager_Button}" Grid.Column="0" Grid.Row="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/SupportUtilities.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="SUPPORT UTILITIES"/>
+                            </Grid>
+                        </Button>
+                        
+                        <!--Themes Button-->
+                        <Button x:Name="ThemesButton" Style="{DynamicResource UtilityManager_Button}" Grid.Row="3" Grid.Column="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Themes_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="THEMES" />
+                            </Grid>
+                        </Button>
+
+
+                        <!--Time Clock Button-->
+                        <Button x:Name="TimeClockButton" Style="{DynamicResource UtilityManager_Button}" Grid.Column="2" Grid.Row="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/TimeClock_Light.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="TIME CLOCK" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="TicklerButton" Style="{DynamicResource UtilityManager_Button}" Grid.Row="3" Grid.Column="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="50*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Tickler.png" Margin="5" />
+                                <Label Style="{DynamicResource UtilityButton_Label}" Grid.Row="1" Content="TICKLER"/>
+                            </Grid>
+                        </Button>
+
+
+
+
+                    </Grid>
+
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}"/>
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

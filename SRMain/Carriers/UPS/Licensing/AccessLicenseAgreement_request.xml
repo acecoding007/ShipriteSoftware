@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<AccessLicenseAgreementRequest>
+  <Request>
+    <TransactionReference>
+      <CustomerContext>QAST GetAgreement</CustomerContext>
+      <XpciVersion>1.0</XpciVersion>
+    </TransactionReference>
+    <RequestAction>AccessLicense</RequestAction>
+    <RequestOption>AllTools</RequestOption>
+  </Request>
+  <DeveloperLicenseNumber>2CB2702381CB5253</DeveloperLicenseNumber>
+  <AccessLicenseProfile>
+    <CountryCode>US</CountryCode>
+    <LanguageCode>EN</LanguageCode>
+  </AccessLicenseProfile>
+</AccessLicenseAgreementRequest>

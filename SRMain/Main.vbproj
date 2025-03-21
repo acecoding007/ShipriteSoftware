@@ -1,0 +1,3117 @@
+﻿<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E83110C6-17A9-4D8A-879E-BC3D120742F7}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SHIPRITE</RootNamespace>
+    <AssemblyName>ShipriteNext</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\ShipriteNext</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <IncrementalBuild>true</IncrementalBuild>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ShipriteNext.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DefineConstants>INHOUSE=0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <IncrementalBuild>false</IncrementalBuild>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ShipriteNext.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ShipRiteNext_Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.3.2.10, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.3.2\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VisualBasic.PowerPacks.Vs.1.0.0\lib\Microsoft.VisualBasic.PowerPacks.Vs.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.wgssSTU">
+      <HintPath>Common\SigPadWacom\Interop.wgssSTU.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="RestSharp, Version=106.12.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.12.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="RtfPipe, Version=2.0.7677.4303, Culture=neutral, PublicKeyToken=5f6ab4ce530296d2, processorArchitecture=MSIL">
+      <HintPath>..\packages\RtfPipe.2.0.7677.4303\lib\net45\RtfPipe.dll</HintPath>
+    </Reference>
+    <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SAPBusinessObjects.WPF.ViewerShared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SigPlusNET, Version=2.0.0.42, Culture=neutral, PublicKeyToken=6aef07010bb0624f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\SigPlusNET\SigPlusNET.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="Application.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="..\Common_Code\DatabaseFunctions.vb">
+      <Link>DatabaseFunctions.vb</Link>
+    </Compile>
+    <Compile Include="..\Common_Code\Definitions.vb">
+      <Link>Definitions.vb</Link>
+    </Compile>
+    <Compile Include="..\Common_Code\ExecutiveServices.vb">
+      <Link>ExecutiveServices.vb</Link>
+    </Compile>
+    <Compile Include="..\Common_Code\General.vb">
+      <Link>General.vb</Link>
+    </Compile>
+    <Compile Include="..\Common_Code\SegmentFunctions.vb">
+      <Link>SegmentFunctions.vb</Link>
+    </Compile>
+    <Compile Include="..\Common_Code\SocketServices.vb">
+      <Link>SocketServices.vb</Link>
+    </Compile>
+    <Compile Include="AccountManager.xaml.vb">
+      <DependentUpon>AccountManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ApiRequest.vb" />
+    <Compile Include="Carriers\DHL\XML_Services\DCT_Request.vb" />
+    <Compile Include="Carriers\DHL\XML_Services\DCT_Response.vb" />
+    <Compile Include="Carriers\DHL\XML_Services\Err_Response.vb" />
+    <Compile Include="Carriers\DHL\XML_Services\Ship_Err_Response.vb" />
+    <Compile Include="Carriers\DHL\XML_Services\Ship_Request.vb" />
+    <Compile Include="Carriers\DHL\XML_Services\Ship_Response.vb" />
+    <Compile Include="Carriers\DHL\_Dhl_XML.vb" />
+    <Compile Include="Carriers\FedEx\FedExRETURNS.vb" />
+    <Compile Include="Carriers\FedEx\FedEx.vb" />
+    <Compile Include="Carriers\FedEx\FedExCERT.vb" />
+    <Compile Include="Carriers\FedEx\FedExREST.vb" />
+    <Compile Include="Carriers\FedEx\FedEx_Data2XML.vb" />
+    <Compile Include="Carriers\FedEx\_FedExHAL.vb" />
+    <Compile Include="Carriers\FedEx\_FedExWeb.vb" />
+    <Compile Include="Carriers\FedEx\_FedEx_OneRate.vb" />
+    <Compile Include="Carriers\FedEx\_FedEx_OpenShip.vb" />
+    <Compile Include="Carriers\ShipandInsure\_ShipandInsure.vb" />
+    <Compile Include="Carriers\Shipping_Discounts.vb" />
+    <Compile Include="Carriers\Shipping_Surcharges.vb" />
+    <Compile Include="Carriers\Spee-Dee\SpeeDee.vb" />
+    <Compile Include="Carriers\USPS\Endicia\_EndiciaWeb.vb" />
+    <Compile Include="Carriers\USPS\_USPS.vb" />
+    <Compile Include="Common\CommonCode\BarCode.vb" />
+    <Compile Include="Common\CommonCode\_RTF2HTML.vb" />
+    <Compile Include="Common\CommonCode\_HidDevice.vb" />
+    <Compile Include="Common\CommonCode\_Scale.vb" />
+    <Compile Include="Common\CommonCode\_SQL.vb" />
+    <Compile Include="Common\ShortcutKeyHandlers.vb" />
+    <Compile Include="Common\_SigPlusPad.vb" />
+    <Compile Include="Definitions_POS.vb" />
+    <Compile Include="Definitions_Shipping.vb" />
+    <Compile Include="Common\DirectPrint\PrinterClass.vb" />
+    <Compile Include="Dropoff\DropOffPackagesDB.vb" />
+    <Compile Include="Dropoff\_Dropoff.vb" />
+    <Compile Include="Genius.vb" />
+    <Compile Include="PackageValet\_MailboxPackage.vb" />
+    <Compile Include="PackageValet\_MailboxPackagesDB.vb" />
+    <Compile Include="Price_label.xaml.vb">
+      <DependentUpon>Price_label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecordSetFunctions.vb" />
+    <Compile Include="ReportPreview.xaml.vb">
+      <DependentUpon>ReportPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\AR\AlphaList.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlphaList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AR\Vault.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Vault.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DropOff\DropOff_UPS_Compensation.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DropOff_UPS_Compensation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DropOff\DropOff_FASC_Compensation.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DropOff_FASC_Compensation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DropOff\DropOff.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DropOff.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DropOff\DropOff_byCustomer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DropOff_byCustomer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DropOff\DropOff_Compensation.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DropOff_Compensation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DropOff\DropOff_Manifest.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DropOff_Manifest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DropOff_Receipt_HTML.vb" />
+    <Compile Include="Reports\HotPursuit\AddressListing.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddressListing.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HotPursuit\AddressListingLevel.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddressListingLevel.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HotPursuit\Contacts.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contacts.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HotPursuit\ContactSheet.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactSheet.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\InitCRobjectsOnly.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InitCRobjectsOnly.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\AddressLabels_DYMO1.1-8x3.1-2.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddressLabels_DYMO1.1-8x3.1-2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\Inventory_OutStock.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Inventory_OutStock.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\InventoryLabels_byDept_MSRP.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryLabels_byDept_MSRP.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\Inventory.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Inventory.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\InventoryLabels.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryLabels.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\InventoryLabels_byDept.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryLabels_byDept.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\InventoryLabels_DYMO1.1-8x3.1-2.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryLabels_DYMO1.1-8x3.1-2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\InventoryValuation.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryValuation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\PurchaseOrder.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrder.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\SerialNumbersUnassigned.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SerialNumbersUnassigned.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventory\TicklerList.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicklerList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\Mailboxes_Expired.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mailboxes_Expired.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\PS1583.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PS1583.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\HoldForPickup\PackagesHistory_ByCarrier.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackagesHistory_ByCarrier.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\HoldForPickup\PackagesHistory_ByCustomer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackagesHistory_ByCustomer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\HoldForPickup\Packages_CheckOut.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Packages_CheckOut.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\HoldForPickup\Packages_OnHand.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Packages_OnHand.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\MailboxListing.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailboxListing.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\MBContract.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MBContract.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\MBXAlphaListing.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MBXAlphaListing.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\MBXNotice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MBXNotice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\Packages\PackagesHistory.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackagesHistory.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\Packages\PackagesOnHand_NotSigned.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackagesOnHand_NotSigned.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\Packages\PackagesOnHand_Signed.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackagesOnHand_Signed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\Packages\PackagesPickup_SignatureSheet.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackagesPickup_SignatureSheet.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\Packages\PICK_LocationTicket.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PICK_LocationTicket.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\Packages\ProofOfPickup_SignatureSheet.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProofOfPickup_SignatureSheet.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\PostOffice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PostOffice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Mailbox\PostOffice_CancelledMBoxes.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PostOffice_CancelledMBoxes.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HotPursuit\ActionList.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActionList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Aging.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Aging.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\InvoiceSearch.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceSearch.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\DepartmentChargeback.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepartmentChargeback.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\DepositSlip.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepositSlip.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\DrawerClose.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DrawerClose.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\DrawerOpen.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DrawerOpen.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\GeneralJournal.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneralJournal.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Hourly.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hourly.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\HourlyByDay.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HourlyByDay.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Invoice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Invoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\InvoiceNumberInventory.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceNumberInventory.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Invoice_T1_T2_T3.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Invoice_T1_T2_T3.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\LayAwayInvoice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LayAwayInvoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\LayAwayShipper.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LayAwayShipper.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\LayAwayStore.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LayAwayStore.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\PaidOut.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaidOut.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\ProdAcct.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProdAcct.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\ProdClrk.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProdClrk.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Product-OLD.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Product-OLD.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Product.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Product.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Quote.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Quote.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Quote_T1_T2_T3.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Quote_T1_T2_T3.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\RefundSlip.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RefundSlip.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\SaleAcct.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SaleAcct.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\SaleClrk.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SaleClrk.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Sales.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sales.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\SalesInquiry.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesInquiry.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\SalesTax-OLD.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesTax-OLD.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\SalesTax1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesTax.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\SalesTax_Accts.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesTax_Accts.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\SalesTax_Canada1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesTax_Canada.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\ShipperCopy.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShipperCopy.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Statement.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Statement.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\StatementOld.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatementOld.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\StatementNoDetails.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatementNoDetails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\StatementSaleDetails.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatementSaleDetails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Void.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Void.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Zreport-OLD.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zreport-OLD.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Zreport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zreport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\ZreportDatewise.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZreportDatewise.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\ZReportShort.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZReportShort.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\ZReportShort_2Column.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZReportShort_2Column.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\POS\Zreport_PostNet.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zreport_PostNet.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Receipt_HTML.vb" />
+    <Compile Include="Reports\ReportsDb.vb" />
+    <Compile Include="Reports\Shipping\Corder_summary.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Corder_summary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\DHL_EOD_Manifest.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DHL_EOD_Manifest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\Corder.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Corder.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\Corder_Original.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Corder_Original.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\DSIeodReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSIeodReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\ExportDocument.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExportDocument.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\FEDEXBatch.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FEDEXBatch.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\FedEx_EOD_Manifest1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FedEx_EOD_Manifest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\FedExSRdisclaimer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FedExSRdisclaimer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\FedEx_IntConditionsOfContract.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FedEx_IntConditionsOfContract.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\Insurance.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Insurance.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\Invorder.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Invorder.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\FedExi1st.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FedExi1st.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\FedExIntlChart.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FedExIntlChart.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\PriceChart.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PriceChart.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\UPSIntl.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UPSIntl.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\UPSIntl2.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UPSIntl2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\USPSiExp.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>USPSiExp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\USPSIntl.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>USPSIntl.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\PriceCharts\USPSpp.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>USPSpp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\ShippingReceipt.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShippingReceipt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\SpeeDeeEODManifest.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpeeDeeEODManifest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\UPS_EOD_Manifest.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UPS_EOD_Manifest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Shipping\Zorder.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zorder.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\LetterMaster\Avery_5160.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Avery_5160.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\LetterMaster\Letter.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Letter.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Users\TimeClock.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeClock.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportViewer.xaml.vb">
+      <DependentUpon>ReportViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Security.vb" />
+    <Compile Include="SigPlusPad.xaml.vb">
+      <DependentUpon>SigPlusPad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen.xaml.vb">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="POS_ChangeDue.xaml.vb">
+      <DependentUpon>POS_ChangeDue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen_Statements.xaml.vb">
+      <DependentUpon>SplashScreen_Statements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StatementAndAccounting.vb" />
+    <Compile Include="Carriers\UPS\UPSREST.vb" />
+    <Compile Include="Web References\Endicia_DYMOStampService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Endicia_LabelService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FedEx_AddressValidationService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FedEx_CloseService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FedEx_OpenShipService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FedEx_RateService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FedEx_RegistrationService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FedEx_ScanPostingService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FedEx_ShipService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="POS_Payment.xaml.vb">
+      <DependentUpon>POS_Payment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="POS_ButtonMaker.xaml.vb">
+      <DependentUpon>POS_ButtonMaker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryDetail.xaml.vb">
+      <DependentUpon>InventoryDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MailMaster.xaml.vb">
+      <DependentUpon>MailMaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Customs.xaml.vb">
+      <DependentUpon>Customs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tickler.xaml.vb">
+      <DependentUpon>Tickler.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="POS_OpenClose.xaml.vb">
+      <DependentUpon>POS_OpenClose.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EOD_Manifest.xaml.vb">
+      <DependentUpon>EOD_Manifest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shipsurance.xaml.vb">
+      <DependentUpon>Shipsurance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="POS_Refund.xaml.vb">
+      <DependentUpon>POS_Refund.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LetterMaster.xaml.vb">
+      <DependentUpon>LetterMaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Backup.xaml.vb">
+      <DependentUpon>Backup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SupportUtilities.xaml.vb">
+      <DependentUpon>SupportUtilities.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QuickBooks_Online.xaml.vb">
+      <DependentUpon>QuickBooks_Online.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Statistics.xaml.vb">
+      <DependentUpon>Statistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Rate_Charts.xaml.vb">
+      <DependentUpon>Rate_Charts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerDisplay.xaml.vb">
+      <DependentUpon>CustomerDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MailboxNotifications.xaml.vb">
+      <DependentUpon>MailboxNotifications.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Addressbook.xaml.vb">
+      <DependentUpon>Addressbook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="_BaseCommonWindow.xaml.vb">
+      <DependentUpon>_BaseCommonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Carriers\UPS\_UPSWeb.vb" />
+    <Compile Include="Common\Class_Definitions.vb" />
+    <Compile Include="Common\CommonCode\_Calculate.vb" />
+    <Compile Include="Common\CommonCode\_Collection.vb" />
+    <Compile Include="Common\CommonCode\_ComboBox.vb" />
+    <Compile Include="Common\CommonCode\_Connection.vb" />
+    <Compile Include="Common\CommonCode\_Controls.vb" />
+    <Compile Include="Common\CommonCode\_Convert.vb" />
+    <Compile Include="Common\CommonCode\_DataAdapter.vb" />
+    <Compile Include="Common\CommonCode\_DataGridView.vb" />
+    <Compile Include="Common\CommonCode\_DataSet.vb" />
+    <Compile Include="Common\CommonCode\_Date.vb" />
+    <Compile Include="Common\CommonCode\_Debug.vb" />
+    <Compile Include="Common\CommonCode\_Email.vb" />
+    <Compile Include="Common\CommonCode\_Files.vb" />
+    <Compile Include="Common\CommonCode\_Format.vb" />
+    <Compile Include="Common\CommonCode\_ListView.vb" />
+    <Compile Include="Common\CommonCode\_MsgBox.vb" />
+    <Compile Include="Common\CommonCode\_Printers.vb" />
+    <Compile Include="Common\CommonCode\_TabCntrl.vb" />
+    <Compile Include="Common\CommonCode\_TreeView.vb" />
+    <Compile Include="Common\CommonCode\_XML.vb" />
+    <Compile Include="Common\CommonReceipt.vb" />
+    <Compile Include="Common\CommonShip.vb" />
+    <Compile Include="Common\CommonWindow.vb" />
+    <Compile Include="ContactManager.xaml.vb">
+      <DependentUpon>ContactManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DropOffManager.xaml.vb">
+      <DependentUpon>DropOffManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EmailSetup.xaml.vb">
+      <DependentUpon>EmailSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryManager.xaml.vb">
+      <DependentUpon>InventoryManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MailboxManager.xaml.vb">
+      <DependentUpon>MailboxManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MailboxSetup.xaml.vb">
+      <DependentUpon>MailboxSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PackageValet.xaml.vb">
+      <DependentUpon>PackageValet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Packmaster.xaml.vb">
+      <DependentUpon>Packmaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="POSManager.xaml.vb">
+      <DependentUpon>POSManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchFunctions.vb" />
+    <Compile Include="SearchUniversal.xaml.vb">
+      <DependentUpon>SearchUniversal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShippingSetup.xaml.vb">
+      <DependentUpon>ShippingSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShippingMarkups.xaml.vb">
+      <DependentUpon>ShippingMarkups.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrinterSetup.xaml.vb">
+      <DependentUpon>PrinterSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProgramInfo.xaml.vb">
+      <DependentUpon>ProgramInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsManager.xaml.vb">
+      <DependentUpon>ReportsManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup_General.xaml.vb">
+      <DependentUpon>Setup_General.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SetupManager.xaml.vb">
+      <DependentUpon>SetupManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="POSSetup.xaml.vb">
+      <DependentUpon>POSSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShipmentHistory.xaml.vb">
+      <DependentUpon>ShipmentHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShipriteStartup.vb" />
+    <Compile Include="UserLogIn.xaml.vb">
+      <DependentUpon>UserLogIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShipManager.xaml.vb">
+      <DependentUpon>ShipManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Print_Shipping_Label.xaml.vb">
+      <DependentUpon>Print_Shipping_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes.xaml.vb">
+      <DependentUpon>Themes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TimeClock.xaml.vb">
+      <DependentUpon>TimeClock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserSetup.xaml.vb">
+      <DependentUpon>UserSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilitiesManager.xaml.vb">
+      <DependentUpon>UtilitiesManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UPS_RegWebReference\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UPS_ShipWebReference\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UPS_TinTWebReference\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UPS_VoidWebReference\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Page Include="AccountManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContactManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DropOffManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmailSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MailboxManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MailboxSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Application.xaml.vb">
+      <DependentUpon>Application.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.vb">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="PackageValet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Packmaster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="POSManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Price_label.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\ReportViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Vector_Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchUniversal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShippingSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShippingMarkups.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PrinterSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProgramInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportsManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup_General.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SetupManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="POSSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShipmentHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SigPlusPad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="POS_ChangeDue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SplashScreen_Statements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserLogIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ContactManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\POSManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\SearchUniversalStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\SetupManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ShipManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\UtilitiesManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShipManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Print_Shipping_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TimeClock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilitiesManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="POS_Payment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="POS_ButtonMaker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InventoryDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MailMaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Customs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tickler.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="POS_OpenClose.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EOD_Manifest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shipsurance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="POS_Refund.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LetterMaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Backup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SupportUtilities.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QuickBooks_Online.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Statistics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Rate_Charts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomerDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MailboxNotifications.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Addressbook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="_BaseCommonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Threading.Tasks" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Windows" />
+    <Import Include="System.Windows.Controls" />
+    <Import Include="System.Windows.Data" />
+    <Import Include="System.Windows.Documents" />
+    <Import Include="System.Windows.Input" />
+    <Import Include="System.Windows.Media.Imaging" />
+    <Import Include="System.Windows.Navigation" />
+    <Import Include="System.Windows.Shapes" />
+    <Import Include="System.Xaml" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWpfExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.WPF.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AR\AlphaList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AlphaList.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AR\Vault.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Vault.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DropOff\DropOff_UPS_Compensation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DropOff_UPS_Compensation.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DropOff\DropOff_FASC_Compensation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DropOff_FASC_Compensation.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DropOff\DropOff.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DropOff.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DropOff\DropOff_byCustomer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DropOff_byCustomer.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DropOff\DropOff_Compensation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DropOff_Compensation.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DropOff\DropOff_Manifest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DropOff_Manifest.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HotPursuit\AddressListing.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AddressListing.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HotPursuit\AddressListingLevel.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AddressListingLevel.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HotPursuit\Contacts.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Contacts.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HotPursuit\ContactSheet.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ContactSheet.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\InitCRobjectsOnly.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InitCRobjectsOnly.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\AddressLabels_DYMO1.1-8x3.1-2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AddressLabels_DYMO1.1-8x3.1-2.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\Inventory_OutStock.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Inventory_OutStock.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\InventoryLabels_byDept_MSRP.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InventoryLabels_byDept_MSRP.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\Inventory.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Inventory.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\InventoryLabels.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InventoryLabels.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\InventoryLabels_byDept.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InventoryLabels_byDept.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\InventoryLabels_DYMO1.1-8x3.1-2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InventoryLabels_DYMO1.1-8x3.1-2.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\InventoryValuation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InventoryValuation.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\PurchaseOrder.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PurchaseOrder.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\SerialNumbersUnassigned.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SerialNumbersUnassigned.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Inventory\TicklerList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TicklerList.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\Mailboxes_Expired.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Mailboxes_Expired.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\PS1583.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PS1583.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\HoldForPickup\PackagesHistory_ByCarrier.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackagesHistory_ByCarrier.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\HoldForPickup\PackagesHistory_ByCustomer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackagesHistory_ByCustomer.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\HoldForPickup\Packages_CheckOut.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Packages_CheckOut.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\HoldForPickup\Packages_OnHand.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Packages_OnHand.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\MailboxListing.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MailboxListing.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\MBContract.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MBContract.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\MBXAlphaListing.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MBXAlphaListing.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\MBXNotice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MBXNotice.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\Packages\PackagesHistory.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackagesHistory.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\Packages\PackagesOnHand_NotSigned.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackagesOnHand_NotSigned.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\Packages\PackagesOnHand_Signed.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackagesOnHand_Signed.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\Packages\PackagesPickup_SignatureSheet.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PackagesPickup_SignatureSheet.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\Packages\PICK_LocationTicket.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PICK_LocationTicket.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\Packages\ProofOfPickup_SignatureSheet.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ProofOfPickup_SignatureSheet.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\PostOffice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PostOffice.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Mailbox\PostOffice_CancelledMBoxes.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PostOffice_CancelledMBoxes.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HotPursuit\ActionList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ActionList.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Aging.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Aging.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\InvoiceSearch.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InvoiceSearch.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\DepartmentChargeback.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepartmentChargeback.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\DepositSlip.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositSlip.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\DrawerClose.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DrawerClose.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\DrawerOpen.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DrawerOpen.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\GeneralJournal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>GeneralJournal.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Hourly.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Hourly.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\HourlyByDay.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>HourlyByDay.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Invoice.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\InvoiceNumberInventory.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InvoiceNumberInventory.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Invoice_T1_T2_T3.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Invoice_T1_T2_T3.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\LayAwayInvoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LayAwayInvoice.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\LayAwayShipper.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LayAwayShipper.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\LayAwayStore.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LayAwayStore.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\PaidOut.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaidOut.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\ProdAcct.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ProdAcct.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\ProdClrk.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ProdClrk.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Product-OLD.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Product-OLD.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Product.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Product.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Quote.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Quote.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Quote_T1_T2_T3.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Quote_T1_T2_T3.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\RefundSlip.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RefundSlip.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\SaleAcct.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SaleAcct.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\SaleClrk.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SaleClrk.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Sales.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Sales.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\SalesInquiry.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SalesInquiry.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\SalesTax-OLD.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SalesTax-OLD.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\SalesTax.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SalesTax1.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\SalesTax_Accts.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SalesTax_Accts.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\SalesTax_Canada.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SalesTax_Canada1.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\ShipperCopy.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ShipperCopy.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Statement.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Statement.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\StatementOld.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StatementOld.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\StatementNoDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StatementNoDetails.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\StatementSaleDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StatementSaleDetails.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Void.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Void.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Zreport-OLD.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Zreport-OLD.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Zreport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Zreport.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\ZreportDatewise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ZreportDatewise.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\ZReportShort.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ZReportShort.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\ZReportShort_2Column.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ZReportShort_2Column.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\POS\Zreport_PostNet.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Zreport_PostNet.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\Corder_summary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Corder_summary.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\DHL_EOD_Manifest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DHL_EOD_Manifest.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\Corder.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Corder.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\Corder_Original.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Corder_Original.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\DSIeodReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DSIeodReport.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\ExportDocument.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ExportDocument.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\FEDEXBatch.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FEDEXBatch.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\FedEx_EOD_Manifest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FedEx_EOD_Manifest1.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\FedExSRdisclaimer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FedExSRdisclaimer.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\FedEx_IntConditionsOfContract.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FedEx_IntConditionsOfContract.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\Insurance.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Insurance.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\Invorder.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Invorder.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\FedExi1st.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FedExi1st.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\FedExIntlChart.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FedExIntlChart.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\PriceChart.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PriceChart.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\UPSIntl.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>UPSIntl.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\UPSIntl2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>UPSIntl2.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\USPSiExp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>USPSiExp.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\USPSIntl.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>USPSIntl.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\PriceCharts\USPSpp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>USPSpp.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\ShippingReceipt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ShippingReceipt.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\SpeeDeeEODManifest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SpeeDeeEODManifest.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\UPS_EOD_Manifest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>UPS_EOD_Manifest.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Shipping\Zorder.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Zorder.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\LetterMaster\Avery_5160.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Avery_5160.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\LetterMaster\Letter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Letter.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Users\TimeClock.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TimeClock.vb</LastGenOutput>
+      <CustomToolNamespace>ShipRiteReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <None Include=".editorconfig" />
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\ClassNames\DCT_Request.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\ClassNames\DCT_Response.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\ClassNames\Err_Response.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\ClassNames\Ship_Err_Response.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\ClassNames\Ship_Request.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\ClassNames\Ship_Response.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\DCT_Request-GenerateClasses.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\DCT_Response-GenerateClasses.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\Err_Response-GenerateClasses.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\GenerateClasses.bat" />
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\Ship_Err_Response-GenerateClasses.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\Ship_Request-GenerateClasses.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\GenerateClasses\Ship_Response-GenerateClasses.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\book-pickup-global-req-3.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\book-pickup-global-res-3.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\cancel-pickup-global-req-3.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\cancel-pickup-global-res.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\datatypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\datatypes_global.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\datatypes_global_v10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\datatypes_global_v62.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\datatypes_global_v62b.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\DCT-req_global-2.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\DCT-Response_global-2.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\DCTRequestdatatypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\DCTRequestdatatypes_global.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\DCTResponsedatatypes_global.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\err-res.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\modify-pickup-global-req-3.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\modify-pickup-global-res-3.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\pickup-err-res.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\pickup-res.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\pickupdatatypes_global-3.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\pickupdatatypes_global.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\routing-global-req-2.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\routing-global-res.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\ship-val-err-res.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\ship-val-global-req-10.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\ship-val-global-res-10.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\track-err-res.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\TrackingRequestKnown-1.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\TrackingRequestUnknown-1.0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carriers\DHL\XML_Services\xsd\Global\TrackingResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Endicia_DYMOStampService\DYMOStampsservice.wsdl" />
+    <None Include="Web References\Endicia_DYMOStampService\GeneratedIndiciumResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_DYMOStampService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Endicia_DYMOStampService\StampRatesResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_DYMOStampService\StampsResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\AccountStatusResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\AddCarrierResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\ChallengeQuestionResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\ChangePassPhraseRequestResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\CreateManifestResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\DdpRateResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\DeleteCarrierResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\DHLeCManifestResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\DhlgmManifestResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\EwsLabelService.wsdl" />
+    <None Include="Web References\Endicia_LabelService\GetExtraServiceRateResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\GetVersionResults1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\LabelNumberResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\LabelRequestResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PackagePickupAvailabilityResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PackagePickupCancelResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PackagePickupChangeResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PackagePickupListResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PackagePickupResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PackageStatusResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PostageRateResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PostageRatesResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\PostageRateTableResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\RecreditRequestResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Endicia_LabelService\RefundResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\ResetSuspendedAccountRequestResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\RetailAccountsResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\SCANResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\SetAccountFeatureOptInResult1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\SetPendingCloseAccountResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\TransactionsListingResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\UpdatePaymentInfoResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\UserSignUpResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\ValidateAddressInfoResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Endicia_LabelService\VoidLabelResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_AddressValidationService\AddressValidationReply1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_AddressValidationService\AddressValidationServiceDefinitions.wsdl" />
+    <None Include="Web References\FedEx_AddressValidationService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\FedEx_CloseService\CloseServiceDefinitions.wsdl" />
+    <None Include="Web References\FedEx_CloseService\CloseWithDocumentsReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_CloseService\GroundCloseDocumentsReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_CloseService\GroundCloseReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_CloseService\GroundCloseReportsReprintReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_CloseService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\FedEx_CloseService\SmartPostCloseReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\AddPackagesToOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\ConfirmConsolidationReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\ConfirmOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\CreateConsolidationReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\CreateOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\DeleteOpenConsolidationReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\DeleteOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\DeletePackagesFromOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\DeletePendingShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\GetConfirmConsolidationResultsReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\GetConfirmOpenShipmentResultsReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\GetCreateOpenShipmentResultsReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\GetModifyOpenShipmentResultsReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\ModifyConsolidationReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\ModifyOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\ModifyPackageInOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\OpenShipServiceDefinitions.wsdl" />
+    <None Include="Web References\FedEx_OpenShipService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\RetrieveConsolidatedCommoditiesReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\RetrieveConsolidationReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\RetrieveOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\RetrievePackageInOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_OpenShipService\ValidateOpenShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_RateService\RateReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_RateService\RateServiceDefinitions.wsdl" />
+    <None Include="Web References\FedEx_RateService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\FedEx_RegistrationService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\FedEx_RegistrationService\RegisterWebUserReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_RegistrationService\RegistrationServiceDefinitions.wsdl" />
+    <None Include="Web References\FedEx_RegistrationService\SubscriptionReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_RegistrationService\VersionCaptureReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ScanPostingService\PublishDeliveryEventReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ScanPostingService\PublishInventoryEventReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ScanPostingService\PublishTenderedPackageEventReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ScanPostingService\PublishTransferAcceptanceEventReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ScanPostingService\PublishTransferEventReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ScanPostingService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\FedEx_ScanPostingService\ScanPostingServiceDefinitions.wsdl" />
+    <None Include="Web References\FedEx_ShipService\ProcessShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ShipService\ProcessTagReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ShipService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\FedEx_ShipService\ShipmentReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FedEx_ShipService\ShipServiceDefinitions.wsdl" />
+    <None Include="Web References\UPS_RegWebReference\common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_RegWebReference\Error1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_RegWebReference\ManageAccountResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UPS_RegWebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UPS_RegWebReference\RegisterNAccountMgrSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_RegWebReference\RegisterResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UPS_RegWebReference\RegistrationNAccountMgr.wsdl" />
+    <None Include="Web References\UPS_RegWebReference\UPSSecurity.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\Error1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\IFWS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\Ship.wsdl" />
+    <None Include="Web References\UPS_ShipWebReference\ShipAcceptResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\ShipConfirmResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\ShipmentResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\ShipWebServiceSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_ShipWebReference\UPSSecurity.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_TinTWebReference\common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_TinTWebReference\Error1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_TinTWebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UPS_TinTWebReference\TimeInTransit.wsdl" />
+    <None Include="Web References\UPS_TinTWebReference\TimeInTransitResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UPS_TinTWebReference\TimeInTransitWebServiceSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_TinTWebReference\UPSSecurity.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_VoidWebReference\common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_VoidWebReference\Error1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_VoidWebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UPS_VoidWebReference\UPSSecurity.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UPS_VoidWebReference\Void.wsdl" />
+    <None Include="Web References\UPS_VoidWebReference\VoidShipmentResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UPS_VoidWebReference\VoidWebServiceSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Arrow_Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Arrow_Left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RestoreDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CloseWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UPS_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\USPS_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DHL_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SetupOptions_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GoogleMaps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Endicia_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Save_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ShipRiteMansion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PoweredByAzure.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Utilities_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Receipt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\No_Receipt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ship_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ShipRiteNext_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inventory_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DropOff_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Contacts_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Mailbox_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PackMaster_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ProgramInfo_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Reports_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ShipHistory_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Themes_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TimeClock_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CarrierSetup_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Email_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailboxSetup_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Printer_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Security_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UserSetup_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\POS_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CancelSale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\HoldInvoice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\InvoiceLookup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Receipt_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Credit_Card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ProcessTransaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ButtonClick_01.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ButtonClick_02.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fedex_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Add_New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ticket.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RemoteSupport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Shop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Facebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PackageValet_Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\AddressValidationService_v4.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FedEx_AddressValidationService\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\AddressValidationService_v4.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FedEx_AddressValidationService_AddressValidationService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\CloseService_v5.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FedEx_CloseService\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\CloseService_v5.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FedEx_CloseService_CloseService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\OpenShipService_v9.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FedEx_OpenShipService\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\OpenShipService_v9.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FedEx_OpenShipService_OpenShipService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Users\john\source\repos\ShipRiteCloud\SRMain\Web Source\FedEx\RateService_v26.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FedEx_RateService\</RelPath>
+      <UpdateFromURL>C:\Users\john\source\repos\ShipRiteCloud\SRMain\Web Source\FedEx\RateService_v26.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FedEx_RateService_RateService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\RegistrationService_v7.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FedEx_RegistrationService\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\RegistrationService_v7.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FedEx_RegistrationService_RegistrationService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\ScanPostingService_v3.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FedEx_ScanPostingService\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\ScanPostingService_v3.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FedEx_ScanPostingService_ScanPostingService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\ShipService_v21.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FedEx_ShipService\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\FedEx\ShipService_v21.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FedEx_ShipService_ShipService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\RegistrationWebService.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UPS_RegWebReference\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\RegistrationWebService.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UPS_RegWebReference_RegisterMgrAcctService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\Ship.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UPS_ShipWebReference\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\Ship.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UPS_WebReference_ShipService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\TimeInTransit.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UPS_TinTWebReference\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\TimeInTransit.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UPS_TinTWebReference_TimeInTransitService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Development\ShipRiteCloud\SRMain\Web Source\Void.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UPS_VoidWebReference\</RelPath>
+      <UpdateFromURL>C:\Development\ShipRiteCloud\SRMain\Web Source\Void.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UPS_VoidWebReference_VoidService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://labelserver.endicia.com/LabelService/DYMOStampsservice.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Endicia_DYMOStampService\</RelPath>
+      <UpdateFromURL>https://labelserver.endicia.com/LabelService/DYMOStampsservice.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Endicia_DYMOStampsService_DYMOStampsService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://labelserver.endicia.com/LabelService/EwsLabelService.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Endicia_LabelService\</RelPath>
+      <UpdateFromURL>https://labelserver.endicia.com/LabelService/EwsLabelService.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Endicia_EwsLabelService_EwsLabelService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Carriers\UPS\Licensing\AccessLicenseAgreement_request.xml" />
+    <Resource Include="Carriers\UPS\Licensing\AccessLicense_request.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Carriers\UPS\Licensing\UPS_UserAgreement.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Other_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Package_Add.png" />
+    <Resource Include="Resources\Package_Inventory.png" />
+    <Resource Include="Resources\Package_Remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DollarBill_1.png" />
+    <Resource Include="Resources\DollarBill_10.png" />
+    <Resource Include="Resources\DollarBill_100.png" />
+    <Resource Include="Resources\DollarBill_20.png" />
+    <Resource Include="Resources\DollarBill_5.png" />
+    <Resource Include="Resources\DollarBill_50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Memo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ChangePrice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ItemDiscount.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ChangeTax.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Quantity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DropDownIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Parcel_Shipping_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ShipRiteNextWallpaper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LetterMaster_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\Postcard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\package.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\Envelope.png" />
+    <Resource Include="Resources\MailMasterIcons\Flat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\Print_Postage_Stamps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\Stamp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\FlatRateEnv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\FlatRateBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\USPS_Certified.jpg" />
+    <Resource Include="Resources\MailMasterIcons\USPS_ReturnReceipt.jpg" />
+    <Resource Include="Resources\MailMasterIcons\USPS_SigConfirm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MailMasterIcons\USPS_InsuredMail.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ReprintLabel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\backspace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ShipriteNext_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Quote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DropDown_White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Reminder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GlobalUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SoftwareRegistration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Statements.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Clock_BackGround.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ClockHand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Esri_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Shipsurance_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ShowPackageDetails.png" />
+    <Resource Include="Resources\TrackPackage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Manifest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Shipsurance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Reports\HowTo Convert report.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\InventoryDetail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Backup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SupportUtilities.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\QuickBooks.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AIRBORNE_Logo.png" />
+    <Resource Include="Resources\Federal Express_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Actions_document_print_direct_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Amazon_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Profile_Default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\EODManifest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FedEx.png" />
+    <Resource Include="Resources\FedEx_Express.png" />
+    <Resource Include="Resources\FedEx_Ground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ZipCode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Tickler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Tickler_Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Carriers\DHL\XML_Services\xsd\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Statistics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RateChart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DualDisplay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CustomerReview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Twitter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AddNewUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Spee-Dee_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Access.Dao">
+      <Guid>{4AC9E1DA-5BAD-4AC7-86E3-24F4CDCECA28}</Guid>
+      <VersionMajor>12</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DollarBill_ExactCash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DollarBill_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\QRCode.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

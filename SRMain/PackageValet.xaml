@@ -1,0 +1,599 @@
+<local:CommonWindow x:Name="PackageValet_Window" x:Class="PackageValet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}">
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <!--#region Main PV Window-->
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#FF577AC0">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click" Height="32" VerticalAlignment="Top">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="HandleExit">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="HandleExit">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="HandleExit">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HandleExit">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/PackageValet_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label x:Name="Header_Label" Content="PACKAGE VALET" Style="{DynamicResource HeaderLabel}" Height="44" Margin="0,-4" Width="274"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SetupOptions" Style="{DynamicResource ControlButton}" ToolTip="Setup Options" Grid.Column="2">
+                        <Image x:Name="SetupOptionsImage" Source="Resources/Gear.png" />
+                    </Button>
+                    <Button x:Name="PrintButton" Grid.Column="3" ToolTip="Print" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Print_Image" Source="Resources/Printer_Light.png"/>
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}">
+                    <Grid>
+                        <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" HorizontalAlignment="Left" Height="453" Margin="5,5,0,0" VerticalAlignment="Top" Width="109" Background="#FFFFFFFE" ClipToBounds="True">
+                            <ListBox x:Name="Selection_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" Margin="0,9,0,9" BorderThickness="0" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+                                <ListBoxItem Padding="4,1,4,20" HorizontalContentAlignment="Center">
+
+                                    <StackPanel Orientation="Vertical">
+
+                                        <TextBlock FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"><Run Text="Check In"/><LineBreak/><Run Text="Package"/></TextBlock>
+                                        <Image Source="resources/Package_Add.png" MaxWidth="80"/>
+
+                                    </StackPanel>
+
+                                </ListBoxItem>
+
+                                <ListBoxItem Padding="4,1,4,20" HorizontalContentAlignment="Center">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"><Run Text="Check Out"/><LineBreak/><Run Text="Package"/></TextBlock>
+                                        <Image Source="resources/Package_Remove.png" MaxWidth="80"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem Padding="4,1,4,20" HorizontalContentAlignment="Center">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"><Run Text="Package"/><LineBreak/><Run Text="Inventory"/></TextBlock>
+                                        <Image Source="resources/Package_Inventory.png" MaxWidth="80"/>
+                                    </StackPanel>
+                                </ListBoxItem>
+
+                            </ListBox>
+
+                        </Border>
+
+
+                        <TabControl x:Name="PackageValet_TabControl" HorizontalAlignment="Left" Height="463" Margin="124,0,0,0" VerticalAlignment="Top" Width="842" Background="#FFBCB9B2" BorderThickness="0" SelectedIndex="0">
+                            <TabItem x:Name="CheckIn_TabItem">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="21*"/>
+                                        <ColumnDefinition Width="817*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Style="{DynamicResource BaseBorder}"  BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="79" Margin="0,0,0,0" VerticalAlignment="Top" Width="268" Background="#FFE5E5E5" Grid.ColumnSpan="2">
+                                        <Grid Margin="0,0,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="17*"/>
+                                                <ColumnDefinition Width="252*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Customer Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" FontWeight="Bold" Margin="62.5,0,0,0" RenderTransformOrigin="1.273,1" Grid.Column="1"/>
+                                            <Label Content="MBX #" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="54" FontWeight="Bold" Grid.ColumnSpan="2" />
+                                            <TextBox x:Name="txtMailboxNo" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" FontSize="14" TabIndex="1" VerticalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Text="0" GotKeyboardFocus="TextBox_SelectAllText" PreviewMouseLeftButtonDown="TextBox_SelectivelyIgnoreMouseButton" MouseDoubleClick="TextBox_SelectAllText"/>
+                                            <ComboBox x:Name="txtMailboxName" HorizontalAlignment="Left" Height="23" Margin="63,26,0,0" VerticalAlignment="Top" Width="178" FontSize="14" Uid="Name" TabIndex="2" VerticalContentAlignment="Center" FontWeight="Bold" IsEditable="True" MouseDoubleClick="txtMailboxName_MouseDoubleClick" Grid.Column="1"/>
+                                            <Button x:Name="btn_ContactSearch" Margin="202.5,4,10,0" VerticalAlignment="Top" Height="18" Grid.Column="1" >
+
+                                                <Image x:Name="Customer_Search_Btn" Source="Resources/Search.png"/>
+                                            </Button>
+                                            <Label x:Name="txtExpDate" Content="" HorizontalAlignment="Left" Margin="62,49,0,1" RenderTransformOrigin="-0.789,-0.038" Width="176" Background="#FFE5E5E5" FontSize="14" Grid.Column="1"/>
+                                            <Label Content="Exp Date:" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="64" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="344" Margin="0,105,0,0" VerticalAlignment="Top" Width="265" Background="#FFE5E5E5" Grid.ColumnSpan="2">
+                                        <Grid Margin="-1,-1,1,0" ClipToBounds="True">
+                                            <CheckBox x:Name="chkFedEx_HAL" Content="FedEx HAL" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" Width="101" Click="chkFedEx_HAL_Click"/>
+                                            <CheckBox x:Name="chkUPS_AP" Content="UPS AP" HorizontalAlignment="Left" Margin="154,10,0,0" VerticalAlignment="Top" Width="101" Click="chkUPS_AP_Click"/>
+
+                                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,31,0,0" Stroke="Black" VerticalAlignment="Top" Width="265" />
+
+                                            <Label Content="Tracking Number" HorizontalAlignment="Left" Margin="7,31,0,0" VerticalAlignment="Top" Width="128" FontWeight="Bold"/>
+                                            <CheckBox x:Name="chkAutoDetect" Content="Auto Detect" HorizontalAlignment="Left" Margin="154,37,0,0" VerticalAlignment="Top" Width="93" FontWeight="Bold" IsChecked="True" />
+                                            <TextBox x:Name="txtPackageTrackingNo" Height="23" Margin="3,57,2,0" TextWrapping="noWrap" VerticalAlignment="Top" FontSize="14" TabIndex="3"/>
+                                            <Label Content="Select Carrier" HorizontalAlignment="Left" Margin="7,80,0,0" VerticalAlignment="Top" Width="106" FontWeight="Bold"/>
+                                            <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" HorizontalAlignment="Right" Height="116" Margin="0,106,10,0" VerticalAlignment="Top" Width="246" Background="#FFFFFFFE" RenderTransformOrigin="0.5,0.5" ClipToBounds="True">
+                                                <ListBox x:Name="Carrier_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" Margin="0,9" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False">
+                                                    <ListBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <WrapPanel IsItemsHost="True" />
+                                                        </ItemsPanelTemplate>
+                                                    </ListBox.ItemsPanel>
+                                                    <ListBox.ItemTemplate>
+
+                                                        <DataTemplate>
+                                                            <Image Margin="3" Source="{Binding CarrierImage}" Height="39" MaxWidth="55" RenderOptions.BitmapScalingMode="Fant"/>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+
+                                            </Border>
+
+                                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,227,0,0" Stroke="Black" VerticalAlignment="Top" Width="265" />
+
+                                            <Label Content="Notes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="53" Margin="3,233,0,0"/>
+                                            <TextBox x:Name="txtDesc" HorizontalAlignment="Left" Height="23" Margin="61,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197"/>
+                                            <Label Content="Location" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" Margin="3,259,0,0"/>
+                                            <TextBox x:Name="txtLocation" HorizontalAlignment="Left" Height="23" Margin="61,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197"/>
+                                            <CheckBox x:Name="chkPrintNotices" Content="Print Notice" HorizontalAlignment="Left" Margin="61,292,0,0" VerticalAlignment="Top" Width="101" FontWeight="Bold"/>
+                                            <CheckBox x:Name="chkPackageLabel" Content="Print Label" HorizontalAlignment="Left" Margin="164,292,0,0" VerticalAlignment="Top" Width="91" FontWeight="Bold"/>
+                                            <Button x:Name="cmdNextTracking" Style="{StaticResource POSKeypadButton_Style}" Content="Add Package" HorizontalAlignment="Left" Margin="4,307,0,0" Width="259" FontSize="16" FontWeight="Bold" Height="38" TabIndex="4"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}"  BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="449" Margin="257.667,0,0,0" VerticalAlignment="Top" Width="559" Background="#FFE5E5E5" Grid.Column="1">
+                                        <Grid Margin="0,0,-1,0">
+                                            <local:CommonListView x:Name="lvPackages" HorizontalAlignment="Left" Height="342" Margin="10,10,0,0" VerticalAlignment="Top" Width="542">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Foreground" Value="{Binding Path=FColor}"/>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridView.Columns>
+                                                            <GridViewColumn Header="MBox" Width="50" DisplayMemberBinding="{Binding Path=MailboxNo}"/>
+                                                            <GridViewColumn Header="Carrier" Width="70" DisplayMemberBinding="{Binding Path=CarrierName}"/>
+                                                            <GridViewColumn Header="Tracking #" Width="148" DisplayMemberBinding="{Binding Path=TrackingNo}"/>
+                                                            <GridViewColumn Header="Notes" Width="148" DisplayMemberBinding="{Binding Path=CheckInNotes}"/>
+                                                            <GridViewColumn Header="Location" Width="115" DisplayMemberBinding="{Binding Path=Location}"/>
+                                                            <GridViewColumn Header="MailboxName" Width="0" DisplayMemberBinding="{Binding Path=MailboxName}"/>
+                                                            <GridViewColumn Header="IsGround" Width="0" DisplayMemberBinding="{Binding Path=IsGround}"/>
+                                                            <GridViewColumn Header="PackageClass" Width="0" DisplayMemberBinding="{Binding Path=PackageClass}"/>
+                                                            <GridViewColumn Header="BarCodeScan" Width="0" DisplayMemberBinding="{Binding Path=BarCodeScan}"/>
+                                                            <GridViewColumn Header="CustomerID" Width="0" DisplayMemberBinding="{Binding Path=CustomerID}"/>
+                                                            <GridViewColumn Header="ReceivedDate" Width="0" DisplayMemberBinding="{Binding Path=ReceivedDate}"/>
+                                                        </GridView.Columns>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </local:CommonListView>
+                                            <Button x:Name="cmdClearCurrent" Style="{StaticResource POSKeypadButton_Style}" Content="Delete Selected" HorizontalAlignment="Left" Margin="10,357,0,46" Width="120" FontSize="16" FontWeight="Bold" Height="38" RenderTransformOrigin="0.467,1.368"/>
+                                            <Button x:Name="cmdProcess" Style="{StaticResource POSKeypadButton_Style}" Content="Process and Save" HorizontalAlignment="Left" Margin="406,361,0,6" Width="146" FontSize="16" FontWeight="Bold"/>
+                                            <CheckBox x:Name="chkSignatureSheet" Content="Print Signature Sheet" HorizontalAlignment="Left" Margin="263,369,0,0" VerticalAlignment="Top" Width="143" FontWeight="Bold"/>
+                                            <CheckBox x:Name="chkSendSMS" Content="Send SMS" HorizontalAlignment="Left" Margin="263,389,0,0" VerticalAlignment="Top" Width="122" FontWeight="Bold"/>
+                                            <CheckBox x:Name="chkSendEmails" Content="Send Email" HorizontalAlignment="Left" Margin="263,409,0,0" VerticalAlignment="Top" Width="122" FontWeight="Bold"/>
+                                            <Label x:Name="lblEmailStatus" Content="{Binding Path=emailStatus.text}" Foreground="{Binding Path=emailStatus.FColor}" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="135,403,0,0" VerticalAlignment="Top" Width="123"></Label>
+                                            <Label x:Name="lblSmsStatus" Content="{Binding Path=smsStatus.text}" Foreground="{Binding Path=smsStatus.FColor}" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="135,383,0,0" VerticalAlignment="Top" Width="123"/>
+                                            <Label Content="Package Count:" HorizontalAlignment="Left" Margin="13,405,0,0" VerticalAlignment="Top" Width="96" FontWeight="Bold"/>
+                                            <Label x:Name="lblPackageCount" Content="0" HorizontalAlignment="Left" Margin="114,405,0,0" VerticalAlignment="Top" Width="51" FontWeight="Bold"/>
+
+                                        </Grid>
+                                    </Border>
+
+                                    <Label Content="Enter Package Info" HorizontalAlignment="Left" Margin="0,84,0,0" VerticalAlignment="Top" Width="250" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                </Grid>
+                            </TabItem>
+                            <TabItem x:Name="CheckOut_TabItem" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="164" Margin="0,284,0,0" VerticalAlignment="Top" Width="233" Background="#FFE5E5E5" Grid.ColumnSpan="2">
+                                        <Grid Margin="-1,1,1,-1" ClipToBounds="True">
+                                            <Label Content="Scan Tracking Number" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="169" FontSize="14"/>
+                                            <TextBox x:Name="txtPackageTrackingNo1" HorizontalAlignment="Left" Height="23" Margin="10,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213" FontSize="14"/>
+                                            <Label Content="Carrier: " HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
+                                            <Label Content="Received:" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="76" FontSize="14"/>
+                                            <Label Content="" HorizontalAlignment="Left" Margin="86,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.789,-0.038" Width="79" FontSize="14" Background="#FFE5E5E5" Height="26"/>
+                                            <Label x:Name="lblCarrierName" Content="" HorizontalAlignment="Left" Margin="86,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.789,-0.038" Width="135" FontSize="14" Background="#FFE5E5E5" Height="26"/>
+                                            <Label x:Name="lblDateReceived" Content="" HorizontalAlignment="Left" Margin="86,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.789,-0.038" Width="135" FontSize="14" Background="#FFE5E5E5" Height="26"/>
+                                            <Button x:Name="cmdSearchWTracking" Style="{StaticResource POSKeypadButton_Style}" Content="Search" HorizontalAlignment="Left" Margin="10,118,0,7" Width="211" FontSize="14" FontWeight="Bold" RenderTransformOrigin="0.467,1.368"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}"  BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Margin="238,0,0,5" Width="600" Background="#FFE5E5E5" Grid.Column="1">
+                                        <Grid Margin="0,0,-1,0">
+                                            <local:CommonListView x:Name="lvPackages1" SelectionMode="Multiple" Height="259" Margin="5,35,5,0" VerticalAlignment="Top" GridViewColumnHeader.Click="ColumnHeader_Click">
+
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridView.Columns>
+                                                            <GridViewColumn Width="20">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}" Margin="-5"/>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Path=MailboxName}" />
+                                                            <GridViewColumn Header="Carrier" Width="42" DisplayMemberBinding="{Binding Path=CarrierName}" />
+                                                            <GridViewColumn Header="Tracking #" Width="128" DisplayMemberBinding="{Binding Path=TrackingNo}" />
+                                                            <GridViewColumn Header="Received" Width="72" DisplayMemberBinding="{Binding ReceivedDate, StringFormat=\{0:d\}}" />
+                                                            <GridViewColumn Header="Notes" Width="91" DisplayMemberBinding="{Binding Path=CheckInNotes}" />
+                                                            <GridViewColumn Header="Location" Width="91" DisplayMemberBinding="{Binding Path=Location}" />
+                                                            <GridViewColumn Header="ItemID" Width="0" DisplayMemberBinding="{Binding Path=PackageID}" />
+                                                        </GridView.Columns>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </local:CommonListView>
+
+                                            <Label Content="Package Count:" HorizontalAlignment="Left" Margin="427,9,0,0" VerticalAlignment="Top" Width="96" FontWeight="Bold"/>
+                                            <Label x:Name="lblPackageCount1" Content="0" HorizontalAlignment="Left" Margin="528,9,0,0" VerticalAlignment="Top" Width="51" FontWeight="Bold"/>
+
+                                            <Button x:Name="cmdPickedup" Style="{StaticResource POSKeypadButton_Style}" Content="CHECK OUT&#xD;&#xA;Package(s)" HorizontalAlignment="Left" Margin="427,348,0,3" Width="131" FontSize="14" FontFamily="Calibri" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                                            <Label Content="Packages Ready for Pickup" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="172" FontWeight="Bold"/>
+                                            <Button x:Name="cmdReturnToDriver" Style="{StaticResource POSKeypadButton_Style}" Content="Return To Driver" HorizontalAlignment="Left" Margin="121,298,0,111" Width="115" FontSize="14" FontWeight="Bold"/>
+                                            <Button x:Name="cmdPrintNotice" Style="{StaticResource POSKeypadButton_Style}" Content="Re-Print Notice" HorizontalAlignment="Left" Margin="241,298,0,111" Width="115" FontSize="14" FontWeight="Bold" RenderTransformOrigin="0.481,1.029"/>
+                                            <Button x:Name="cmdPrintPickTicket" Style="{StaticResource POSKeypadButton_Style}" Content="Print PICK Ticket" HorizontalAlignment="Left" Margin="481,296,0,110" Width="115" FontSize="14" FontWeight="Bold" RenderTransformOrigin="1.082,0.457"/>
+                                            <Label Content="Select Package(s)&#xD;&#xA;and chose option" HorizontalAlignment="Left" Margin="0,296,0,0" VerticalAlignment="Top" Width="107"/>
+                                            <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,341,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                            <Button x:Name="cmdRefused" Style="{StaticResource POSKeypadButton_Style}" Content="Customer Refused" HorizontalAlignment="Left" Margin="10,404,0,2" Width="139" FontSize="14" FontWeight="Bold"/>
+                                            <Label Content="Picked Up By:" HorizontalAlignment="Left" Margin="10,342,0,0" VerticalAlignment="Top" Width="89" FontWeight="Bold"/>
+                                            <ComboBox x:Name="txtPickedupBy" IsEditable="true" HorizontalAlignment="Left" Margin="104,347,0,0" VerticalAlignment="Top" Width="221" FontSize="14"/>
+                                            <Label Content="Notes" HorizontalAlignment="Left" Margin="10,377,0,0" VerticalAlignment="Top" Width="89" FontWeight="Bold"/>
+                                            <TextBox x:Name="txtCheckOutNotes" HorizontalAlignment="Left" Height="23" Margin="105,377,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="14"/>
+                                            <Button x:Name="cmdSigPad" Content="Sig. Pad" HorizontalAlignment="Left" Margin="330,348,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                                            <Button x:Name="cmdPrintNotice_Copy" Style="{StaticResource POSKeypadButton_Style}" Content="Email Notice" HorizontalAlignment="Left" Margin="361,296,0,110" Width="115" FontSize="14" FontWeight="Bold" RenderTransformOrigin="0.481,1.029"/>
+
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="166" Margin="0,26,0,0" VerticalAlignment="Top" Width="233" Background="#FFE5E5E5" Grid.ColumnSpan="2">
+                                        <Grid Margin="0,0,0,-1">
+                                            <Label Content="Customer Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="10,59,0,0" RenderTransformOrigin="1.273,1" FontSize="14"/>
+                                            <Label Content="MBX #" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="54" FontSize="14"/>
+                                            <TextBox x:Name="txtMailboxNo1" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" FontSize="14" Text="0" GotKeyboardFocus="TextBox_SelectAllText" PreviewMouseLeftButtonDown="TextBox_SelectivelyIgnoreMouseButton" MouseDoubleClick="TextBox_SelectAllText"/>
+                                            <Label x:Name="lblExpDate1" Content="Exp. Date:" HorizontalAlignment="Left" Margin="122,5,0,0" VerticalAlignment="Top" Width="92" FontSize="14"/>
+                                            <ComboBox x:Name="txtMailboxName1" IsEditable="true" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="213" FontSize="14"/>
+                                            <Label x:Name="txtExpDate1" Content="" HorizontalAlignment="Left" Margin="122,28,0,0" VerticalAlignment="Top"  Width="101" Background="#FFE5E5E5" Height="50" FontSize="13"/>
+                                            <Button x:Name="cmdShowAll" Style="{StaticResource POSKeypadButton_Style}" Content="List Packages" HorizontalAlignment="Left" Margin="10,118,0,10" Width="213" FontSize="14" FontWeight="Bold" RenderTransformOrigin="0.467,1.368"/>
+
+                                        </Grid>
+                                    </Border>
+
+                                    <Label Content="Search By Mailbox or Customer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                                    <Label Content="Search By Tracking Number" HorizontalAlignment="Left" Margin="0,258,0,0" VerticalAlignment="Top" Width="200" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem x:Name="PackageInventory_TabItem" >
+                                <Grid>
+                                    <Border Style="{DynamicResource BaseBorder}"  BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="358" Margin="0,85,0,0" VerticalAlignment="Top" Width="838" Background="#FFE5E5E5">
+                                        <Grid Margin="0,9,-1,0">
+                                            <local:CommonListView x:Name="lvPackages2" HorizontalAlignment="Left" Height="313" Margin="10,0,0,0" VerticalAlignment="Top" Width="817" GridViewColumnHeader.Click="ColumnHeader_Click">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridView.Columns>
+                                                            <GridViewColumn Header="In" Width="28" >
+                                                                <GridViewColumn.HeaderContainerStyle>
+                                                                    <Style>
+                                                                        <Setter Property="ItemsControl.ToolTip" Value="Present Packages"/>
+                                                                    </Style>
+                                                                </GridViewColumn.HeaderContainerStyle>
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <CheckBox IsChecked="{Binding Path=Checked}" />
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Header="Name" Width="130" DisplayMemberBinding="{Binding Path=MailboxName}"/>
+                                                            <GridViewColumn Header="Carrier" Width="50" DisplayMemberBinding="{Binding Path=CarrierName}" />
+                                                            <GridViewColumn Header="MBX" Width="40" DisplayMemberBinding="{Binding Path=MailboxNo}"/>
+                                                            <GridViewColumn Header="Tracking #" Width="160" DisplayMemberBinding="{Binding Path=TrackingNo}" />
+                                                            <GridViewColumn Header="Date Received" Width="90" DisplayMemberBinding="{Binding ReceivedDate, StringFormat=\{0:d\}}" />
+                                                            <GridViewColumn Header="Notes" Width="152">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock Text="{Binding Path=CheckInNotes}">
+                                                                            <TextBlock.ToolTip>
+                                                                                <ToolTip Content="{Binding Path=CheckInNotes}"/>
+                                                                            </TextBlock.ToolTip>
+                                                                        </TextBlock>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Header="Location" Width="152">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock Text="{Binding Path=Location}">
+                                                                            <TextBlock.ToolTip>
+                                                                                <ToolTip Content="{Binding Path=Location}"/>
+                                                                            </TextBlock.ToolTip>
+                                                                        </TextBlock>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                        </GridView.Columns>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </local:CommonListView>
+                                            <RadioButton x:Name="optShowMissing" Content="Show Missing Only" HorizontalAlignment="Left" Margin="23,322,0,0" VerticalAlignment="Top" Width="140" FontWeight="Bold" Checked="optShowMissing_Checked" Unchecked="optShowMissing_Checked"/>
+                                            <RadioButton x:Name="optShowPresent" Content="Show Present Only" HorizontalAlignment="Left" Margin="183,322,0,0" VerticalAlignment="Top" Width="140" FontWeight="Bold" Checked="optShowPresent_Checked" Unchecked="optShowPresent_Checked"/>
+                                            <RadioButton x:Name="optShowBoth" Content="Show Both" HorizontalAlignment="Left" Margin="328,322,0,0" VerticalAlignment="Top" Width="140" FontWeight="Bold" Checked="optShowBoth_Checked" Unchecked="optShowBoth_Checked"/>
+                                            <Button x:Name="cmdClearForm" Style="{StaticResource POSKeypadButton_Style}" Content="CLEAR" HorizontalAlignment="Left" Margin="673,313,0,0" Width="154" FontSize="16" FontWeight="Bold"/>
+
+                                        </Grid>
+                                    </Border>
+
+
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="80" Margin="0" VerticalAlignment="Top" Width="261" Background="#FFE5E5E5">
+                                        <Grid>
+                                            <Label Content="Scan Tracking #: " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.077" Width="117" FontWeight="Bold" FontSize="14"/>
+                                            <TextBox x:Name="txtPackageTrackingNo2" HorizontalAlignment="Left" Height="23" Margin="10,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" FontSize="14"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}"  BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="80" Margin="266,0,0,0" VerticalAlignment="Top" Width="572" Background="#FFE5E5E5">
+                                        <Grid>
+                                            <RadioButton x:Name="optAll" Content="All Packages" HorizontalAlignment="Left" Margin="100,23,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold" Checked="optAll_Checked" Unchecked="optAll_Checked"/>
+                                            <Label Content="Display:" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.077" Width="68" FontWeight="Bold" FontSize="14"/>
+                                            <RadioButton x:Name="optNonMbox" Content="Non-Mailbox" HorizontalAlignment="Left" Margin="219,23,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold" Checked="optNonMbox_Checked" Unchecked="optNonMbox_Checked"/>
+                                            <RadioButton x:Name="optMbox" Content="Mailbox Packages" HorizontalAlignment="Left" Margin="342,23,0,0" VerticalAlignment="Top" Width="132" FontWeight="Bold" Checked="optMbox_Checked" Unchecked="optMbox_Checked"/>
+                                            <RadioButton x:Name="optFedExHAL" Content="FedEx HAL" HorizontalAlignment="Left" Margin="100,52,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold" Checked="optFedExHAL_Checked" Unchecked="optFedExHAL_Checked"/>
+                                            <RadioButton x:Name="optUPSAP" Content="UPS AP" HorizontalAlignment="Left" Margin="219,52,0,0" VerticalAlignment="Top" Width="71" FontWeight="Bold" Checked="optUPSAP_Checked" Unchecked="optUPSAP_Checked"/>
+                                            <TextBox x:Name="txtMailboxNo2" HorizontalAlignment="Left" Height="23" Margin="487,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" FontSize="14" RenderTransformOrigin="0.424,-0.609"/>
+                                            <Label Content="MBX #" HorizontalAlignment="Left" Margin="487,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.178,-0.192" Height="23" FontSize="10"/>
+                                            <RadioButton x:Name="optName" Content="Name" HorizontalAlignment="Left" Margin="342,52,0,0" VerticalAlignment="Top" Width="71" FontWeight="Bold" Checked="optUPSAP_Checked" Unchecked="optUPSAP_Checked"/>
+                                            <TextBox x:Name="txtName2" HorizontalAlignment="Left" Height="23" Margin="418,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" VerticalContentAlignment="Center"/>
+
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+
+
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+                <!--#endregion Main PV Window-->
+                <Popup x:Name="PrinterOptions" PlacementTarget="{Binding ElementName=SetupOptions}" AllowsTransparency="true" StaysOpen="false" PopupAnimation="Slide">
+                    <Border x:Name="Setup_Border"  BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Width="254" Background="#FFE0E0E0" Height="72" Margin="0">
+                        <Grid x:Name="Setup_Grid" ClipToBounds="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Content="Notice Printer Options" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width=".9*"/>
+                                    <ColumnDefinition Width=".5*"/>
+                                </Grid.ColumnDefinitions>
+                                <RadioButton Name="PrintNoticeReceipt" Grid.Column="0" Content="Receipt Printer" GroupName="NoticePrintOptions" VerticalAlignment="Center"/>
+                                <RadioButton Name="PrintNoticeLabel" Grid.Column="1" Content="Label Printer" GroupName="NoticePrintOptions" VerticalAlignment="Center"/>
+                                <RadioButton Name="PrintNoticeBoth" Grid.Column="2" Content="Both" GroupName="NoticePrintOptions" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Popup>
+                <Popup x:Name="Print_Popup" PlacementTarget="{Binding ElementName=PrintButton}" AllowsTransparency="true" StaysOpen="false" PopupAnimation="Slide">
+                    <Border x:Name="Print_Border" Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="297" Margin="0" VerticalAlignment="Top" Width="745" Background="#FFE0E0E0">
+                        <Grid Margin="0,0,0,-1">
+                            <Label Content="Package Valet Reporting" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="176" FontWeight="Bold" FontSize="14"/>
+                            <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="152" Margin="10,44,0,0" VerticalAlignment="Top" Width="220">
+                                <Grid Margin="0,0,0,-1">
+                                    <Label Content="From:" HorizontalAlignment="Left" Margin="11,44,0,0" VerticalAlignment="Top" Width="46" FontWeight="Bold" RenderTransformOrigin="0.587,1.654"/>
+                                    <Label Content="To:" HorizontalAlignment="Left" Margin="11,80,0,0" VerticalAlignment="Top" Width="45" FontWeight="Bold"/>
+                                    <Border BorderThickness="1" BorderBrush="Black" Margin="60,0,13,77" Width="145" Height="30" VerticalAlignment="Bottom">
+                                        <Grid Width="144" Height="28" Margin="0,-1,-1,1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox x:Name="chkDtpFrom"  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="True" />
+                                            <DatePicker x:Name="dtpFrom" Grid.Column="1"  BorderThickness="0" Margin="0,3" Width="123" HorizontalAlignment="Right" />
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderThickness="1" BorderBrush="Black" Margin="61,0,12,41" Width="145" Height="30" VerticalAlignment="Bottom">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox x:Name="chkDtpTo" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="True" />
+                                            <DatePicker x:Name="dtpTo" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0" Margin="0,3" Width="123" />
+                                        </Grid>
+                                    </Border>
+                                    <Label Content="Date range to print reports for:" HorizontalAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" Width="198"/>
+                                    <CheckBox x:Name="chkRememberDates" Content="Remember Dates" HorizontalAlignment="Left" Margin="60,126,0,0" VerticalAlignment="Top" Width="127"/>
+                                </Grid>
+                            </Border>
+
+                            <Label Content="Package Reports" HorizontalAlignment="Left" Margin="235,18,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold"/>
+                            <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="235,44,0,0" VerticalAlignment="Top" Width="247">
+                                <Grid>
+                                    <Label Content="Packages On Hand" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="140" FontWeight="Bold"/>
+                                    <ComboBox x:Name="cmbPackageClass" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="146" Text="Select Package Class">
+                                        <ComboBoxItem Content="Mailbox Holder"/>
+                                        <ComboBoxItem Content="FedEx Hold at Location"/>
+                                        <ComboBoxItem Content="UPS Access Point"/>
+                                        <ComboBoxItem Content="HOLD for Non-Mailbox"/>
+                                    </ComboBox>
+                                    <Button x:Name="lklAllPackagesButSigned" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="161,41,0,0" VerticalAlignment="Top" Width="84" FontSize="14" Height="31" ClipToBounds="True" RenderTransformOrigin="0.529,0.914"/>
+
+                                    <Label Content="Checked Out Packages" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="137" FontWeight="Bold"/>
+                                    <Button x:Name="lklAllPackagesSigned" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="161,71,0,0" VerticalAlignment="Top" Width="84" FontSize="14" Height="31" ClipToBounds="True" RenderTransformOrigin="0.529,0.914"/>
+
+                                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,107,0,0" VerticalAlignment="Top" Width="245"/>
+
+                                    <Label Content="Package History for Mailbox#" HorizontalAlignment="Left" Margin="3,108,0,0" VerticalAlignment="Top" Width="188" FontWeight="Bold"/>
+                                    <Label Content="Mailbox #:" HorizontalAlignment="Left" Margin="16,130,0,0" VerticalAlignment="Top" Width="69"/>
+                                    <TextBox x:Name="txtMailboxNo3" HorizontalAlignment="Left" Height="23" Margin="90,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" FontSize="14"/>
+                                    <Button x:Name="lklMailboxPackageHistory" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="161,128,0,0" VerticalAlignment="Top" Width="84" FontSize="14" Height="31" ClipToBounds="True"/>
+
+                                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,170,0,0" VerticalAlignment="Top" Width="245"/>
+
+                                    <Label Content="Package History By Cust" HorizontalAlignment="Left" Margin="3,176,0,0" VerticalAlignment="Top" Width="188" FontWeight="Bold"/>
+                                    <Button x:Name="cmdPkgRep_LoadNames" Content="Load Names" HorizontalAlignment="Right" Margin="0,176,7,0" VerticalAlignment="Top" Width="74" Height="22"/>
+                                    <ComboBox x:Name="cmbCustomerName" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="146" ></ComboBox>
+                                    <Button x:Name="lklMailboxPackageHistoryByCustomer" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="161,198,0,0" VerticalAlignment="Top" Width="84" FontSize="14" Height="31" ClipToBounds="True"/>
+                                </Grid>
+                            </Border>
+
+                            <Label Content="Proof Of Delivery Reports" HorizontalAlignment="Left" Margin="487,21,0,0" VerticalAlignment="Top" Width="187" FontWeight="Bold"/>
+                            <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="241" Margin="487,44,0,0" VerticalAlignment="Top" Width="247">
+                                <Grid>
+                                    <Label Content="POD By Carrier" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
+                                    <ComboBox x:Name="cmdCarrierName" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="146">
+                                        <ComboBoxItem Content="FedEx Air"/>
+                                        <ComboBoxItem Content="FedEx Ground"/>
+                                        <ComboBoxItem Content="UPS"/>
+                                        <ComboBoxItem Content="DHL"/>
+                                        <ComboBoxItem Content="USPS"/>
+                                        <ComboBoxItem Content="OTHER"/>
+                                    </ComboBox>
+                                    <Button x:Name="lklPOD_byCarrier" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="161,27,0,0" VerticalAlignment="Top" Width="84" FontSize="14" Height="31" ClipToBounds="True" RenderTransformOrigin="0.529,0.914"/>
+
+                                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,68,0,0" VerticalAlignment="Top" Width="245"/>
+
+                                    <Label Content="POD by Date Range" HorizontalAlignment="Left" Margin="5,74,0,0" VerticalAlignment="Top" Width="137" FontWeight="Bold"/>
+                                    <Button x:Name="lklPOD_byDateRange" Content="Print" Style="{StaticResource POSKeypadButton_Style}" Margin="161,74,0,0" VerticalAlignment="Top" FontSize="14" Height="31" ClipToBounds="True"/>
+
+                                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,107,0,0" VerticalAlignment="Top" Width="245"/>
+
+                                    <Label Content="POD By Tracking Number" HorizontalAlignment="Left" Margin="5,113,0,0" VerticalAlignment="Top" Width="154" FontWeight="Bold"/>
+                                    <TextBox x:Name="txtPackageTrackingNo3" HorizontalAlignment="Left" Height="23" Margin="10,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" FontSize="14"/>
+                                    <Button x:Name="lklPOD_byTrackingNo" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="161,129,0,0" VerticalAlignment="Top" Width="84" FontSize="14" Height="31" ClipToBounds="True" RenderTransformOrigin="0.529,0.914"/>
+
+                                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,170,0,0" VerticalAlignment="Top" Width="245"/>
+
+                                    <Label Content="POD By Pickup Person" HorizontalAlignment="Left" Margin="5,176,0,0" VerticalAlignment="Top" Width="154" FontWeight="Bold"/>
+                                    <Button x:Name="cmdPOD_LoadNames" Content="Load Names" HorizontalAlignment="Right" Margin="0,176,7,0" VerticalAlignment="Top" Width="74" Height="22"/>
+                                    <ComboBox x:Name="cmbPOD_byCustomer" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Width="146" ></ComboBox>
+                                    <Button x:Name="lklPOD_byPickupPerson" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="159,198,0,0" VerticalAlignment="Top" Width="84" FontSize="14" Height="31" ClipToBounds="True" RenderTransformOrigin="0.529,0.914"/>
+                                </Grid>
+                            </Border>
+
+                            <Image HorizontalAlignment="Left" Height="84" Margin="70,201,0,0" VerticalAlignment="Top" Width="98" Source="Resources/Printer_Light.png"/>
+                        </Grid>
+                    </Border>
+                </Popup>
+
+                <Popup x:Name="Disclaimer_Popup" Placement="Center"  AllowsTransparency="true" StaysOpen="true" PopupAnimation="Slide">
+                    <Border x:Name="Disclaimer_Border"  BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Width="370" Background="#FFE0E0E0" Height="241" Margin="0">
+                        <Grid x:Name="Disclaimer_Grid" ClipToBounds="True" Height="319" VerticalAlignment="Top" HorizontalAlignment="Left" Width="348">
+
+                            <Label Content="Record ID type and number" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="250" FontWeight="Bold"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Margin="10,41,-10,-41">You must obtain a signature from someone at least 21 years old (government-issued photo identification required).</TextBlock>
+                            <Label Content="ID type and Number" Margin="10,100,-10,-100"/>
+                            <TextBox x:Name="txtRemarks" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" FontSize="14" Margin="139,100,-55,0"/>
+                            <Button x:Name="cmdAdult" Style="{StaticResource POSKeypadButton_Style}" Content="Adult" Margin="10,160,224,120" FontSize="20"/>
+                            <Button x:Name="cmdNonAdult" Style="{StaticResource POSKeypadButton_Style}" Content="Non Adult" Margin="224,160,10,120" FontSize="20"/>
+
+
+                        </Grid>
+                    </Border>
+                </Popup>
+
+                <Popup x:Name="ReturnToDriver_Popup" Placement="Custom" AllowsTransparency="true" StaysOpen="true" PopupAnimation="Slide">
+                    <Border x:Name="ReturnToDriver_Border"  BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" Width="370" Background="#FFE0E0E0" Height="241" Margin="0">
+                        <Grid x:Name="ReturnToDriver_Grid" ClipToBounds="True">
+                            <Label Content="Select a reason for return" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="250" FontWeight="Bold"/>
+
+                            <RadioButton x:Name="optReturnToHUB" Content="Return to HUB" Margin="10,66,-10,-66" />
+                            <RadioButton x:Name="optRefusedDamaged" Content="Refused Damaged" Margin="184,66,-184,-66" />
+                            <RadioButton x:Name="optDropOff" Content="Drop Off" Margin="10,105,-10,-105" />
+                            <RadioButton x:Name="optRefusedOther" Content="Refused Other" Margin="184,105,-184,-105" />
+
+                            <Button x:Name="cmdProcessRet" Style="{StaticResource POSKeypadButton_Style}" Content="Process" Margin="10,160,224,34" FontSize="20"/>
+                            <Button x:Name="cmdCancel" Style="{StaticResource POSKeypadButton_Style}" Content="Cancel" Margin="184,160,50,34" FontSize="20"/>
+
+
+
+                        </Grid>
+                    </Border>
+                </Popup>
+
+                <Popup x:Name="CustomerRefused_Popup" Placement="Center" AllowsTransparency="true" StaysOpen="false" PopupAnimation="Slide">
+                    <Border x:Name="CustomerRefused_Border"  BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" Background="#FFE0E0E0" Height="298" Margin="0" Width="498">
+                        <Grid x:Name="CustomerRefused_Grid" ClipToBounds="True">
+                            <Label Content="Select a reason for return" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="250" FontWeight="Bold"/>
+
+                            <RadioButton x:Name="optDamaged" Content="Damaged" Checked="CustomerRefused_Checked" Margin="10,66,317,196" />
+                            <RadioButton x:Name="optOrderCanceled" Content="Order Canceled" Checked="CustomerRefused_Checked" Margin="184,66,128,196" />
+                            <RadioButton x:Name="optShipperRequested" Content="Shipper Requested" Checked="CustomerRefused_Checked" Margin="373,66,0,196" />
+
+                            <RadioButton x:Name="optLateDelivery" Content="Late Delivery" Checked="CustomerRefused_Checked" Margin="10,105,317,153" />
+                            <RadioButton x:Name="optOrderDuplicated" Content="Order Duplicated" Checked="CustomerRefused_Checked" Margin="184,105,128,153" />
+                            <RadioButton x:Name="optUnwanted" Content="Unwanted" Checked="CustomerRefused_Checked" Margin="373,105,0,153" />
+
+                            <RadioButton x:Name="optNotOrdered" Content="Not Ordered" Checked="CustomerRefused_Checked" Margin="10,148,317,109" />
+                            <RadioButton x:Name="optOrderIncorrect" Content="Order Incorrect" Checked="CustomerRefused_Checked" Margin="184,148,128,109" />
+                            <RadioButton x:Name="optWrongItem" Content="Wrong Item" Checked="CustomerRefused_Checked" Margin="373,148,0,109" />
+
+                            <RadioButton x:Name="optOther" Content="Other" Checked="CustomerRefused_Checked" Margin="10,192,317,83" />
+
+
+                            <Label Content="Type in a short description" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="169" FontWeight="Bold"/>
+                            <TextBox x:Name="txtReasonDesc" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Margin="184,213,10,0"/>
+
+                            <Button x:Name="cmdSubmit" Style="{StaticResource POSKeypadButton_Style}" Content="Submit" Margin="10,244,312,10" FontSize="20"/>
+                            <Button x:Name="cmdCancelRefused" Style="{StaticResource POSKeypadButton_Style}" Content="Cancel" Margin="302,244,50,10" FontSize="20"/>
+                        </Grid>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+</local:CommonWindow>

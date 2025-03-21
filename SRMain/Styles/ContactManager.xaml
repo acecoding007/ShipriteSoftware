@@ -1,0 +1,291 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SHIPRITE"
+    xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
+                
+    <!--Textbox Style-->
+    <Style x:Key="ContactManager_Textbox" TargetType="{x:Type TextBox}">
+        <Setter Property="FontFamily"                   Value="Calibri" />
+        <Setter Property="FontSize"                     Value="12" />
+        <Setter Property="MaxLines"                     Value="1" />
+        <Setter Property="Padding"                      Value="5,0,0,0"/>
+        <Setter Property="Foreground"                   Value="#FF3F3E46"/>
+        <Setter Property="VerticalContentAlignment"     Value="Center"/>
+        <Setter Property="HorizontalContentAlignment"   Value="Left" />
+        <Setter Property="Cursor"                       Value="Hand"/>
+        <Setter Property="Margin"                       Value="2"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Cursor" Value="IBeam"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="315" ShadowDepth="10" BlurRadius="15" Opacity="0.5" Color="#FF5A5B82" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--AutoCompleteBox Style-->
+    <Style x:Key="ContactManager_AutoCompleteBox" TargetType="{x:Type toolkit:AutoCompleteBox}">
+        <Setter Property="FontFamily"                   Value="Calibri" />
+        <Setter Property="FontSize"                     Value="12" />
+        <Setter Property="Padding"                      Value="5,5,0,0"/>
+        <Setter Property="Foreground"                   Value="#FF78777F"/>
+        <Setter Property="VerticalContentAlignment"     Value="Center"/>
+        <Setter Property="HorizontalContentAlignment"   Value="Left" />
+        <Setter Property="Cursor"                       Value="Hand"/>
+        <Setter Property="Margin"                       Value="2"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Cursor" Value="IBeam"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="315" ShadowDepth="10" BlurRadius="15" Opacity="0.5" Color="#FF5A5B82" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--ComboBox-->
+    <Style x:Key="ContactManager_ComboBox" TargetType="{x:Type ComboBox}">
+        <Setter Property="FontFamily"                   Value="Calibri Light" />
+        <Setter Property="FontSize"                     Value="12" />
+        <Setter Property="SelectedIndex"                Value="0" />
+        <Setter Property="VerticalContentAlignment"     Value="Center" />
+        <Setter Property="Foreground"                   Value="Black" />
+        <Setter Property="Cursor"                       Value="Hand" />
+        <Setter Property="Padding"                      Value="5,0" />
+        <Style.Triggers>            
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="315" ShadowDepth="10" BlurRadius="15" Opacity="0.5" Color="#FF5A5B82" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--ComboBoxItem-->
+    <Style x:Key="ContactManager_ComboBoxItem" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="FontFamily"                   Value="Calibri Light" />
+        <Setter Property="FontSize"                     Value="12" />
+        <Setter Property="VerticalContentAlignment"     Value="Center" />
+        <Setter Property="Foreground"                   Value="Black" />
+        <Setter Property="Cursor"                       Value="Hand" />
+        <Setter Property="Padding"                      Value="5,0" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="315" ShadowDepth="10" BlurRadius="15" Opacity="0.5" Color="#FF5A5B82" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Button Style-->
+    <Style x:Key="ContactManagerButton_Style" TargetType="{x:Type Button}">
+        <Setter Property="Foreground"   Value="White"/>
+        <Setter Property="Background"   Value="#FF9AA7D4"/>
+        <Setter Property="FontFamily"   Value="Calibri"/>
+        <Setter Property="FontSize"     Value="16"/>
+        <Setter Property="Margin"       Value="2"/>
+        <Setter Property="Cursor"       Value="Hand"/>
+                
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="SelectedButtonBorder" 
+                            CornerRadius="5" 
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="1"
+                            BorderBrush="#001E4174"
+                            Cursor="Hand">
+
+                        <Border.Effect>
+                            <DropShadowEffect Direction="315" ShadowDepth="5" BlurRadius="10" Opacity="0.5" Color="#FF5A5B82" />
+                        </Border.Effect>
+
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFBBC4E7" />
+                            <Setter Property="Effect" TargetName="SelectedButtonBorder" >
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="315" ShadowDepth="10" BlurRadius="15" Opacity="0.5" Color="#FF5A5B82" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="SelectedButtonBorder" Property="Control.Effect" Value="{x:Null}" />
+                            <Setter TargetName="SelectedButtonBorder" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter TargetName="SelectedButtonBorder" Property="Background" Value="#FFBED9F4" />
+                        </Trigger>
+                        
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--GroupBox Style-->
+    <Style x:Key="ContactManagerGroupBox_Style" TargetType="{x:Type GroupBox}">
+        <Setter Property="Foreground"                   Value="White"/>
+        <Setter Property="FontFamily"                   Value="Calibri"/>
+        <Setter Property="FontSize"                     Value="15"/>
+        <Setter Property="Background"                   Value="#FFA2A9B4"/>
+        <Setter Property="BorderBrush"                  Value="#00577AC0"/>
+        <Setter Property="BorderThickness"              Value="1"/>
+        <Setter Property="HorizontalContentAlignment"   Value="Center"/>
+        <Setter Property="VerticalContentAlignment"     Value="Center"/>
+        <Setter Property="Margin"                       Value="5"/>
+        <Setter Property="Control.Effect" >
+            <Setter.Value>
+                <DropShadowEffect Direction="315" ShadowDepth="5" BlurRadius="10" Opacity="0.5" Color="#FF5A5B82" />
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="315" ShadowDepth="10" BlurRadius="15" Opacity="0.5" Color="#FF5A5B82" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--ADD, REMOVE, SAVE Button Style-->
+    <Style x:Key="AddRemoveSave_Style" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#00000000"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="SelectedButtonBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            BorderBrush="#FF1E4174"
+                            Cursor="Hand"
+                            Width="30"
+                            Height="30"
+                            CornerRadius="25"
+                            Padding="2">
+
+                        <Border.Effect>
+                            <DropShadowEffect Direction="315" ShadowDepth="5" BlurRadius="10" Opacity="0.5" Color="#FF5A5B82" />
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="SelectedButtonBorder" Property="Control.Effect" Value="{x:Null}" />
+                            <Setter TargetName="SelectedButtonBorder" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter TargetName="SelectedButtonBorder" Property="Background" Value="#FFBED9F4" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SelectedButtonBorder" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter TargetName="SelectedButtonBorder" Property="BorderThickness" Value="1" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ContactSearchListBox_Style" TargetType="{x:Type ListBox}">
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Border BorderThickness="0,0,0,1" BorderBrush="Black" Margin="-4,-1,-4,-3" Padding="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{Binding Path=Name}" Grid.Row="0" Grid.Column="0" FontWeight="Bold" Padding="0,0,0,0"/>
+                            <TextBlock Text="{Binding Path=FullAddress}" Grid.Row="1" Grid.Column="0" TextAlignment="Left" FontSize="12"/>
+
+                            <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="Ph:     " FontStyle="Italic" FontSize="13"/>
+                                    <TextBlock Text="{Binding Path=Phone}" FontSize="13"/>
+                                </StackPanel>
+
+                                <TextBlock Text="{Binding Path=MBX}" FontSize="13"/>
+
+                                <TextBlock Text="{Binding Path=AR}" FontSize="13"/>
+
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Contact_Notes_Style" TargetType="{x:Type TextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <TextBox Text="{Binding Text, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}" 
+                                 Background="#FFEEED8F"
+                                 AcceptsReturn="True"
+                                 SpellCheck.IsEnabled="true"
+                                 VerticalScrollBarVisibility="auto"
+                                 TextWrapping="wrap"
+                                 BorderThickness="0"/>
+                                
+                        <TextBlock HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Enter Notes Here"
+                            Margin="5,0,5,0"
+                            Foreground="#FF808080"
+                            FontStyle="Italic"
+                            IsHitTestVisible="False"
+                            x:Name="UserMessage"
+                            Visibility="Hidden"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text" Value=""/>
+                                <Condition Property="IsKeyboardFocusWithin" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility" TargetName="UserMessage" Value="Visible"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

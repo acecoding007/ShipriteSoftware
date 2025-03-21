@@ -1,0 +1,194 @@
+﻿<local:CommonWindow x:Name="UserSetup_Window" x:Class="UserSetup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/UserSetup_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="USER SETUP" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="AddUser_Button" Grid.Column="1" ToolTip="Add New User" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="AddContact_Image" Source="Resources/Add_New.png" />
+                    </Button>
+                    <Button x:Name="RemoveUser_Button" Grid.Column="2" ToolTip="Remove User" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="RemoveContact_Image" Source="Resources/Remove.png" />
+                    </Button>
+                    <Button x:Name="SaveButton" Grid.Column="3" ToolTip="Save Changes" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}">
+                    <Grid>
+                        <Border Style="{DynamicResource BaseBorder}" Background="White" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="410" Margin="8,43,0,0" VerticalAlignment="Top" Width="300">
+                            <ListBox x:Name="UserSelection_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" BorderThickness="0" Height="393" Margin="1,6,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Background="White" VerticalContentAlignment="Stretch" IsTabStop="True" TabIndex="1" FontSize="16">
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentControl Content="{Binding DisplayName}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </Border>
+                        <Label Content="Select User" HorizontalAlignment="Left" Margin="25,12,0,0" VerticalAlignment="Top" Width="153" FontWeight="Bold" FontSize="14"/>
+                        <Border Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="410" Margin="336,43,0,0" VerticalAlignment="Top" Width="300">
+                            <Grid>
+                                <Label Content="First Name" HorizontalAlignment="Left" Margin="13,132,0,0" VerticalAlignment="Top"/>
+                                <Label Content="Last Name" HorizontalAlignment="Left" Margin="153,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.515,1.346"/>
+                                <TextBox x:Name="FirstName_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="13,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" TabIndex="4"/>
+                                <TextBox x:Name="LastName_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="153,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" TabIndex="5"/>
+                                <Label Content="Pass Code" HorizontalAlignment="Left" Margin="13,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.469,0.885"/>
+                                <PasswordBox x:Name="PassCode_TxtBox"  HorizontalAlignment="Left" Margin="13,66,0,0" VerticalAlignment="Top" Width="275" Height="23" TabIndex="3"/>
+                                <Label Content="Contact Information" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Content="Address" HorizontalAlignment="Left" Margin="13,181,0,0" VerticalAlignment="Top"/>
+                                <TextBox x:Name="Add1_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="13,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" TabIndex="6"/>
+                                <TextBox x:Name="Add2_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="13,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" TabIndex="7"/>
+                                <Label Content="City" HorizontalAlignment="Left" Margin="13,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.667,1.192"/>
+                                <Label Content="State" HorizontalAlignment="Left" Margin="153,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.432,0"/>
+                                <Label Content="Zip" HorizontalAlignment="Left" Margin="204,254,0,0" VerticalAlignment="Top"/>
+                                <TextBox x:Name="City_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="13,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" TabIndex="8"/>
+                                <TextBox x:Name="State_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="153,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" TabIndex="9"/>
+                                <TextBox x:Name="Zip_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="204,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.217,0.609" TabIndex="10"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,102,0,0" Stroke="Black" VerticalAlignment="Top" Width="298"/>
+                                <Label Content="Phone Number" HorizontalAlignment="Left" Margin="13,303,0,0" VerticalAlignment="Top"/>
+                                <TextBox x:Name="Phone_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="13,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" TabIndex="11"/>
+                                <Label Content="Email" HorizontalAlignment="Left" Margin="13,347,0,0" VerticalAlignment="Top"/>
+                                <TextBox x:Name="Email_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="13,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" TabIndex="12"/>
+                                <Label Content="Display Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                <TextBox x:Name="DisplayName_TxtBox" Style="{DynamicResource ContactManager_Textbox}" HorizontalAlignment="Left" Height="23" Margin="98,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" TabIndex="2"/>
+                                <Label Content="(Optional)" HorizontalAlignment="Left" Margin="135,108,0,0" VerticalAlignment="Top" FontSize="10" RenderTransformOrigin="0.5,1"/>
+                                <Label Content="(Numbers Only)" HorizontalAlignment="Left" Margin="77,43,0,0" VerticalAlignment="Top" FontSize="10"/>
+
+                            </Grid>
+                        </Border>
+                        <Border Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="410" Margin="666,43,0,0" VerticalAlignment="Top" Width="300">
+                            <Grid x:Name="Permissions_Grid">
+                                <CheckBox x:Name="POS_CheckBox" Content="Point Of Sale" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,-0.2" FontWeight="Bold" Tag="POS"/>
+                                <Border  Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="0.5" HorizontalAlignment="Left" Height="145" Margin="28,30,0,0" VerticalAlignment="Top" Width="244" Background="#FFE5E5E5">
+                                    <Grid x:Name="POS_Grid">
+                                        <CheckBox x:Name="AR_CheckBox" Content="Accounts Receivable Processing" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="199" Tag="AccountsReceivable"/>
+                                        <CheckBox x:Name="CreateAR_CheckBox" Content="Create/View Receivable Accounts" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="199" Tag="AR_CreateAccounts"/>
+                                        <CheckBox x:Name="Inventory_CheckBox" Content="Inventory" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="150" Tag="Inventory"/>
+                                        <CheckBox x:Name="POSManager_CheckBox" Content="POS Manager (Open/Close Drawer)" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="222" Tag="POSManager"/>
+                                        <CheckBox x:Name="POSButtons_CheckBox" Content="Create/Edit POS Buttons" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="150" Tag="Edit_POS_Buttons"/>
+                                        <CheckBox x:Name="SaleDiscounts_CheckBox" Content="Sale Discounts / Price Changes" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="199" Tag="POS_Discounts"/>
+                                        <CheckBox x:Name="VoidInvoice_CheckBox" Content="Void Invoices" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="199" Tag="POS_VoidSale"/>
+                                        <CheckBox x:Name="RefundInvoice_CheckBox" Content="Refund Invoices" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="199" Tag="POS_Refunds"/>
+                                        <CheckBox x:Name="DeletePOSLine_CheckBox" Content="Delete Receipt Line Item" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="199" Tag="POS_DeleteLine"/>
+
+                                    </Grid>
+                                </Border>
+                                <CheckBox x:Name="Shipping_CheckBox" Content="Shipping" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" FontWeight="Bold" Tag="SHIPPING"/>
+                                <Border  BorderBrush="Black" Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0.5" HorizontalAlignment="Left" Height="63" Margin="28,195,0,0" VerticalAlignment="Top" Width="244">
+                                    <Grid x:Name="Shipping_Grid">
+                                        <CheckBox x:Name="ViewShippingCosts_CheckBox" Content="View Shipping Costs" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="150" Tag="View_Shipping_Costs"/>
+                                        <CheckBox x:Name="Manifest_CheckBox" Content="EOD Manifest" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="150" Tag="EOD_Manifest"/>
+                                        <CheckBox x:Name="VoidShipment_CheckBox" Content="Void Shipment" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="222" Tag="Void_Shipment"/>
+
+                                    </Grid>
+                                </Border>
+                                <CheckBox x:Name="Setup_CheckBox" Content="Setup Options" HorizontalAlignment="Left" Margin="10,263,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,-0.2" FontWeight="Bold" Tag="SETUP"/>
+                                <Border x:Name="Setup_Border" BorderBrush="Black" Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0.5" HorizontalAlignment="Left" Height="49" Margin="28,283,0,0" VerticalAlignment="Top" Width="244">
+                                    <Grid x:Name="Setup_Grid" Margin="10,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <CheckBox x:Name="UserSetup_CheckBox" Content="User Security Setup, Edit Time Clock" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Top" Width="222" Tag="Setup_Users"/>
+                                        <CheckBox x:Name="CarrierSetup_CheckBox" Content="Carrier Setup / Markups" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="150" Tag="Setup_Carriers"/>
+                                        <CheckBox x:Name="MailboxSetup_CheckBox" Content="Mailbox Setup and Pricing" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Width="244" Tag="Setup_Mailbox"/>
+                                    </Grid>
+                                </Border>
+                                <CheckBox x:Name="Reports_CheckBox" Content="Reports" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,-0.2" FontWeight="Bold" Tag="REPORTS"/>
+                                <Border  BorderBrush="Black" Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0.5" HorizontalAlignment="Left" Height="34" Margin="28,366,0,0" VerticalAlignment="Top" Width="244">
+                                    <Grid x:Name="Reports_Grid">
+                                        <CheckBox x:Name="IncomeReports_CheckBox" Content="Income and Production Reports" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="222" Tag="Reports_IncomeProduction" Grid.ColumnSpan="2"/>
+
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <Label Content="User Information" HorizontalAlignment="Left" Margin="336,14,0,0" VerticalAlignment="Top" Width="153" FontWeight="Bold" FontSize="14"/>
+                        <Label Content="Permissions" HorizontalAlignment="Left" Margin="666,14,0,0" VerticalAlignment="Top" Width="153" FontWeight="Bold" FontSize="14"/>
+
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+</local:CommonWindow>

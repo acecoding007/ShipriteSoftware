@@ -1,0 +1,120 @@
+﻿<local:CommonWindow x:Name="RateCharts_Window" x:Class="RateCharts"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/RateChart.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="RATE CHARTS" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+
+                    </Grid.ColumnDefinitions>
+                   
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+                        <Border x:Name="CarrierBorder" Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="207" Margin="10,5,0,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+
+                            <ListBox x:Name="Carrier_ListBox" Margin="10,0" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Single" TabIndex="1" HorizontalContentAlignment="Center">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Margin="3" Source="{Binding CarrierImage}" Height="40" MaxWidth="75" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <Border x:Name="ServiceBorder" Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="212" Margin="10,217,0,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                            <ListBox x:Name="Service_ListBox" Margin="0,10,0,8" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Single" TabIndex="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentControl Content="{Binding}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" FontSize="12"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+                        <Border x:Name="Chart_Border" Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Margin="166,5,0,5" Width="800" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                            <local:CommonListView x:Name="Chart_LV" Margin="5" BorderThickness="0"/>
+                        </Border>
+                        <CheckBox x:Name="RetailRate_ChkBx" Content="Retail Rates" HorizontalAlignment="Left" Margin="19,438,0,0" VerticalAlignment="Top" Width="125" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

@@ -1,0 +1,33 @@
+﻿<local:CommonWindow  x:Name="addressbook" x:Class="addressbook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized"
+        Title="Window1" Height="450" Width="1034.783">
+    <Grid>
+        <TextBox x:Name ="name_from" HorizontalAlignment="Left" Height="23" Margin="90,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name ="city_from" HorizontalAlignment="Left" Height="23" Margin="522,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name ="state_from" HorizontalAlignment="Left" Height="23" Margin="90,116,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name ="zip_from" HorizontalAlignment="Left" Height="23" Margin="522,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="53,71,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="497,70,0,0" TextWrapping="Wrap" Text="City" VerticalAlignment="Top" RenderTransformOrigin="0.719,-0.174"/>
+        <TextBlock HorizontalAlignment="Left" Margin="58,121,0,0" TextWrapping="Wrap" Text="State" VerticalAlignment="Top" Width="27"/>
+        <TextBlock HorizontalAlignment="Left" Margin="500,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.339,-1.737" Height="15"><Run Text="Zip"/><LineBreak/><Run/></TextBlock>
+        <TextBox x:Name ="name_to" HorizontalAlignment="Left" Height="23" Margin="236,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name ="state_to" HorizontalAlignment="Left" Height="23" Margin="236,116,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name ="city_to" HorizontalAlignment="Left" Height="23" Margin="673,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name ="zip_to" HorizontalAlignment="Left" Height="23" Margin="673,116,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name ="Print" Content="Print" HorizontalAlignment="Left" Margin="310,225,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button x:Name ="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="509,225,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+    
+    
+    
+
+</local:CommonWindow>

@@ -1,0 +1,148 @@
+﻿<local:CommonWindow x:Name="Statistics_Window" x:Class="Statistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/Statistics.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="STATISTICS" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+                        <Border Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Stretch" Margin="200,5,5,5" VerticalAlignment="Stretch">
+                            <Grid Margin="0,0,0,0">
+
+                                <lvc:CartesianChart x:Name="ColumnChart" Series="{Binding SeriesCollection}" LegendLocation="Right">
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Title="Carrier" Labels="{Binding Labels}" FontSize="14"/>
+                                    </lvc:CartesianChart.AxisX>
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Shipment Count" LabelFormatter="{Binding Formatter}" FontSize="14"/>
+                                    </lvc:CartesianChart.AxisY>
+
+                                </lvc:CartesianChart>
+
+                                <lvc:PieChart x:Name="PieChart" StartingRotationAngle="0" LegendLocation="Left"/>
+
+                            </Grid>
+                        </Border>
+                        <TabControl x:Name="Statistcs_TC" HorizontalAlignment="Left" BorderThickness="0" Height="448" Margin="0,5,0,0" VerticalAlignment="Top" Width="195" Background="#FFBCB9B2">
+                            <TabItem Header="Shipping">
+                                <Grid Background="#FFBCB9B2">
+                                    <ComboBox x:Name="Carrier_LB" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Width="171"/>
+                                    <Label Content="Carrier" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="90" FontWeight="Bold"/>
+                                    <ComboBox x:Name="Services_LB" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="171"/>
+                                    <Label Content="Service" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="90" FontWeight="Bold"/>
+                                    <Button x:Name="CreateGraph_Btn" Content="Create Graph" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Width="171" Height="25"/>
+                                    <ComboBox x:Name="Year_LB" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="171"/>
+                                    <Label Content="Select Year" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="90" FontWeight="Bold"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,72,0,0" Stroke="Black" VerticalAlignment="Top" Width="191"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,265,0,0" Stroke="Black" VerticalAlignment="Top" Width="191"/>
+                                    <Label Content="Carrier Comparison Chart&#xD;&#xA;- Shipment Count" HorizontalAlignment="Left" Margin="10,271,0,0" VerticalAlignment="Top" Width="171" FontWeight="Bold" Height="48"/>
+                                    <Button x:Name="Create_CarrierPieChart" Content="Create Chart" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="171" Height="25"/>
+                                    <Label Content="Graph by Carrier/Service" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="171" FontWeight="Bold"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Sales">
+                                <Grid Background="#FFBCB9B2">
+                                    <ComboBox x:Name="Department_LB" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" Width="171"/>
+                                    <Label Content="Department" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="90" FontWeight="Bold"/>
+                                    <ComboBox x:Name="SKU_LB" HorizontalAlignment="Left" Margin="10,188,0,0" VerticalAlignment="Top" Width="171"/>
+                                    <Label Content="SKU" HorizontalAlignment="Left" Margin="10,162,0,0" VerticalAlignment="Top" Width="90" FontWeight="Bold"/>
+                                    <Button x:Name="CreateGraphSales_Btn" Content="Create Graph" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="171" Height="25"/>
+                                    <ComboBox x:Name="Year_Sales_LB" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="171"/>
+                                    <Label Content="Select Year" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="90" FontWeight="Bold"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,72,0,0" Stroke="Black" VerticalAlignment="Top" Width="191"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,265,0,0" Stroke="Black" VerticalAlignment="Top" Width="191"/>
+                                    <Label Content="Graph by Department/SKU" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="171" FontWeight="Bold"/>
+                                    <Label Content="Department Comparison" HorizontalAlignment="Left" Margin="10,271,0,0" VerticalAlignment="Top" Width="171" FontWeight="Bold"/>
+                                    <Button x:Name="Create_DepartmentPieChart" Content="Create Chart" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="171" Height="25"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

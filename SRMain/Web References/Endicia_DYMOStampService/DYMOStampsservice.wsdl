@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="www.envmgr.com/LabelService" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="www.envmgr.com/LabelService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">You have reached the Help page for the Label Server Web Service.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="www.envmgr.com/LabelService">
+      <s:element name="GetStamps">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampsRequest" type="tns:StampsRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StampsRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:StampsRateRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="MediaType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="XOffset" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="YOffset" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="XStartLabel" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="YStartLabel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ActivationCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RequesterID" type="s:string" />
+            </s:sequence>
+            <s:attribute name="Test" type="s:string" />
+            <s:attribute name="ImageFormat" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="StampsRateRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:DataValidator">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PassPhrase" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ShipDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ShipTime" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Extension" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DateAdvance" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="StampRequests" type="tns:ArrayOfStampRequest" />
+              <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="DataValidator" />
+      <s:complexType name="StampRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:DataValidator">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="MailpieceShape" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MailClass" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ToCountryCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="WeightOz" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="UseUserRate" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Machinable" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfStampRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StampRequest" nillable="true" type="tns:StampRequest" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetStampsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampsResponse" type="tns:StampsResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StampsResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StampsRequested" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="StatusPostage" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessagePostage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SuccessCountPostage" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalRate" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="StampResponses" type="tns:ArrayOfStampResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="Base64LabelImage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StatusPrinting" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessagePrinting" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SuccessCountPrinting" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PostageBalance" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImageData" type="tns:ArrayOfString" />
+          <s:element minOccurs="1" maxOccurs="1" name="ControlData" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfStampResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StampResponse" nillable="true" type="tns:StampResponse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StampResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:StampRateResponse">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SuccessCountPostage" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="StatusPrinting" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ErrorMessagePrinting" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SuccessCountPrinting" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalRates" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionIDs" type="tns:ArrayOfInt" />
+              <s:element minOccurs="1" maxOccurs="1" name="StampsRequested" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="StampRateResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StatusPostage" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessagePostage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PerItemRate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransactionID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Base64LabelImage" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetStampsXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampsRequestXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStampsXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampsResponse" type="tns:StampsResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidationRequestHeader" type="tns:ValidationRequestHeader" />
+      <s:complexType name="ValidationRequestHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ValidClientCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValidClientName" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetStampIndicium">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="stampIndiciumRequest" type="tns:StampIndiciumRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="isTest" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StampIndiciumRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:StampRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PassPhrase" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="softwareID" type="tns:SoftwareID" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="SoftwareID">
+        <s:restriction base="s:string">
+          <s:enumeration value="LabelService" />
+          <s:enumeration value="PictureItPostage" />
+          <s:enumeration value="SheetStamps" />
+          <s:enumeration value="RobotBuy" />
+          <s:enumeration value="DAZzle" />
+          <s:enumeration value="EndiciaForMac" />
+          <s:enumeration value="RSSPostage" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetStampIndiciumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GeneratedIndiciumResponse" type="tns:GeneratedIndiciumResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GeneratedIndiciumResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessagePostage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HexaIndicium" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Base64IBILite" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Base64IBI" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IndiciumUserCredentials" type="tns:IndiciumUserCredentials" />
+      <s:complexType name="IndiciumUserCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="CalculateStampRates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampsRateRequest" type="tns:StampRatesRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StampRatesRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:DataValidator">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsTest" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="CertifiedIntermediary" type="tns:CertifiedIntermediary" />
+              <s:element minOccurs="0" maxOccurs="1" name="RequesterID" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CertifiedIntermediary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PassPhrase" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TokenTimeStamp" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CalculateStampRatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampsRateResponse" type="tns:StampRatesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StampRatesResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StampRates" type="tns:ArrayOfStampRateEnumerator" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfStampRateEnumerator">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StampRate" nillable="true" type="tns:StampRateEnumerator" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StampRateEnumerator">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Pieceshape" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailClass" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ToCountry" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="WeightOz" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CalculateStampRatesXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampRatesRequestXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalculateStampRatesXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StampsRateResponse" type="tns:StampRatesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StampsResponse" nillable="true" type="tns:StampsResponse" />
+      <s:element name="StampRatesResponse" nillable="true" type="tns:StampRatesResponse" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetStampsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStamps" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStampsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStampsXML" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStampsXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsXMLValidationRequestHeader">
+    <wsdl:part name="ValidationRequestHeader" element="tns:ValidationRequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetStampIndiciumSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStampIndicium" />
+  </wsdl:message>
+  <wsdl:message name="GetStampIndiciumSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStampIndiciumResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStampIndiciumIndiciumUserCredentials">
+    <wsdl:part name="IndiciumUserCredentials" element="tns:IndiciumUserCredentials" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesSoapIn">
+    <wsdl:part name="parameters" element="tns:CalculateStampRates" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesSoapOut">
+    <wsdl:part name="parameters" element="tns:CalculateStampRatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:CalculateStampRatesXML" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:CalculateStampRatesXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsXMLHttpGetIn">
+    <wsdl:part name="stampsRequestXML" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsXMLHttpGetOut">
+    <wsdl:part name="Body" element="tns:StampsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesXMLHttpGetIn">
+    <wsdl:part name="stampRatesRequestXML" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesXMLHttpGetOut">
+    <wsdl:part name="Body" element="tns:StampRatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsXMLHttpPostIn">
+    <wsdl:part name="stampsRequestXML" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetStampsXMLHttpPostOut">
+    <wsdl:part name="Body" element="tns:StampsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesXMLHttpPostIn">
+    <wsdl:part name="stampRatesRequestXML" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CalculateStampRatesXMLHttpPostOut">
+    <wsdl:part name="Body" element="tns:StampRatesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DYMOStampsServiceSoap">
+    <wsdl:operation name="GetStamps">
+      <wsdl:input message="tns:GetStampsSoapIn" />
+      <wsdl:output message="tns:GetStampsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStampsXML">
+      <wsdl:input message="tns:GetStampsXMLSoapIn" />
+      <wsdl:output message="tns:GetStampsXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStampIndicium">
+      <wsdl:input message="tns:GetStampIndiciumSoapIn" />
+      <wsdl:output message="tns:GetStampIndiciumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRates">
+      <wsdl:input message="tns:CalculateStampRatesSoapIn" />
+      <wsdl:output message="tns:CalculateStampRatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRatesXML">
+      <wsdl:input message="tns:CalculateStampRatesXMLSoapIn" />
+      <wsdl:output message="tns:CalculateStampRatesXMLSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DYMOStampsServiceHttpGet">
+    <wsdl:operation name="GetStampsXML">
+      <wsdl:input message="tns:GetStampsXMLHttpGetIn" />
+      <wsdl:output message="tns:GetStampsXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRatesXML">
+      <wsdl:input message="tns:CalculateStampRatesXMLHttpGetIn" />
+      <wsdl:output message="tns:CalculateStampRatesXMLHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DYMOStampsServiceHttpPost">
+    <wsdl:operation name="GetStampsXML">
+      <wsdl:input message="tns:GetStampsXMLHttpPostIn" />
+      <wsdl:output message="tns:GetStampsXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRatesXML">
+      <wsdl:input message="tns:CalculateStampRatesXMLHttpPostIn" />
+      <wsdl:output message="tns:CalculateStampRatesXMLHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DYMOStampsServiceSoap" type="tns:DYMOStampsServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStamps">
+      <soap:operation soapAction="www.envmgr.com/LabelService/GetStamps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStampsXML">
+      <soap:operation soapAction="www.envmgr.com/LabelService/GetStampsXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetStampsXMLValidationRequestHeader" part="ValidationRequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStampIndicium">
+      <soap:operation soapAction="www.envmgr.com/LabelService/GetStampIndicium" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetStampIndiciumIndiciumUserCredentials" part="IndiciumUserCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetStampIndiciumIndiciumUserCredentials" part="IndiciumUserCredentials" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRates">
+      <soap:operation soapAction="www.envmgr.com/LabelService/CalculateStampRates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRatesXML">
+      <soap:operation soapAction="www.envmgr.com/LabelService/CalculateStampRatesXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DYMOStampsServiceSoap12" type="tns:DYMOStampsServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStamps">
+      <soap12:operation soapAction="www.envmgr.com/LabelService/GetStamps" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStampsXML">
+      <soap12:operation soapAction="www.envmgr.com/LabelService/GetStampsXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetStampsXMLValidationRequestHeader" part="ValidationRequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStampIndicium">
+      <soap12:operation soapAction="www.envmgr.com/LabelService/GetStampIndicium" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetStampIndiciumIndiciumUserCredentials" part="IndiciumUserCredentials" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetStampIndiciumIndiciumUserCredentials" part="IndiciumUserCredentials" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRates">
+      <soap12:operation soapAction="www.envmgr.com/LabelService/CalculateStampRates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRatesXML">
+      <soap12:operation soapAction="www.envmgr.com/LabelService/CalculateStampRatesXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DYMOStampsServiceHttpGet" type="tns:DYMOStampsServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetStampsXML">
+      <http:operation location="/GetStampsXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRatesXML">
+      <http:operation location="/CalculateStampRatesXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DYMOStampsServiceHttpPost" type="tns:DYMOStampsServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetStampsXML">
+      <http:operation location="/GetStampsXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateStampRatesXML">
+      <http:operation location="/CalculateStampRatesXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DYMOStampsService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">You have reached the Help page for the Label Server Web Service.</wsdl:documentation>
+    <wsdl:port name="DYMOStampsServiceSoap" binding="tns:DYMOStampsServiceSoap">
+      <soap:address location="https://labelserver.endicia.com/LabelService/DYMOStampsservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DYMOStampsServiceSoap12" binding="tns:DYMOStampsServiceSoap12">
+      <soap12:address location="https://labelserver.endicia.com/LabelService/DYMOStampsservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DYMOStampsServiceHttpGet" binding="tns:DYMOStampsServiceHttpGet">
+      <http:address location="https://labelserver.endicia.com/LabelService/DYMOStampsservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DYMOStampsServiceHttpPost" binding="tns:DYMOStampsServiceHttpPost">
+      <http:address location="https://labelserver.endicia.com/LabelService/DYMOStampsservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

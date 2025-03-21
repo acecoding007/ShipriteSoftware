@@ -1,0 +1,38 @@
+How to convert existing Crystal Report to .Net one:
+
+1. Right-click to 'Add New Item'.
+2. Clcik 'Reporting' to select 'Crystal Reports' item.
+3. Rename CrystalReport1.rpt file name to the same report name you want to convert.
+4. Click [Add] to open Crystal Reports Gallery window.
+5. In 'Create a New Crystal Report Document' frame select 'From an Existing Report' option.
+6. Click [Ok] to open 'Open File Dialog' to locate old report in c:\shiprite.
+7. Click [Open] after your report is selected to add it to your project.
+8. Now, goto 'Crystal Reports' main menu -> Database -> Set Database Location sub-menu.
+9. In 'Current Data Sourse:' list, select 'ShipRite.mdb' node. 
+10. In 'Replace With' list, select 'C:\ShipRite\BIN\ShipRite.dsn' node.
+11. Click [Update] and 'ShipRite.mdb' node should be replaced with 'C:\ShipRite\BIN\ShipRite.dsn' one in 'Current Data Sourse:' list.
+12. Your report is converted now!
+
+To test report from ShipRiteReports project:
+
+1. Open 'ReportViewer.vb' in code window.
+2. Locate 'Private Function isReportSourceFound()'
+3. Add new 'Case' like: 
+	Case "YourReport.rpt" : reportsource = New ShipRiteReports.YourReport 
+4. Important: "YourReport.rpt" report name is case sensative and should be typed the same as in VB6.
+
+1. Open 'TestForm.vb' in code window.
+2. In cmdTestReport_Click sub, replace rep.ReportName = "Zreport.rpt" with your report.
+3. Leave rep.ReportDataSource = "ODBC" because we use 'C:\ShipRite\BIN\ShipRite.dsn' connection with ShipRite server.
+4. Add rep.ReportFormula = ""
+5. Add rep.SubReports.Add("sub report formula", "sub report name")
+6. Add rep.ReportParameters.Add(11.22)
+7. Run project to test the repot!
+
+
+Why we are still in .NET 3.5 Framework ???
+
+Could not load file or assembly 'file:///C:Program Files\SAP BusinessObjects\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet1\crdb_adoplus.dll' or one of its dependencies. The system cannot find the file specified: C:\Program Files\SAP BusinessObjects\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet1\crdb_adoplus.dll.
+
+This issue occurs because the .NET Framework 4.0 loading behavior changed for mixed-mode components
+The issue does not exist with the .NET 3.5 Framework

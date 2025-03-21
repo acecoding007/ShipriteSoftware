@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="21.4" version="22.2" Modules="update" RootPath="." Language="en" Id="{A9CE8106-C439-4F5E-84BF-97C4C210C2B0}">
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;aiu-ue.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;aiu-ue_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.UpdaterEditorComponent">
+    <ROW Section="Update" Key="Name" Value="ShipRite Next 1.0.80"/>
+    <ROW Section="Update" Key="ProductVersion" Value="1.0.80.0" ValueLocId="-"/>
+    <ROW Section="Update" Key="URL" Value="https://support.shipritesoftware.com/SR_Installs/SRN/ShipriteNext_Install-1.0.80.exe" ValueLocId="-"/>
+    <ROW Section="Update" Key="Size" Value="Release\ShipriteNext_Install-1.0.80.exe" ValueLocId="-"/>
+    <ROW Section="Update" Key="SHA256" Value="Release\ShipriteNext_Install-1.0.80.exe" ValueLocId="-"/>
+    <ROW Section="Update" Key="MD5" Value="Release\ShipriteNext_Install-1.0.80.exe" ValueLocId="-"/>
+    <ROW Section="Update" Key="ServerFileName" Value="ShipriteNext_Install-1.0.80.exe" ValueLocId="-"/>
+    <ROW Section="Update" Key="Flags" Value="Critical" ValueLocId="-"/>
+    <ROW Section="Update" Key="RegistryKey" Value="HKUD\Software\ShipRite Software\ShipRite Next\Version" ValueLocId="-"/>
+    <ROW Section="Update" Key="Version" Value="1.0.80.0" ValueLocId="-"/>
+    <ROW Section="Update" Key="Description" Value="&lt;a href=&quot;https://support.shipritesoftware.com/SR_Installs/SRN/ShipriteNext_Changelog-1.0.80.pdf&quot;&gt;Changelog&lt;/a&gt;"/>
+    <ATTRIBUTE name="OutputFileName" value="SRN_updates.txt"/>
+    <ATTRIBUTE name="OutputFolder" value="Release"/>
+  </COMPONENT>
+</DOCUMENT>

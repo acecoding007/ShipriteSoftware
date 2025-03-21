@@ -1,0 +1,587 @@
+﻿<local:CommonWindow x:Name="PackMaster_Window" x:Class="Packmaster"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/PackMaster_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="PACK MASTER" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}">
+                    <Grid>
+                        <Image Style="{DynamicResource HeaderImage}" Source="Resources/PackMaster_Light.png" Margin="60,291,0,0" Height="172" Width="205" Opacity="0.2"/>
+
+                        <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Height="138" Margin="10,10,0,0" VerticalAlignment="Top" Width="414">
+                            <Grid >
+                                <Label Content="WEIGHT (lb)" HorizontalAlignment="Left" Margin="9,30,0,0" VerticalAlignment="Top" Width="92" FontWeight="Bold"/>
+                                <TextBox x:Name="txtObjWeight" TextAlignment="Right" Height="31" Margin="10,56,323,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Text="0.0"/>
+                                <TextBox x:Name="txtObjL" HorizontalAlignment="Left" Height="25" Margin="116,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="0" GotFocus="TextBox_GotFocus"/>
+                                <Label Content="Length" HorizontalAlignment="Left" Margin="116,30,0,0" VerticalAlignment="Top" Width="63" FontWeight="Bold"/>
+                                <TextBox x:Name="txtObjW" HorizontalAlignment="Left" Height="25" Margin="179,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="0" GotFocus="TextBox_GotFocus"/>
+                                <Label Content="Width" HorizontalAlignment="Left" Margin="179,31,0,0" VerticalAlignment="Top" Width="63" FontWeight="Bold"/>
+                                <TextBox x:Name="txtObjH" HorizontalAlignment="Left" Height="25" Margin="247,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="0" GotFocus="TextBox_GotFocus"/>
+                                <Label Content="Height" HorizontalAlignment="Left" Margin="247,31,0,0" VerticalAlignment="Top" Width="63" FontWeight="Bold"/>
+                                <Label Content="OBJECT" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="70" FontSize="16" FontWeight="Bold"/>
+                                <Label Content="Enter in details of the object being packed!" HorizontalAlignment="Left" Margin="92,5,0,0" VerticalAlignment="Top" Width="244"/>
+                                <Label Content="Value $" HorizontalAlignment="Left" Margin="321,30,0,0" VerticalAlignment="Top" Width="70" FontWeight="Bold"/>
+                                <TextBox x:Name="txtObjValue" HorizontalAlignment="Left" Height="30" Margin="321,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" FontSize="16"/>
+
+                                <Grid x:Name="PackingObjects_Grid">
+                                    <Label Content="Add multiple objects to box being packed:" HorizontalAlignment="Left" Margin="9,91,0,0" VerticalAlignment="Top" Width="233"/>
+                                    <Label Content="OBJECT #" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" FontWeight="Bold" Margin="266,94,0,0"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="-1,91,0,0" Stroke="Black" VerticalAlignment="Top" Width="413"/>
+                                    <TextBox x:Name="txtRegPiecesNo" Text="1" HorizontalAlignment="Left" Margin="347,97,0,0" VerticalAlignment="Top" Width="55" Height="23" FontSize="14" />
+                                    <Label x:Name="lblObjPieceNoDesc" Content="Enter Dims for piece #1" HorizontalAlignment="Left" Margin="103,110,0,0" VerticalAlignment="Top" Width="139" Foreground="#FFEC2020"/>
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+
+                        <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Height="138" Margin="10,153,0,0" VerticalAlignment="Top" Width="414">
+                            <Grid>
+                                <Label Content="PACKAGING" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="104" FontSize="16" FontWeight="Bold"/>
+                                <Label Content="WEIGHT (lb)" HorizontalAlignment="Left" Margin="9,26,0,0" VerticalAlignment="Top" Width="92" FontWeight="Bold"/>
+                                <TextBox x:Name="txtPackWeight" HorizontalAlignment="Left" Height="30" Margin="10,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" FontSize="18" Text="0.0" IsReadOnlyCaretVisible="True" TextAlignment="Right"/>
+                                <TextBox x:Name="txtPackOuterL" HorizontalAlignment="Left" Height="25" Margin="116,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="" IsReadOnlyCaretVisible="True"/>
+                                <TextBox x:Name="txtPackOuterW" HorizontalAlignment="Left" Height="25" Margin="179,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="" IsReadOnlyCaretVisible="True"/>
+                                <TextBox x:Name="txtPackOuterH" HorizontalAlignment="Left" Height="25" Margin="247,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="" IsReadOnlyCaretVisible="True"/>
+
+                                <Grid x:Name="DoubleBox_Grid" Height="150" VerticalAlignment="Top">
+                                    <TextBox x:Name="txtPackInnerL" HorizontalAlignment="Left" Height="25" Margin="118,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
+                                    <TextBox x:Name="txtPackInnerW" HorizontalAlignment="Left" Height="25" Margin="181,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
+                                    <TextBox x:Name="txtPackInnerH" HorizontalAlignment="Left" Height="25" Margin="249,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Text="" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
+                                    <Label x:Name="lblPackInnerBox" Content="Inner Box: L x W x H" HorizontalAlignment="Left" Margin="2,87,0,0" VerticalAlignment="Top" Width="116"  FontWeight="Bold" Height="26" HorizontalContentAlignment="Center" FontSize="11"/>
+                                    <CheckBox x:Name="chkPackDoubleBox"  Content="Double Box" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Height="25" Width="91" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="11"  />
+                                </Grid>
+
+                                <TextBlock Text="Length+Girth" HorizontalAlignment="Left" Margin="324,44,0,0" VerticalAlignment="Top" Width="78" RenderTransformOrigin="2.381,1.025"/>
+                                <TextBlock Text="Dim Weight" HorizontalAlignment="Left" Margin="324,0,0,0" VerticalAlignment="Top" Width="78" Height="20"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Stroke="Black" VerticalAlignment="Top" Width="413" Margin="-1,87,0,0"/>
+                                <TextBox x:Name="txtPackDimW" HorizontalAlignment="Left" Height="21" Margin="324,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="16" Text="" IsReadOnlyCaretVisible="True"/>
+                                <TextBox x:Name="txtPackL_G" HorizontalAlignment="Left" Height="21" Margin="324,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="16" Text="" IsReadOnlyCaretVisible="True"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="88" Stroke="Black" VerticalAlignment="Top" Width="1" Margin="312,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleY="-1"/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                                <Label x:Name="lblPackOuterBox" Content="Shipping Box: L x W x H" HorizontalAlignment="Left" Margin="119,26,0,0" VerticalAlignment="Top" Width="181"  FontWeight="Bold" HorizontalContentAlignment="Center"/>
+
+                            </Grid>
+                        </Border>
+                        <Button x:Name="cmdClearAll" Content="CLEAR ALL" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="297,305,0,0" VerticalAlignment="Top" Width="127" Height="31" FontSize="14" Foreground="White"/>
+                        <Label Content="Total:" HorizontalAlignment="Left" Margin="302,374,0,0" VerticalAlignment="Top" Width="92" FontSize="18" FontWeight="Bold"/>
+                        <TabControl x:Name="PackMaster_TabControl" HorizontalAlignment="Left" Height="463" Margin="429,0,0,0" VerticalAlignment="Top" Width="547" Background="#FFBCB9B2">
+                            <TabItem x:Name="Fragility_TabItem" >
+                                <Grid Margin="0,0,0,-10" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="521*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+
+                                    <Border BorderBrush="Black" Grid.Row="0" CornerRadius="6" BorderThickness="0" Height="82" VerticalAlignment="Top" Background="#FFE5E5E5" Margin="11,0,0.2,0" Grid.Column="1">
+                                        <Grid Margin="-1,0,0,0">
+                                            <Border Margin="390,9,10,37" BorderThickness="1" BorderBrush="white" Background="#FFFDFDFD" CornerRadius="5">
+                                                <Label x:Name="lblPrice1" Content="0.00" Margin="3,-1,3,-15" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                            </Border>
+                                            <Label Content="Materials:" HorizontalAlignment="Left"  Margin="147,20,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Labor:" HorizontalAlignment="Left" Margin="147,38,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Box:" HorizontalAlignment="Left" Margin="147,56,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Weight:" HorizontalAlignment="Left"  Margin="7,39,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
+                                            <Label x:Name="lblWeightAct1" Content="2 lbs" HorizontalAlignment="Left"  Margin="85,38,0,0" VerticalAlignment="Top" Width="45" Height="26" />
+                                            <Button x:Name="cmdFragile1" Content="SELECT" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="390,47,0,0" VerticalAlignment="Top" Width="111" Height="30" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                                            <Border BorderBrush="Black" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="4,2,0,0" VerticalAlignment="Top" Width="143" Background="White">
+                                                <Label x:Name="PackLevel1" Content="NOT FRAGILE" HorizontalAlignment="Left" Margin="9,1,0,1" VerticalAlignment="Top" Width="123" FontSize="14" FontWeight="Bold" Foreground="Black" Background="White" Height="31" HorizontalContentAlignment="Center"/>
+                                            </Border>
+                                            <CheckBox x:Name="chkFragile1" Content="Double Box" HorizontalAlignment="Left" Margin="293,0,0,0" VerticalAlignment="Top" Height="25" Width="81" VerticalContentAlignment="Center"/>
+                                            <Label x:Name="lblMaterialsPrice1" Content="$ 1.50" HorizontalAlignment="Left"  Margin="225,19,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblLaborPrice1" Content="$ 1.00" HorizontalAlignment="Left"  Margin="225,38,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblBoxPrice1" Content="$ 3.00" HorizontalAlignment="Left"  Margin="225,56,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblFragileBox1" Content="10 x 10 x 10" HorizontalAlignment="Left"  Margin="282,56,0,0" VerticalAlignment="Top" Width="92" FontWeight="Bold"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderBrush="Black"  CornerRadius="6" BorderThickness="0" Height="82" VerticalAlignment="Top" Background="#FFE5E5E5" Margin="11,92,0.2,0" Grid.Column="1" Grid.RowSpan="2">
+                                        <Grid Margin="-1,0,0,0">
+                                            <Label Content="Materials:" HorizontalAlignment="Left"  Margin="147,17,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Labor:" HorizontalAlignment="Left" Margin="147,35,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Box:" HorizontalAlignment="Left" Margin="147,53,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Weight:" HorizontalAlignment="Left"  Margin="7,37,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
+                                            <Label x:Name="lblWeightAct2" Content="2 lbs" HorizontalAlignment="Left"  Margin="85,36,0,0" VerticalAlignment="Top" Width="45" Height="26" />
+                                            <Button x:Name="cmdFragile2" Content="SELECT" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="390,44,0,0" VerticalAlignment="Top" Width="111" Height="30" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                                            <Border BorderBrush="Black" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="4,2,0,0" VerticalAlignment="Top" Width="143" Background="White">
+                                                <Label x:Name="PackLevel2" Content="NOT TOO FRAGILE" HorizontalAlignment="Left" Margin="1" VerticalAlignment="Top" Width="141" FontSize="14" FontWeight="Bold" Foreground="Black" Background="White" Height="31" HorizontalContentAlignment="Center"/>
+                                            </Border>
+                                            <CheckBox x:Name="chkFragile2" Content="Double Box" HorizontalAlignment="Left" Margin="293,0,0,0" VerticalAlignment="Top" Height="25" Width="81" VerticalContentAlignment="Center"/>
+                                            <Label x:Name="lblMaterialsPrice2" Content="$ 1.50" HorizontalAlignment="Left"  Margin="225,16,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblLaborPrice2" Content="$ 1.00" HorizontalAlignment="Left"  Margin="225,35,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblBoxPrice2" Content="$ 3.00" HorizontalAlignment="Left"  Margin="225,53,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblFragileBox2" Content="10 x 10 x 10" HorizontalAlignment="Left"  Margin="282,53,0,0" VerticalAlignment="Top" Width="92" FontWeight="Bold"/>
+                                            <Border Margin="390,10,10,39" BorderThickness="1" BorderBrush="white" Background="#FFFDFDFD" CornerRadius="5">
+                                                <Label x:Name="lblPrice2" Content="0.00" Margin="3,-1,3,-15" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                            </Border>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderBrush="Black" CornerRadius="6" BorderThickness="0" Height="82" VerticalAlignment="Top" Background="#FFE5E5E5" Margin="11,91.6,0.2,0" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" >
+                                        <Grid Margin="-1,0,0,0" Height="73">
+                                            <Label Content="Materials:" HorizontalAlignment="Left"  Margin="147,16,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Labor:" HorizontalAlignment="Left" Margin="147,34,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Box:" HorizontalAlignment="Left" Margin="147,52,0,-5" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Weight:" HorizontalAlignment="Left"  Margin="7,36,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
+                                            <Label x:Name="lblWeightAct3" Content="2 lbs" HorizontalAlignment="Left"  Margin="85,35,0,0" VerticalAlignment="Top" Width="45" Height="26" />
+                                            <Button x:Name="cmdFragile3" Content="SELECT" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="390,40,0,0" VerticalAlignment="Top" Width="111" Height="30" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                                            <Border BorderBrush="Black" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="4,2,0,0" VerticalAlignment="Top" Width="143" Background="White">
+                                                <Label x:Name="PackLevel3" Content="FRAGILE" HorizontalAlignment="Left" Margin="1" VerticalAlignment="Top" Width="141" FontSize="14" FontWeight="Bold" Foreground="Black" Background="White" Height="31" HorizontalContentAlignment="Center"/>
+                                            </Border>
+                                            <CheckBox x:Name="chkFragile3" Content="Double Box" HorizontalAlignment="Left" Margin="293,0,0,0" VerticalAlignment="Top" Height="25" Width="81" VerticalContentAlignment="Center"/>
+                                            <Label x:Name="lblMaterialsPrice3" Content="$ 1.50" HorizontalAlignment="Left"  Margin="225,15,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblLaborPrice3" Content="$ 1.00" HorizontalAlignment="Left"  Margin="225,33,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblBoxPrice3" Content="$ 3.00" HorizontalAlignment="Left"  Margin="225,52,0,-5" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblFragileBox3" Content="10 x 10 x 10" HorizontalAlignment="Left"  Margin="282,52,0,-5" VerticalAlignment="Top" Width="92" FontWeight="Bold"/>
+                                            <Border Margin="390,7,10,33" BorderThickness="1" BorderBrush="white" Background="#FFFDFDFD" CornerRadius="5">
+                                                <Label x:Name="lblPrice3" Content="0.00" Margin="3,-1,3,-15" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                            </Border>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderBrush="Black" CornerRadius="6" BorderThickness="0" Height="82" VerticalAlignment="Top" Background="#FFE5E5E5" Margin="11,0.2,0.2,0" Grid.Row="3" Grid.Column="1" >
+                                        <Grid Margin="-1,0,0,0" Height="73">
+                                            <Label Content="Materials:" HorizontalAlignment="Left"  Margin="147,14,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Labor:" HorizontalAlignment="Left" Margin="147,32,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Box:" HorizontalAlignment="Left" Margin="147,50,0,-3" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Weight:" HorizontalAlignment="Left"  Margin="7,34,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
+                                            <Label x:Name="lblWeightAct4" Content="2 lbs" HorizontalAlignment="Left"  Margin="85,33,0,0" VerticalAlignment="Top" Width="45" Height="26" />
+                                            <Button x:Name="cmdFragile4" Content="SELECT" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="390,40,0,0" VerticalAlignment="Top" Width="111" Height="30" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                                            <Border BorderBrush="Black" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="4,2,0,0" VerticalAlignment="Top" Width="143" Background="White">
+                                                <Label x:Name="PackLevel4" Content="VERY FRAGILE" HorizontalAlignment="Left" Margin="9,1,0,1" VerticalAlignment="Top" Width="123" FontSize="14" FontWeight="Bold" Foreground="Black" Background="White" Height="31" HorizontalContentAlignment="Center"/>
+                                            </Border>
+                                            <CheckBox x:Name="chkFragile4" Content="Double Box" HorizontalAlignment="Left" Margin="293,0,0,0" VerticalAlignment="Top" Height="25" Width="81" VerticalContentAlignment="Center"/>
+                                            <Label x:Name="lblMaterialsPrice4" Content="$ 1.50" HorizontalAlignment="Left"  Margin="225,13,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblLaborPrice4" Content="$ 1.00" HorizontalAlignment="Left"  Margin="225,31,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblBoxPrice4" Content="$ 3.00" HorizontalAlignment="Left"  Margin="225,50,0,-3" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblFragileBox4" Content="10 x 10 x 10" HorizontalAlignment="Left"  Margin="282,50,0,-3" VerticalAlignment="Top" Width="92" FontWeight="Bold"/>
+                                            <Border Margin="390,7,10,33" BorderThickness="1" BorderBrush="white" Background="#FFFDFDFD" CornerRadius="5">
+                                                <Label x:Name="lblPrice4" Content="0.00" Margin="3,-1,3,-15" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                            </Border>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderBrush="Black" CornerRadius="6" BorderThickness="0" Height="82" VerticalAlignment="Top" Background="#FFE5E5E5" Margin="11,0.2,0.2,0" Padding="0" Grid.Row="4" Grid.Column="1" >
+                                        <Grid Margin="-1,0,0,0">
+                                            <Label Content="Materials:" HorizontalAlignment="Left"  Margin="147,17,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Labor:" HorizontalAlignment="Left" Margin="147,35,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Box:" HorizontalAlignment="Left" Margin="147,53,0,0" VerticalAlignment="Top" Width="73" FontWeight="Bold"/>
+                                            <Label Content="Weight:" HorizontalAlignment="Left"  Margin="7,37,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
+                                            <Label x:Name="lblWeightAct5" Content="2 lbs" HorizontalAlignment="Left"  Margin="85,37,0,0" VerticalAlignment="Top" Width="45" Height="26" />
+                                            <Button x:Name="cmdFragile5" Content="SELECT" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="390,41,0,0" VerticalAlignment="Top" Width="111" Height="30" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                                            <Border BorderBrush="Black" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="4,2,0,0" VerticalAlignment="Top" Width="143" Background="White">
+                                                <Label x:Name="PackLevel5" Content="EXTREME FRAGILE" HorizontalAlignment="Left" Margin="1" VerticalAlignment="Top" Width="143" FontSize="14" FontWeight="Bold" Foreground="Black" Background="White" Height="31" HorizontalContentAlignment="Center"/>
+                                            </Border>
+                                            <CheckBox x:Name="chkFragile5" Content="Double Box" HorizontalAlignment="Left" Margin="293,0,0,0" VerticalAlignment="Top" Height="25" Width="81" VerticalContentAlignment="Center"/>
+                                            <Label x:Name="lblMaterialsPrice5" Content="$ 1.50" HorizontalAlignment="Left"  Margin="225,16,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblLaborPrice5" Content="$ 1.00" HorizontalAlignment="Left"  Margin="225,35,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblBoxPrice5" Content="$ 3.00" HorizontalAlignment="Left"  Margin="225,53,0,0" VerticalAlignment="Top" Width="52" FontWeight="Bold"/>
+                                            <Label x:Name="lblFragileBox5" Content="10 x 10 x 10" HorizontalAlignment="Left"  Margin="282,53,0,0" VerticalAlignment="Top" Width="92" FontWeight="Bold"/>
+                                            <Border Margin="390,9,10,41" BorderThickness="1" BorderBrush="white" Background="#FFFDFDFD" CornerRadius="5">
+                                                <Label x:Name="lblPrice5" Content="0.00" Margin="3,-1,3,-15" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                            </Border>
+
+                                        </Grid>
+                                    </Border>
+
+                                    <RadioButton x:Name="optFragile1"  Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Width="21" Margin="10,12,510.2,66.4" Grid.ColumnSpan="2" />
+                                    <RadioButton x:Name="optFragile2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Width="21" Grid.Row="1" Margin="10,11.6,510.2,66.4" Grid.ColumnSpan="2"/>
+                                    <RadioButton x:Name="optFragile3"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Width="21" Grid.Row="2"  Margin="10,11.6,510.2,66.8"  Grid.ColumnSpan="2"/>
+                                    <RadioButton x:Name="optFragile4"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Width="21" Grid.Row="3" Margin="10,11.2,510.2,66.8" Grid.ColumnSpan="2" />
+                                    <RadioButton x:Name="optFragile5"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Width="21" Grid.Row="4" Margin="10,12.2,510.2,67.2" Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem x:Name="Workshop_TabItem">
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="534*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.ColumnSpan="2">
+
+                                        <local:CommonListView x:Name="Reviewer_ListView" HorizontalAlignment="Left" Height="122" Margin="109,0,0,0" VerticalAlignment="Top" Width="422">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="SKU/PLU" DisplayMemberBinding="{Binding SKU}" Width="65"/>
+                                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Desc}" Width="155"/>
+                                                    <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Qty }" Width="45"/>
+                                                    <GridViewColumn Header="Unit Price" DisplayMemberBinding="{Binding UnitPrice, StringFormat=c}" Width="65"/>
+                                                    <GridViewColumn Header="Ext Price" DisplayMemberBinding="{Binding ExtPrice, StringFormat=c}" Width="65"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </local:CommonListView>
+
+
+                                        <Grid>
+                                            <TreeView x:Name="TV" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="421" Margin="110,0,0,0" Visibility="Hidden"/>
+                                            <CheckBox x:Name="chkRevReceiptView" Content="Receipt View" HorizontalAlignment="Left" Margin="6,36,0,0" VerticalAlignment="Top" IsChecked="True" />
+                                            <CheckBox x:Name="chkPrintDetails" Content="Print Details&#xA;On Receipt" HorizontalAlignment="Left" Margin="5,62,0,0" VerticalAlignment="Top" Height="30" Width="89" VerticalContentAlignment="Center"/>
+                                            <Button x:Name="cmdOnOffFragile" Content="Fragility Levels"  HorizontalAlignment="Left" Margin="6,97,0,0" VerticalAlignment="Top" Width="100" Height="23" />
+                                        </Grid>
+
+
+
+
+                                    </Grid>
+                                    <Label Content="REVIEWER" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                                    <Label Content="WORKSHOP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" FontSize="16" FontWeight="Bold" Margin="0,118,0,0" Height="29" Grid.ColumnSpan="2"/>
+
+                                    <Border BorderBrush="Black" BorderThickness="1" Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" HorizontalAlignment="Left" Margin="0,144,0,69" Width="531" Grid.ColumnSpan="2" >
+                                        <Grid x:Name="Regular_Grid" >
+                                            <Popup x:Name="InventoryLIstViewPopup" AllowsTransparency="True" StaysOpen="false" PopupAnimation="Slide" Placement="Top" Grid.ColumnSpan="2" VerticalOffset ="310">
+                                                <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" Height="309" Margin="0,0,0,0" VerticalAlignment="Top" Width="529" RenderTransformOrigin="1.492,0.45">
+                                                    <Grid>
+                                                        <Label x:Name="InventoryViewLabel" Content="InventoryViewLabel" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="298" FontWeight="Bold"/>
+                                                        <local:CommonListView x:Name="lwRegDesc" HorizontalAlignment="Left" Height="271" Margin="10,26,0,0" VerticalAlignment="Top" Width="488">
+                                                            <ListView.View>
+                                                                <GridView x:Name="gwRegDesc">
+                                                                    <GridViewColumn Header="SKU" DisplayMemberBinding="{Binding SKU}" Width="100"/>
+                                                                    <GridViewColumn Header="Desc" DisplayMemberBinding="{Binding Desc}" Width="200"/>
+                                                                    <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="50"/>
+                                                                    <GridViewColumn Header="Sell" DisplayMemberBinding="{Binding Sell}" Width="70"/>
+                                                                    <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}" Width="50"/>
+                                                                </GridView>
+                                                            </ListView.View>
+                                                        </local:CommonListView>
+                                                    </Grid>
+                                                </Border>
+                                            </Popup>
+                                            <TabControl HorizontalAlignment="Left" Height="222" Margin="0,4,0,0" VerticalAlignment="Top" Width="529" BorderThickness="0">
+
+                                                <TabItem Header="Regular" BorderThickness="0" Height="22" VerticalAlignment="Bottom">
+                                                    <Grid Background="#FFE5E5E5">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="27*"/>
+                                                            <ColumnDefinition Width="148*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label x:Name="lblReg0" Content="Outer Box SKU" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="17,10,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"/>
+                                                        <Label x:Name="lblReg1" Content="Single Box SKU" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="17,34,0,0" FontWeight="Bold" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"/>
+                                                        <Label x:Name="lblReg2" Content="Wrap SKU" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="17,60,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"/>
+                                                        <Label x:Name="lblReg3" Content="Fill SKU" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" Margin="61,86,0,0" FontWeight="Bold" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"/>
+                                                        <Label x:Name="lblReg4" Content="Labor SKU" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="27,112,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"/>
+                                                        <Label x:Name="lblReg5" Content="Other SKU" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="27,138,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.ColumnSpan="2"/>
+                                                        <CheckBox x:Name="chkAutoFill" Content="Auto" HorizontalAlignment="Left" Margin="17,89,0,0" VerticalAlignment="Top" Height="20" Width="51" VerticalContentAlignment="Center"/>
+                                                        <ComboBox x:Name="cmbRegDesc0" HorizontalAlignment="Left" Height="26" Margin="43,10,0,0" VerticalAlignment="Top" Width="149" FontSize="16" Padding="0,3" Grid.Column="1" IsEditable="True" />
+                                                        <ComboBox x:Name="cmbRegDesc1" HorizontalAlignment="Left" Height="26" Margin="43,37,0,0"  VerticalAlignment="Top" Width="147" FontSize="16" Padding="0,3" Grid.Column="1" IsEditable="True" />
+                                                        <ComboBox x:Name="cmbRegDesc2" HorizontalAlignment="Left" Height="26" Margin="43,63,0,0" VerticalAlignment="Top" Width="150" FontSize="16" Padding="0,3" Grid.Column="1" IsEditable="True" />
+                                                        <ComboBox x:Name="cmbRegDesc3" HorizontalAlignment="Left" Height="26" Margin="43,89,0,0" VerticalAlignment="Top" Width="150" FontSize="16" Padding="0,3" Grid.Column="1" IsEditable="True" />
+                                                        <ComboBox x:Name="cmbRegDesc4"  HorizontalAlignment="Left" Height="26" Margin="43,115,0,0" VerticalAlignment="Top" Width="149" FontSize="16" Padding="0,3" Grid.Column="1" IsEditable="True" />
+                                                        <ComboBox x:Name="cmbRegDesc5" HorizontalAlignment="Left" Height="26" Margin="43,141,0,0"  VerticalAlignment="Top" Width="147" FontSize="16" Padding="0,3" Grid.Column="1" IsEditable="True"/>
+                                                        <Button x:Name="cmdComboDropDown0"  Margin="174,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="18"  Height="26" Grid.Column="1">
+                                                            <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="14" Source="Resources/DropDownIcon.png"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdComboDropDown1" Margin="174,37,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="18"  Height="26" Grid.Column="1">
+                                                            <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="14" Source="Resources/DropDownIcon.png"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdComboDropDown2" Margin="174,63,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="18"  Height="26" Grid.Column="1">
+                                                            <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="14" Source="Resources/DropDownIcon.png"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdComboDropDown3" Margin="174,89,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="18"  Height="26" Grid.Column="1">
+                                                            <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="14" Source="Resources/DropDownIcon.png"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdComboDropDown4" Margin="174,115,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="18"  Height="26" Grid.Column="1">
+                                                            <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="14" Source="Resources/DropDownIcon.png"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdComboDropDown5" Margin="174,141,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="18"  Height="26" Grid.Column="1">
+                                                            <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="14" Source="Resources/DropDownIcon.png"/>
+                                                        </Button>
+                                                        <Label x:Name="lblRegVolume0" Content="cu. ft." HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="198,8,0,0" FontWeight="Bold" HorizontalContentAlignment="Right" Grid.Column="1"/>
+                                                        <Label x:Name="lblRegVolume1" Content="cu. ft." HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="198,34,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.Column="1"/>
+                                                        <Label x:Name="lblQtyWrap" Content="sq. ft." HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="198,60,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.Column="1"/>
+                                                        <Label x:Name="lblQtyFill" Content="cu. ft." HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="198,86,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.Column="1"/>
+                                                        <Label x:Name="lblQtyLabor" Content="min." HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="198,112,0,0"  FontWeight="Bold" HorizontalContentAlignment="Right" Grid.Column="1"/>
+                                                        <Button x:Name="cmdRegQtyPlus0" HorizontalAlignment="Left" Margin="278,11,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="+" Width="13" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31" FontSize="20"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyMinus0" HorizontalAlignment="Left" Margin="309,11,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="-" Width="8" VerticalAlignment="Center" Height="32" FontSize="20" HorizontalAlignment="Center"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyPlus1" HorizontalAlignment="Left" Margin="278,37,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="+" Width="13" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31" FontSize="20"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyMinus1" HorizontalAlignment="Left" Margin="309,37,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="-" Width="8" VerticalAlignment="Center" Height="32" FontSize="20" HorizontalAlignment="Center"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyPlus2" HorizontalAlignment="Left" Margin="278,63,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="+" Width="13" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31" FontSize="20"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyMinus2" HorizontalAlignment="Left" Margin="309,63,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="-" Width="8" VerticalAlignment="Center" Height="32" FontSize="20" HorizontalAlignment="Center"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyPlus3" HorizontalAlignment="Left" Margin="278,89,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="+" Width="13" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31" FontSize="20"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyMinus3" HorizontalAlignment="Left" Margin="309,89,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="-" Width="8" VerticalAlignment="Center" Height="32" FontSize="20" HorizontalAlignment="Center"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyPlus4" HorizontalAlignment="Left" Margin="278,115,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="+" Width="13" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31" FontSize="20"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyMinus4" HorizontalAlignment="Left" Margin="309,115,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="-" Width="8" VerticalAlignment="Center" Height="32" FontSize="20" HorizontalAlignment="Center"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyPlus5" HorizontalAlignment="Left" Margin="278,141,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="+" Width="13" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31" FontSize="20"/>
+                                                        </Button>
+                                                        <Button x:Name="cmdRegQtyMinus5" HorizontalAlignment="Left" Margin="309,141,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="26" FontWeight="Bold" Grid.Column="1">
+                                                            <TextBlock Text="-" Width="8" VerticalAlignment="Center" Height="32" FontSize="20" HorizontalAlignment="Center"/>
+                                                        </Button>
+                                                        <TextBox x:Name="txtRegQty0" HorizontalAlignment="Left" Height="26" Margin="358,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="16" Padding="0" Text="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                                                        <TextBlock Text="QTY" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Margin="409,15,0,0"  FontWeight="Bold"  Grid.Column="1" Height="21"/>
+                                                        <TextBox x:Name="txtRegQty1" HorizontalAlignment="Left" Height="26" Margin="358,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="16" Padding="0" Text="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                                                        <TextBox x:Name="txtRegQty2" HorizontalAlignment="Left" Height="26" Margin="358,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="16" Padding="0" Text="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                                                        <TextBox x:Name="txtRegQty3" HorizontalAlignment="Left" Height="26" Margin="358,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="16" Padding="0" Text="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                                                        <TextBox x:Name="txtRegQty4" HorizontalAlignment="Left" Height="26" Margin="358,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="16" Padding="0" Text="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                                                        <TextBox x:Name="txtRegQty5" HorizontalAlignment="Left" Height="26" Margin="358,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="16" Padding="0" Text="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                                                        <TextBox x:Name="txtRegMinFill" ToolTip="Amount of loose fill in inches, between the object and the side of the box" HorizontalAlignment="Left" Height="26" Margin="358,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="16" Padding="0" Text="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                                                        <Label x:Name="lblRegMinFill" Content="Min. Fill Cushion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Margin="236,168,0,0" RenderTransformOrigin="0.593,0.346" FontWeight="Bold" HorizontalContentAlignment="Right" Grid.Column="1"/>
+
+
+                                                    </Grid>
+
+                                                </TabItem>
+                                                <TabItem Header="Modified">
+                                                    <Grid Background="#FFE5E5E5">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="101*"/>
+                                                            <ColumnDefinition Width="424*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Content="1. Select Box:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="87" FontWeight="Bold"/>
+                                                        <ComboBox x:Name="cmbModSelectBox" HorizontalAlignment="Left" Height="26" Margin="97,10,0,0" VerticalAlignment="Top" Width="201" FontSize="16" Padding="0" Grid.ColumnSpan="2"/>
+                                                        <Button x:Name="cmdModSelectBox" Margin="175,10,227,205" Grid.Column="1">
+                                                            <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="15" Source="Resources/DropDownIcon.png"/>
+                                                        </Button>
+                                                        <Label Content="L" HorizontalAlignment="Left" Margin="337,11,0,0" VerticalAlignment="Top" Width="22" HorizontalContentAlignment="Center" Height="24"/>
+                                                        <Label x:Name="lblModSelectedBox_L" Content="0" BorderThickness="1" HorizontalAlignment="Left" Margin="359,11,0,0" VerticalAlignment="Top" Width="34" HorizontalContentAlignment="Center" BorderBrush="Black" Height="26"/>
+                                                        <Label Content="W" HorizontalAlignment="Left" Margin="398,11,0,0" VerticalAlignment="Top" Width="22" HorizontalContentAlignment="Center" Height="25"/>
+                                                        <Label x:Name="lblModSelectedBox_W" Content="0" BorderThickness="1" HorizontalAlignment="Left" Margin="420,11,0,0" VerticalAlignment="Top" Width="34" HorizontalContentAlignment="Center" BorderBrush="Black" Height="26"/>
+                                                        <Label Content="H" HorizontalAlignment="Left" Margin="459,11,0,0" VerticalAlignment="Top" Width="22" HorizontalContentAlignment="Center" Height="25"/>
+                                                        <Label x:Name="lblModSelectedBox_H" Content="0" BorderThickness="1" HorizontalAlignment="Left" Margin="481,11,0,0" VerticalAlignment="Top" Width="34" HorizontalContentAlignment="Center" BorderBrush="Black" Height="26"/>
+                                                        <Label Content="2. Modify Selected Box" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="151" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                                                        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="175" Margin="10,67,0,0" VerticalAlignment="Top" Width="151" Grid.ColumnSpan="2">
+                                                            <Grid>
+                                                                <Label Content="Select Modification" FontWeight="Bold" Margin="0,-1,0,1"/>
+                                                                <ListView x:Name="lwMod" Margin="10,20,10,1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="0" Background="#FFE5E5E5">
+                                                                    <Grid Width="119" Height="26" >
+                                                                        <CheckBox Content="Build Up" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="19" Height="26" VerticalContentAlignment="Center" />
+                                                                        <Label Content="Build Up" Margin="24,0,0,0" VerticalContentAlignment="Center" />
+                                                                    </Grid>
+
+                                                                    <Grid Width="119" Height="26">
+                                                                        <CheckBox Content="Cut Down" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="18" Height="26" VerticalContentAlignment="Center"/>
+                                                                        <Label Content="Cut Down" Margin="24,0,0,3" VerticalContentAlignment="Center" />
+                                                                    </Grid>
+
+                                                                    <Grid Width="119" >
+                                                                        <CheckBox Content="Add a Top" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="19" Height="29" VerticalContentAlignment="Center"/>
+                                                                        <Label Content="Add a Top" Margin="24,0,0,3" VerticalContentAlignment="Center"/>
+                                                                    </Grid>
+
+                                                                    <Grid Width="119" >
+                                                                        <CheckBox Content="Telescope" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="20" Height="26" VerticalContentAlignment="Center"/>
+                                                                        <Label Content="Telescope" Margin="24,0,0,0" VerticalContentAlignment="Center"/>
+                                                                    </Grid>
+
+                                                                    <Grid Width="119" >
+                                                                        <CheckBox Content="Turn A Corner" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="5" Width="18" Height="23" VerticalContentAlignment="Center"/>
+                                                                        <Label Content="Turn A Corner" Margin="24,0,0,0" VerticalContentAlignment="Center"/>
+                                                                    </Grid>
+                                                                </ListView>
+                                                            </Grid>
+                                                        </Border>
+                                                        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="175" Margin="65,67,0,0" VerticalAlignment="Top" Width="349" Grid.Column="1">
+                                                            <Grid Margin="-1,0,0,0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="157*"/>
+                                                                    <ColumnDefinition Width="191*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                    <RowDefinition Height="*"/>
+                                                                    <RowDefinition Height="*"/>
+                                                                    <RowDefinition Height="*"/>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Label x:Name="lblModSelectedBox" Content="Selected Box:" Margin="10,0,39,0" VerticalContentAlignment="Center"/>
+                                                                <Label x:Name="lblModHowMuch" Content="How much Telescope:" Margin="10,0,21,0" Grid.Row="1" VerticalContentAlignment="Center"/>
+                                                                <Label x:Name="lblModExtraLabor" Content="Add Extra Labor:" Margin="10,0,21,0" Grid.Row="2" VerticalContentAlignment="Center"/>
+                                                                <Label x:Name="lblModCardboard" Content="Add Cardboard Top:" Margin="10,0,21,0" Grid.Row="3" VerticalContentAlignment="Center"/>
+                                                                <Label x:Name="lblModNewBoxH" Content="New Box Height:" Margin="10,0,21,0" Grid.Row="4" VerticalContentAlignment="Center"/>
+                                                                <Label x:Name="lblModSelectedBox_SKU" Content="Selected Box SKU" Margin="10,0,73,0" Grid.Column="1" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                                                                <TextBox x:Name="txtModHowMuch" HorizontalAlignment="Left" Height="25" Margin="19,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Grid.Column="1" Grid.Row="1" Text="0" HorizontalContentAlignment="Center"/>
+                                                                <Label x:Name="Label11" Content="Inches" Margin="77,0,10,0" Grid.Row="1" VerticalContentAlignment="Center" Grid.Column="1"/>
+                                                                <TextBox x:Name="txtModExtraLabor" HorizontalAlignment="Left" Height="25" Margin="19,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Grid.Column="1" Grid.Row="2" Text="0" HorizontalContentAlignment="Center"/>
+                                                                <Label x:Name="Label14" Content="Minutes" Margin="77,0,10,0" Grid.Row="2" VerticalContentAlignment="Center" Grid.Column="1" Height="32" VerticalAlignment="Top"/>
+                                                                <ComboBox x:Name="cmbModCardboard" HorizontalAlignment="Left" Height="26" Margin="10,4,0,2" VerticalAlignment="Center" Width="140" FontSize="16" Padding="0" Grid.Column="1" Grid.Row="3"/>
+                                                                <Button x:Name="cmdModCardboard" Margin="128,4,41,2" Grid.Column="1" Grid.Row="3">
+                                                                    <Image HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="15" Source="Resources/DropDownIcon.png"/>
+                                                                </Button>
+                                                                <Label x:Name="lblModCardboard_SqFt" Content="Sq. Ft." Margin="150,0,0,0" Grid.Row="3" VerticalContentAlignment="Center" Grid.Column="1"/>
+                                                                <TextBox x:Name="txtModNewBoxH" HorizontalAlignment="Left" Height="25" Margin="19,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" FontSize="16" Grid.Column="1" Grid.Row="4" Text="0" HorizontalContentAlignment="Center"/>
+                                                                <Label x:Name="Label16" Content="Inches" Margin="77,0,10,0" Grid.Row="4" VerticalContentAlignment="Center" Grid.Column="1"/>
+                                                            </Grid>
+                                                        </Border>
+                                                    </Grid>
+                                                </TabItem>
+                                                <TabItem Header="Custom">
+                                                    <Grid Background="#FFE5E5E5">
+                                                    </Grid>
+                                                </TabItem>
+                                            </TabControl>
+                                        </Grid>
+
+                                    </Border>
+
+                                    <Border BorderBrush="Black" BorderThickness="1" Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="64" Margin="0,387,0,0" VerticalAlignment="Top" Width="531" Grid.ColumnSpan="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="11*"/>
+                                                <ColumnDefinition Width="518*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Save Packaging Profile" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" Margin="10,0,0,0" Grid.ColumnSpan="2" FontWeight="Bold"/>
+                                            <ComboBox x:Name="cmbContentsKeyword" HorizontalAlignment="Left" Height="20" Margin="292,6,0,0" IsTextSearchEnabled="false" VerticalAlignment="Top" Width="216" FontSize="13" Padding="0" IsEditable="True" Grid.Column="1"/>
+                                            <Button x:Name="cmdContentsDropDown" Margin="490,6,10,36" Grid.Column="1">
+                                                <Image  HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="15" Source="Resources/DropDownIcon.png"/>
+                                            </Button>
+                                            <TextBlock Text="PackJob Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="211,7,0,0" Grid.Column="1" Height="20"/>
+                                            <TextBlock Text="Contents/Desc." HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="201,35,0,0" Grid.Column="1"/>
+                                            <TextBox x:Name="txtObjDesc" HorizontalAlignment="Left" Height="20" Margin="292,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" FontSize="13" Grid.Column="1"/>
+                                            <Button x:Name="cmdSave" Content="Save" ToolTip="Saves changes for already selected 'Contents' pack job with values as they displayed on this screen."  HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="44" Height="20" Grid.ColumnSpan="2" />
+                                            <Button x:Name="cmdSaveAsNew" Content="Save As New" ToolTip="Creates New 'Contents' pack job with values as they displayed on this screen and adds it to the list of other jobs."  HorizontalAlignment="Left" Margin="48,33,0,0" VerticalAlignment="Top" Width="63" Height="20" Grid.Column="1" FontSize="10"/>
+                                            <Button x:Name="cmdDelete" Content="Delete" ToolTip="Deletes already selected 'Contents' pack job from the list."  HorizontalAlignment="Left" Margin="116,33,0,0" VerticalAlignment="Top" Width="49" Height="20" Grid.Column="1" />
+
+                                        </Grid>
+                                    </Border>
+
+
+                                </Grid>
+                            </TabItem>
+
+                        </TabControl>
+                        <Border Margin="302,408,563,5" BorderThickness="1" BorderBrush="white" Background="#FFFDFDFD" CornerRadius="5">
+                            <TextBox x:Name="txtPackPrice" Text="0.00" Margin="3,-1" VerticalAlignment="Top" Height="50" FontSize="24" FontWeight="Bold" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0"/>
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+                <Button x:Name="cmdPOSApply" ToolTip="Save Changes" Style="{StaticResource AddRemoveSave_Style}" Margin="959,41,20,505">
+                    <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                </Button>
+                <Button x:Name="cmdSetup" Style="{DynamicResource ControlButton}" ToolTip="Setup Options" Margin="914,41,65,505">
+                    <Image x:Name="SetupOptionsImage" Source="Resources/Gear.png" />
+                </Button>
+                <Grid VerticalAlignment="Bottom" Height="0">
+                    <Popup x:Name="PackJobListViewPopup" AllowsTransparency="True" StaysOpen="false" PopupAnimation="Slide" Placement="Top" >
+                        <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="316" Margin="0,0,0,0" VerticalAlignment="Top" Width="1026">
+                            <local:CommonListView x:Name="lwContentsDropDown" HorizontalAlignment="Left" Height="296" Margin="10,9,0,0" VerticalAlignment="Top" Width="1005">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Contents" DisplayMemberBinding="{Binding Contents}"  Width="120"/>
+                                        <GridViewColumn Header="Desc" DisplayMemberBinding="{Binding Description}"  Width="290"/>
+                                        <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"  Width="70"/>
+                                        <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding PackagingCost}"  Width="70"/>
+                                        <GridViewColumn Header="Charge" DisplayMemberBinding="{Binding PackagingCharge}"  Width="70"/>
+                                        <GridViewColumn Header="Length" DisplayMemberBinding="{Binding L}"  Width="50"/>
+                                        <GridViewColumn Header="Width" DisplayMemberBinding="{Binding W}"  Width="50"/>
+                                        <GridViewColumn Header="Height" DisplayMemberBinding="{Binding H}"  Width="50"/>
+                                    </GridView>
+                                </ListView.View>
+                            </local:CommonListView>
+                        </Border>
+                    </Popup>
+                </Grid>
+                <Grid VerticalAlignment="Bottom" Height="0" HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="459*"/>
+                        <ColumnDefinition Width="565*"/>
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
+            </Grid>
+        </Viewbox>
+
+
+
+
+    </Grid>
+</local:CommonWindow>

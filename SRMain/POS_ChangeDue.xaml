@@ -1,0 +1,40 @@
+﻿<Window x:Name="POS_ChangeDue_Window" x:Class="POS_ChangeDue"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:SHIPRITE"     
+        
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+
+        Width="940"
+        Height="400"     
+
+        Background="Transparent"        
+        >
+
+    <Border BorderBrush="white" BorderThickness="0" CornerRadius="20" Background="white" >
+
+        <Border x:Name="LogInGroup" CornerRadius="10" Margin="15,15,15,15" BorderThickness="9" Background="#FFA2A9B4" BorderBrush="#FFE5E5E5" >
+            <Grid>
+                <Label Content="Change Due:" Margin="10,62,459,184" FontSize="65" FontWeight="Bold"/>
+                <Border Margin="449,62,10,184" CornerRadius="10" Background="White">
+                    <Label x:Name="AmountDue_Lbl" Content="$ 0.00" Margin="5,5,10,5" FontSize="65" FontWeight="Bold" HorizontalContentAlignment="Right"  Background="White"/>
+                </Border>
+                <Button x:Name="Continue_Btn" Style="{StaticResource POSKeypadButton_Style}" Margin="449,243,10,10" FontSize="48" FontWeight="Bold">
+                    <StackPanel Orientation="Horizontal" Width="319">
+                        <Label Content=" Continue  " VerticalContentAlignment="Center" FontWeight="Bold" Foreground="White" FontFamily="Calibri" FontSize="50"/>
+                        <Image Source="Resources/arrow_right.png" Height="80" Width="100"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            </Border>
+
+        </Border>
+
+
+</Window>

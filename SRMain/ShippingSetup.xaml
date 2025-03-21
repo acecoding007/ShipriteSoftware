@@ -1,0 +1,515 @@
+﻿<local:CommonWindow x:Name="ShippingSetup_Window" x:Class="ShippingSetup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+                <Popup x:Name="InventoryLIstViewPopup" AllowsTransparency="True" StaysOpen="True" PopupAnimation="Slide" Placement="Bottom">
+                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" Background="white" HorizontalAlignment="Left" Height="309" Margin="0,0,0,0" VerticalAlignment="Top" Width="510">
+                        <Grid>
+                            <Label x:Name="InventoryViewLabel" Content="InventoryViewLabel" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="298" FontWeight="Bold"/>
+                            <local:CommonListView x:Name="lwRegDesc" HorizontalAlignment="Left" Height="261" Margin="10,36,0,0" VerticalAlignment="Top" Width="488">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="SKU" DisplayMemberBinding="{Binding SKU}" Width="100"/>
+                                        <GridViewColumn Header="Desc" DisplayMemberBinding="{Binding Desc}" Width="200"/>
+                                        <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="50"/>
+                                        <GridViewColumn Header="Sell" DisplayMemberBinding="{Binding Sell}" Width="70"/>
+                                        <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}" Width="50"/>
+                                    </GridView>
+                                </ListView.View>
+                            </local:CommonListView>
+                            <Button x:Name="Close_InventoryPopup_Btn" Style="{StaticResource POSFunctionButton_Style}" Content="X" HorizontalAlignment="Left" Margin="473,3,0,0" VerticalAlignment="Top" Width="25" Height="28" Foreground="White"/>
+
+                        </Grid>
+                    </Border>
+                </Popup>
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/sHIP_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="SHIPPING OPTIONS" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SaveButton" Grid.Column="3" ToolTip="Save Changes" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}">
+                    <Grid>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="443" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+
+                            <ListBox x:Name="ShipSetup_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" HorizontalAlignment="Left" Margin="1,6,0,6" Width="180" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" FontWeight="Bold" BorderThickness="0" Background="White">
+
+                                <ListBoxItem Content="Shipping Panels/Buttons"/>
+                                <ListBoxItem Content="Shipping Holidays"/>
+                                <ListBoxItem Content="Third Party Insurance"/>
+                                <ListBoxItem Content="General Shipping Options"/>
+                                <ListBoxItem Content="PackMaster Setup"/>
+
+                            </ListBox>
+                        </Border>
+                        <TabControl x:Name="ShipSetup_TabControl" HorizontalAlignment="Left" Height="443" Margin="196,10,0,0" VerticalAlignment="Top" Width="770" TabStripPlacement="Left" Background="#FFBCB9B2" BorderThickness="0">
+                            <TabItem Header="0">
+                                <Grid>
+                                    <Border x:Name="CarrierBorder"  Style="{StaticResource BaseBorder}"  Margin="0,80,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" BorderThickness="0">
+
+                                        <ItemsControl x:Name="Carrier_IC" Margin="5,7,0,10" BorderThickness="0" TabIndex="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid >
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="45"/>
+                                                            <ColumnDefinition Width="90"/>
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="43"/>
+                                                            <RowDefinition Height="43"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <!-- Carrier Icon and selections -->
+                                                        <Border BorderThickness="0" CornerRadius="5" Background="LightGray"  Margin="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2"/>
+
+                                                        <Button x:Name="Up_Btn" Style="{DynamicResource ControlButton_Back}" Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center" Click="Up_Btn_Click" Tag="{Binding}">
+                                                            <Image Style="{DynamicResource ControlButtonImage_Back}" RenderTransformOrigin=".5,.5">
+                                                                <Image.RenderTransform>
+                                                                    <RotateTransform Angle="90" />
+                                                                </Image.RenderTransform>
+                                                            </Image>
+                                                        </Button>
+                                                        <Button x:Name="Down_Btn" Style="{DynamicResource ControlButton_Forward}" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center" Click="Down_Btn_Click" Tag="{Binding}">
+                                                            <Image Style="{DynamicResource ControlButtonImage_Forward}" RenderTransformOrigin=".5,.5">
+                                                                <Image.RenderTransform>
+                                                                    <RotateTransform Angle="90" />
+                                                                </Image.RenderTransform>
+                                                            </Image>
+                                                        </Button>
+
+                                                        <Image  Source="{Binding CarrierImage}" Margin="3,5,3,3" Height="42" MaxWidth="75"  RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="top" />
+
+                                                        <ComboBox SelectedIndex="{Binding Status_Current, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Margin="0,7,5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="0">
+                                                            <ComboBoxItem Content="Show"/>
+                                                            <ComboBoxItem Content="Hide"/>
+                                                            <ComboBoxItem Content="Disable"/>
+                                                        </ComboBox>
+
+
+                                                        <!-- Service Buttons List -->
+                                                        <ItemsControl ItemsSource="{Binding ServiceList}" Grid.Column="2" Grid.RowSpan="2" Margin="1">
+
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+
+                                                                    <!-- Service Button -->
+                                                                    <Border Visibility="{Binding IsButtonVisible}" BorderThickness="0" CornerRadius="5" Background="{Binding BackgroundColor}" Width="81" Margin="1">
+                                                                        <Grid>
+                                                                            <Grid.ColumnDefinitions>
+                                                                                <ColumnDefinition />
+                                                                                <ColumnDefinition />
+
+                                                                            </Grid.ColumnDefinitions>
+                                                                            <Grid.RowDefinitions>
+                                                                                <RowDefinition Height="46"/>
+                                                                                <RowDefinition Height="28"/>
+                                                                            </Grid.RowDefinitions>
+
+                                                                            <TextBlock Text="{Binding ServiceName}" Foreground="{Binding ForegroundColor}" TextWrapping="Wrap" Margin="1,4,0,0" TextAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+
+                                                                            <Button x:Name="Left_Btn" Style="{DynamicResource ControlButton_Back}" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center" Margin="0" Click="Left_Btn_Click" Tag="{Binding}">
+                                                                                <Image Style="{DynamicResource ControlButtonImage_Back}"/>
+                                                                            </Button>
+                                                                            <Button x:Name="Right_Btn" Style="{DynamicResource ControlButton_Forward}" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" Margin="0" Click="Right_Btn_Click" Tag="{Binding}">
+                                                                                <Image Style="{DynamicResource ControlButtonImage_Forward}"/>
+                                                                            </Button>
+
+                                                                        </Grid>
+                                                                    </Border>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Border>
+
+                                    <Grid x:Name="ShippingSetupOptions_Grid" Margin="0,0,0,359">
+                                        <RadioButton x:Name="Domestic_RdioBtn" Content="Domestic" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="90" VerticalContentAlignment="Center" Padding="1,-1,0,0"/>
+                                        <RadioButton x:Name="Canada_RdioBtn" Content="Canada" HorizontalAlignment="Left" Margin="105,56,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="79" VerticalContentAlignment="Center" Padding="1,-1,0,0"/>
+                                        <RadioButton x:Name="International_RdioBtn" Content="International" HorizontalAlignment="Left" Margin="189,56,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="110" VerticalContentAlignment="Center" Padding="1,-1,0,0"/>
+                                        <RadioButton x:Name="Freight_RdioBtn" Content="Freight" HorizontalAlignment="Left" Margin="304,56,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="80" VerticalContentAlignment="Center" Padding="1,-1,0,0"/>
+                                    </Grid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="1">
+                                <Grid>
+                                    <Border CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" Margin="460,0,0,299">
+                                        <Grid>
+                                            <Label Content="Add New Holiday" FontWeight="Bold" Margin="10,0,169,112"/>
+                                            <TextBlock Text="Holiday Name" Margin="10,33,115,90"/>
+                                            <TextBox x:Name="HolidayName_TxtBx" Margin="10,50,135,62" VerticalContentAlignment="Center" FontSize="14"/>
+                                            <TextBlock Text="Date" Margin="174,33,10,90"/>
+                                            <DatePicker x:Name="HolidayDate_TxtBx" Margin="174,50,10,62" VerticalContentAlignment="Center"/>
+                                            <TextBlock Text="Applies To" Margin="10,88,218,35"/>
+                                            <ComboBox x:Name="AppliesTo_TxtBx" Margin="10,105,135,10" VerticalContentAlignment="Center" FontSize="14"/>
+                                            <Button x:Name="AddNewHoliday_Btn" Content="Add New"  Margin="174,99,10,7" Style="{StaticResource POSKeypadButton_Style}" FontSize="14"/>
+                                        </Grid>
+                                    </Border>
+                                    <Button x:Name="DeleteHoliday_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Delete Selected" HorizontalAlignment="Left" Margin="457,400,0,0" VerticalAlignment="Top" Width="123" Height="36" FontSize="16"/>
+                                    <Border CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" Margin="0,0,309,0">
+                                        <local:CommonListView x:Name="ShippingHolidays_LV"   Margin="0,10,0,0" VerticalAlignment="Top" BorderThickness="0" Background="white" FontWeight="Bold" SelectionMode="Single" Height="419">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Description" Width="170">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Width="158" Height="24"  Text="{Binding Path=HolidayName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" TextChanged="HolidayName_TextBox_TextChanged" >
+                                                                    <TextBox.Resources>
+                                                                        <Style TargetType="{x:Type TextBox}">
+
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding Status}" Value="Deleted">
+                                                                                    <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                                                    <Setter Property="Foreground" Value="#FF8F0202"/>
+                                                                                </DataTrigger>
+
+                                                                                <DataTrigger Binding="{Binding Status}" Value="Added">
+                                                                                    <Setter Property="Background" Value="#FFC1DCF7"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+
+                                                                        </Style>
+                                                                    </TextBox.Resources>
+                                                                </TextBox>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Header="Date" Width="120" >
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <DatePicker SelectedDate="{Binding Path=ApplicableDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalContentAlignment="Center" SelectedDateChanged="HolidayName_TextBox_TextChanged" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Header="Applies To" Width="120" >
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox Height="24" Width="108"  Text="{Binding Path=AppliesTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Carrier_List}" HorizontalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="HolidayName_TextBox_TextChanged"/>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+
+                                            </ListView.View>
+                                        </local:CommonListView>
+                                    </Border>
+
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="2">
+                                <Grid>
+                                    <Border CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" Margin="0,0,0,284">
+                                        <Grid>
+                                            <Label Content="Shipsurance Setup" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="23,10,0,0"/>
+                                            <Label Content="Policy ID" HorizontalAlignment="Left" Margin="46,49,0,0" VerticalAlignment="Top" Width="137"/>
+                                            <Label Content="Email Address" HorizontalAlignment="Left" Margin="46,80,0,0" VerticalAlignment="Top" Width="137"/>
+                                            <Label Content="Signature Threshold ($)" HorizontalAlignment="Left" Margin="46,111,0,0" VerticalAlignment="Top" Width="137"/>
+                                            <TextBox Name="DSI_Policy_ID_TextBox" HorizontalAlignment="Left" Height="26" Margin="188,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" VerticalContentAlignment="Center"/>
+                                            <TextBox Name="DSI_Email_Address_TextBox" HorizontalAlignment="Left" Height="26" Margin="188,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" VerticalContentAlignment="Center"/>
+                                            <TextBox Name="DSI_Signature_Threshold_TextBox" HorizontalAlignment="Left" Height="26" Margin="188,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" VerticalContentAlignment="Center"/>
+                                            <TextBlock TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Margin="404,49,0,0" VerticalAlignment="Top" Width="286" Height="83"><Run Text="Enter your Shipsurance account information here."/><LineBreak/><Run/><LineBreak/><Run Text="ShipRite integrates directly with Shipsurance! "/><LineBreak/><Run Text="Insured shipments will be automatically uploaded to Shipsurance."/></TextBlock>
+                                            <CheckBox x:Name="EnableShipsurance" Content="Enable" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="188,24,0,0"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" Margin="0,160,0,147">
+                                        <Grid>
+                                            <Label Content="ShipandInsure Setup" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="23,10,0,0"/>
+                                            <Label Content="User ID" HorizontalAlignment="Left" Margin="46,49,0,0" VerticalAlignment="Top" Width="137"/>
+                                            <Label Content="Password" HorizontalAlignment="Left" Margin="46,80,0,0" VerticalAlignment="Top" Width="137"/>
+                                            <TextBox Name="ShipandInsure_UserID_TxtBx" HorizontalAlignment="Left" Height="26" Margin="188,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" VerticalContentAlignment="Center"/>
+                                            <PasswordBox Name="ShipandInsure_Password_PWBx"  HorizontalAlignment="Left" Height="26" Margin="188,80,0,0" VerticalAlignment="Top" Width="185" VerticalContentAlignment="Center"/>
+                                            <TextBlock TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Margin="408,36,0,0" VerticalAlignment="Top" Width="286" Height="90"><Run Text="Enter your ShipandInsure account information here."/><LineBreak/><Run/><LineBreak/><Run Text="ShipRite integrates directly with ShipandInsure! "/><LineBreak/><Run Text="Insured shipments will be automatically uploaded to ShipandInsure."/></TextBlock>
+                                            <CheckBox x:Name="EnableShipAndInsure" Content="Enable" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="188,21,0,0" RenderTransformOrigin="0.563,1.533"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" Margin="0,297,0,0">
+                                        <Grid>
+                                            <Label Content="Other Thrid Party Insruance Provider" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="23,10,0,0"/>
+                                            <Label Content="Company Name&#xD;&#xA;and Address" HorizontalAlignment="Left" Margin="23,33,0,0" VerticalAlignment="Top" Width="98"/>
+                                            <TextBox Name="ThirdPartyInsuranceName_TextBox" HorizontalAlignment="Left" Height="93" Margin="121,41,0,0" VerticalAlignment="Top" Width="249" VerticalContentAlignment="Center" AcceptsReturn="True" MinLines="10"/>
+                                            <TextBlock TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Margin="412,33,0,0" VerticalAlignment="Top" Width="313" Height="101"><Run Text="If using an insurance provider other then Shipsurance or ShipandInsure, then enter their contact information here. "/><LineBreak/><Run/><LineBreak/><Run Text="To report declared value shipments, please print a Third Party Insurance report and fax/email to the Insurance company."/></TextBlock>
+                                        </Grid>
+                                    </Border>
+
+
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="3">
+                                <Grid>
+                                    <CheckBox x:Name="Auto_TinT_CheckBx" Content="Enable Automatic Time In Transit Requests" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                    <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" HorizontalAlignment="Left" Height="93" Margin="10,30,0,0" VerticalAlignment="Top" Width="341" Background="#FFE5E5E5">
+                                        <Label Content="Each time a shipment is priced out, ShipRite will send an &#xD;&#xA;automatic Time-In-Transit request for all carriers and services.&#xD;&#xA;&#xD;&#xA;WARNING - This will cause a delay in processing while the&#xD;&#xA;delivery times are being obtained from the carriers!" Margin="-1"/>
+
+                                    </Border>
+
+                                    <CheckBox x:Name="PricingMatrix_CheckBx" Content="Enable Pricing Matrix" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top"  FontWeight="Bold"/>
+                                    <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" HorizontalAlignment="Left" Height="76" Margin="10,171,0,0" VerticalAlignment="Top" Width="341" Background="#FFE5E5E5">
+                                        <Label Content="The Pricing Matrix allows a more complex shipping markup &#xD;&#xA;structure based on weight and zones. &#xD;&#xA;&#xD;&#xA;If disabled, the simple 3 Level markup structure will be used.&#xD;&#xA;" Margin="-1"/>
+
+                                    </Border>
+
+                                    <CheckBox x:Name="ForcePOSShipping_CheckBx" Content="Force POS Shipping" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.243,-0.407" FontWeight="Bold"/>
+                                    <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" HorizontalAlignment="Left" Height="47" Margin="10,299,0,0" VerticalAlignment="Top" Width="341" Background="#FFE5E5E5">
+                                        <Label Content="Shipping option on Mail screen will be disabled.&#xD;&#xA;Shipping screen can only be accessed through POS.&#xA;" Margin="-1"/>
+
+                                    </Border>
+
+                                    <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" HorizontalAlignment="Left" Height="47" Margin="391,299,0,0" VerticalAlignment="Top" Width="355" Background="#FFE5E5E5">
+                                        <Grid>
+                                            <TextBlock Text="Round to Nearest:&#xA;" Margin="19,15,227,10"/>
+                                            <ComboBox x:Name="Rounding_Cmb" HorizontalAlignment="Left" Margin="133,15,0,0" SelectedValuePath="Content" VerticalAlignment="Top" Width="191">
+                                                <ComboBoxItem Content="None"/>
+                                                <ComboBoxItem Content="Nickel"/>
+                                                <ComboBoxItem Content="Dime"/>
+                                                <ComboBoxItem Content="Quarter"/>
+                                                <ComboBoxItem Content="Half-Dollar"/>
+                                                <ComboBoxItem Content="Dollar"/>
+                                            </ComboBox>
+                                        </Grid>
+                                    </Border>
+
+
+                                    <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" HorizontalAlignment="Left" Height="255" Margin="391,10,0,0" VerticalAlignment="Top" Width="355" Background="#FFE5E5E5">
+                                        <Grid>
+                                            <Label Content="Level Pricing Setup&#xA;" Margin="10,10,214,210" FontWeight="Bold"/>
+                                            <Label Content="Setup schema of 3 markup levels based on calculated &#xD;&#xA;shipping cost.&#xA;" Margin="0,45,0,164"/>
+                                            <Label Content="LEVEL1&#xA;" Margin="10,130,263,99" FontWeight="Bold"/>
+                                            <Label Content="LEVEL2" Margin="10,161,263,68" FontWeight="Bold"/>
+                                            <Label Content="LEVEL3" Margin="10,192,263,37" FontWeight="Bold"/>
+                                            <Label Content="FROM&#xA;" Margin="110,96,163,133" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                                            <Label Content="TO&#xA;" Margin="237,96,34,133" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                                            <TextBox x:Name="FROM_L1" HorizontalAlignment="Left" Height="23" Margin="122,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" FontSize="14" Text="0.00" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                            <TextBox x:Name="TO_L1" HorizontalAlignment="Left" Height="23" Margin="253,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" FontSize="14" Text="0.00" HorizontalContentAlignment="Right"/>
+                                            <TextBox x:Name="FROM_L2" HorizontalAlignment="Left" Height="23" Margin="122,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" FontSize="14" Text="0.00" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                            <TextBox x:Name="TO_L2" HorizontalAlignment="Left" Height="23" Margin="253,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" FontSize="14" Text="0.00" HorizontalContentAlignment="Right"/>
+                                            <TextBox x:Name="FROM_L3" HorizontalAlignment="Left" Height="23" Margin="122,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" FontSize="14" Text="0.00" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                            <TextBox x:Name="TO_L3" HorizontalAlignment="Left" Height="23" Margin="253,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" FontSize="14" Text="0.00" HorizontalContentAlignment="Right" IsEnabled="False"/>
+                                            <Label Content="$" HorizontalAlignment="Left" Margin="104,126,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+                                            <Label Content="$" HorizontalAlignment="Left" Margin="104,190,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+                                            <Label Content="$" HorizontalAlignment="Left" Margin="104,159,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+                                            <Label Content="$" HorizontalAlignment="Left" Margin="235,127,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+                                            <Label Content="$" HorizontalAlignment="Left" Margin="235,191,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+                                            <Label Content="$" HorizontalAlignment="Left" Margin="235,160,0,0" VerticalAlignment="Top" FontSize="14" Height="26"/>
+                                        </Grid>
+                                    </Border>
+                                    <Label Content="Default Address Verification Service" HorizontalAlignment="Left" Margin="0,373,0,0" VerticalAlignment="Top" Width="341" FontWeight="Bold"/>
+                                    <ComboBox x:Name="AddressVerification_Cmb" Margin="10,404,544,0" VerticalAlignment="Top" Width="192" FontWeight="Bold">
+                                        <ComboBoxItem Content="FedEx"/>
+                                        <ComboBoxItem Content="Endicia"/>
+                                    </ComboBox>
+                                    <Label Content="Shipment Pricing Rounding" HorizontalAlignment="Left" Margin="395,276,0,0" VerticalAlignment="Top" Width="341" FontWeight="Bold"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem x:Name="PackMaster_Setup_TabItem" Header="4">
+                                <Grid>
+                                    <Label Content="PackMaster Setup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" FontWeight="Bold" FontSize="14"/>
+                                    <Border x:Name="PM_Default_Border" Margin="0,29,349,269" BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" Background="#FFE5E5E5">
+                                        <Grid>
+                                            <Label Content="DEFAULT SETTINGS" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" FontWeight="Bold" Margin="10,0,0,0"/>
+                                            <Label Content="Double Boxing Threshold (Dollars $)" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="230"/>
+                                            <Label Content="DBL Boxing Labor" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="147"/>
+                                            <Label Content="DBL Boxing Fill" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top" Width="147"/>
+                                            <Label Content="Minimum Piece Charge (Dollars $)" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Width="225" Visibility="Hidden" />
+                                            <TextBox x:Name="txtDoubleBoxing" HorizontalAlignment="Left" Height="23" Margin="240,28,0,0" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="91"/>
+                                            <TextBox x:Name="txtDefaultLabor" HorizontalAlignment="Left" Height="23" Margin="240,54,0,0" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="91"/>
+                                            <TextBox x:Name="txtFillCushion" HorizontalAlignment="Left" Height="23" Margin="240,80,0,0" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="91"/>
+                                            <TextBox x:Name="txtPieceCharge" HorizontalAlignment="Left" Height="23" Margin="240,106,0,0" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="91" Visibility="Hidden"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="PM_Modified_Border" Margin="348,29,0,269" BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" Background="#FFE5E5E5">
+                                        <Grid Margin="0,0,0,0">
+                                            <Label Content="MODIFIED BOX SETTINGS" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" FontWeight="Bold" Margin="10,0,0,0"/>
+                                            <Label Content="Build Up Box:" HorizontalAlignment="Left" Margin="36,26,0,0" VerticalAlignment="Top" Width="90"/>
+                                            <Label Content="Add a Top:" HorizontalAlignment="Left" Margin="36,52,0,0" VerticalAlignment="Top" Width="72"/>
+                                            <Label Content="Cut Down:" HorizontalAlignment="Left" Margin="36,78,0,0" VerticalAlignment="Top" Width="72"/>
+                                            <Label Content="Telescope:" HorizontalAlignment="Left" Margin="36,104,0,0" VerticalAlignment="Top" Width="72"/>
+                                            <TextBox x:Name="txtLabor_BuildUp" HorizontalAlignment="Left" Height="23" Margin="241,29,0,0" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+                                            <TextBox x:Name="txtLabor_AddTop" HorizontalAlignment="Left" Height="23" Margin="241,55,0,0" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+                                            <TextBox x:Name="txtLabor_CutDown" HorizontalAlignment="Left" Height="23" Margin="241,81,0,0" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+                                            <TextBox x:Name="txtLabor_Telescope" HorizontalAlignment="Left" Height="23" Margin="241,107,0,0" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+                                            <Label Content="Labor in Minutes" HorizontalAlignment="Left" Margin="232,0,0,0" VerticalAlignment="Top" Width="100"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Margin="0,175,0,0" BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="0" Background="#FFE5E5E5">
+                                        <Grid x:Name="grbFragility">
+                                            <Label Content="FRAGILITY LEVELS" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" FontWeight="Bold" Margin="10,0,0,0"/>
+                                            <Grid HorizontalAlignment="Left" Height="226" Margin="10,26,0,0" VerticalAlignment="Top" Width="670">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Label Content="Fill SKU" HorizontalAlignment="Left" Margin="10,0,0,0" Width="171" FontSize="14" Grid.Row="2"/>
+                                                <Label Content="Fill Cushion (inches)" HorizontalAlignment="Left" Margin="10,0,0,0" Width="171" FontSize="14" Grid.Row="1"/>
+                                                <Label Content="Wrap (times)" HorizontalAlignment="Left" Margin="10,0,0,0" Width="171" FontSize="14" Grid.Row="3"/>
+                                                <Label Content="Wrap (SKU)" HorizontalAlignment="Left" Margin="10,1,0,0" Width="171" FontSize="14" Grid.Row="4"/>
+                                                <Label Content="Labor (minutes)" HorizontalAlignment="Left" Margin="10,0,0,0" Width="171" FontSize="14" Grid.Row="5"/>
+                                                <Label Content="Labor SKU" HorizontalAlignment="Left" Margin="10,0,0,1" Width="171" FontSize="14" Grid.Row="6"/>
+                                                <Label Content="NOT" HorizontalAlignment="Center" Width="96" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                                                <Label Content="FRAGILE" HorizontalAlignment="Center" Width="96" Grid.Column="3" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                                                <Label Content="EXTREMELY" HorizontalAlignment="Center" Width="96" Grid.Column="4" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Margin="95,0,0,0"/>
+                                                <TextBox x:Name="txtFillUnit1" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="1" Grid.Row="1" TabIndex="100" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillUnit2" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="2" Grid.Row="1" TabIndex="102" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillUnit3" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="3" Grid.Row="1" TabIndex="104" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillUnit4" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="4" Grid.Row="1" TabIndex="106" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillUnit5" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="5" Grid.Row="1" TabIndex="108" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapUnit2" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="2" Grid.Row="3" TabIndex="112" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapUnit3" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="3" Grid.Row="3" TabIndex="114" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapUnit4" HorizontalAlignment="Left" Margin="10,5,0,4" TextWrapping="Wrap" Width="76" Grid.Column="4" Grid.Row="3" TabIndex="116" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapUnit5" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="5" Grid.Row="3" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapUnit1" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="1" Grid.Row="3" TabIndex="110" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborUnit2" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="2" Grid.Row="5" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborUnit3" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="3" Grid.Row="5" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborUnit4" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="4" Grid.Row="5" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborUnit5" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="5" Grid.Row="5" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborUnit1" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="1" Grid.Row="5" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillSKU1" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="1" Grid.Row="2" Background="#FFABADB3" TabIndex="101" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillSKU2" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="2" Grid.Row="2" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="103" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillSKU3" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="3" Grid.Row="2" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="105" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillSKU4" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="4" Grid.Row="2" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="107" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtFillSKU5" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="5" Grid.Row="2" Background="#FFABADB3" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapSKU1" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="1" Grid.Row="4" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="111" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapSKU2" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="2" Grid.Row="4" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="113" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapSKU3" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="3" Grid.Row="4" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="115" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapSKU4" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="4" Grid.Row="4" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="117" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtWrapSKU5" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="5" Grid.Row="4" Background="#FFABADB3" IsReadOnlyCaretVisible="True" TabIndex="118" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborSKU1" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="1" Grid.Row="6" Background="#FFABADB3" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborSKU2" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="2" Grid.Row="6" Background="#FFABADB3" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborSKU3" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="3" Grid.Row="6" Background="#FFABADB3" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborSKU4" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="4" Grid.Row="6" Background="#FFABADB3" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center"/>
+                                                <TextBox x:Name="txtLaborSKU5" HorizontalAlignment="Left" Height="23" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.Column="5" Grid.Row="6" Background="#FFABADB3" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center"/>
+                                                <Rectangle Grid.ColumnSpan="6" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,1,0,0" Grid.Row="3" Stroke="Black" VerticalAlignment="Top" Width="651"/>
+                                                <Rectangle Grid.ColumnSpan="6" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,0,0,0" Grid.Row="5" Stroke="Black" VerticalAlignment="Top" Width="650"/>
+
+                                            </Grid>
+
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+
+
+            </Grid>
+
+
+
+        </Viewbox>
+
+
+
+    </Grid>
+</local:CommonWindow>

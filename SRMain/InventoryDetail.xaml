@@ -1,0 +1,346 @@
+﻿<local:CommonWindow x:Name="InventoryDetail_Window" x:Class="InventoryDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/Inventory_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="INVENTORY DETAIL" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="Add_Button" Grid.Column="1" ToolTip="Add New User" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="AddContact_Image" Source="Resources/Add_New.png" />
+                    </Button>
+                    <Button x:Name="Remove_Button" Grid.Column="2" ToolTip="Remove User" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="RemoveContact_Image" Source="Resources/Remove.png" />
+                    </Button>
+                    <Button x:Name="SaveButton" Grid.Column="3" ToolTip="Save Changes" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}">
+                    <Grid>
+                        <Border Style="{StaticResource BaseBorder}" BorderThickness="0" Background="white" Margin="10,10,690,10">
+                            <local:CommonListView x:Name="LV_InventoryDetail" Margin="0,10" BorderThickness="0">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="85" DisplayMemberBinding="{Binding Path=SKU}">
+                                            <GridViewColumnHeader Content="SKU" Click="GridViewColumnHeader_Click"/>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn  Width="168" DisplayMemberBinding="{Binding Path=Desc}">
+                                            <GridViewColumnHeader Content="Description" Click="GridViewColumnHeader_Click"/>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </local:CommonListView>
+                        </Border>
+
+                        <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="65" Margin="291,10,0,0" VerticalAlignment="Top" Width="675" Background="#FFE5E5E5">
+                            <Grid x:Name="Grid1">
+                                <Label Content="SKU" HorizontalAlignment="Left" Margin="12,6,0,0" VerticalAlignment="Top" Width="74"/>
+                                <TextBox x:Name="TxtBx_SKU" HorizontalAlignment="Left" Height="23" Margin="12,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Tag="SKU" FontWeight="Bold" TabIndex="1" VerticalContentAlignment="Center" />
+                                <Label Content="Description" HorizontalAlignment="Left" Margin="137,6,0,0" VerticalAlignment="Top" Width="74"/>
+                                <TextBox x:Name="TxtBx_Desc" HorizontalAlignment="Left" Height="23" Margin="137,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" Tag="Desc" FontWeight="Bold" TabIndex="2" VerticalContentAlignment="Center" />
+                                <Label Content="Department" HorizontalAlignment="Left" Margin="321,6,0,0" VerticalAlignment="Top" Width="74"/>
+                                <Label Content="Cost" HorizontalAlignment="Left" Margin="462,6,0,0" VerticalAlignment="Top" Width="55"/>
+                                <local:NumberTextBox x:Name="TxtBx_Cost" HorizontalAlignment="Left" Height="23" Margin="462,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" Tag="Cost" FontWeight="Bold" TabIndex="4" VerticalContentAlignment="Center"/>
+                                <Label Content="Sell" HorizontalAlignment="Left" Margin="600,6,0,0" VerticalAlignment="Top" Width="55"/>
+                                <local:NumberTextBox x:Name="TxtBx_Sell" HorizontalAlignment="Left" Height="23" Margin="600,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" Tag="Sell" FontWeight="Bold" TabIndex="6" VerticalContentAlignment="Center" />
+                                <Label Content="Markup" HorizontalAlignment="Left" Margin="535,6,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.455,-0.346"/>
+                                <local:NumberTextBox x:Name="TxtBx_Markup" HorizontalAlignment="Left" Height="23" Margin="535,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" TabIndex="5" VerticalContentAlignment="Center"/>
+                                <ComboBox x:Name="ComboBx_Department" HorizontalAlignment="Left" Margin="321,32,0,0" VerticalAlignment="Top" Width="136" IsReadOnly="True" Tag="Department" FontWeight="Bold" TabIndex="3"/>
+
+                            </Grid>
+                        </Border>
+                        <TabControl HorizontalAlignment="Left" Height="373" Margin="291,80,0,0" VerticalAlignment="Top" Width="675" BorderThickness="0" BorderBrush="#FFBCB9B2" Background="#FFE5E5E5" >
+                            <TabItem Header="General">
+                                <Grid x:Name="Grid_General" Background="#FFBCB9B2">
+                                    <Border Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0"  HorizontalAlignment="Left" Height="106" Margin="220,10,0,0" VerticalAlignment="Top" Width="219">
+                                        <Grid x:Name="Grid3">
+                                            <CheckBox x:Name="ChkBx_CountInventory" Content="Inventory Count" HorizontalAlignment="Left" Margin="10,8,0,0" Width="148" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Top" IsChecked="{Binding SelectedItem.Count, ElementName=Inventory_ListView}" FontSize="14" Tag="Zero" TabIndex="15"/>
+                                            <Label Content="Quantity On Hand" HorizontalAlignment="Left" Margin="6,37,0,0" VerticalAlignment="Top" Width="120"/>
+                                            <Label Content="Reorder Warning Qty" HorizontalAlignment="Left" Margin="6,68,0,0" VerticalAlignment="Top" Width="125"/>
+                                            <local:NumberTextBox x:Name="TxtBx_Quantity" HorizontalAlignment="Left" Height="23" Margin="131,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" Tag="Quantity" TabIndex="16" VerticalContentAlignment="Center" />
+                                            <local:NumberTextBox x:Name="TxtBx_WarningQty" HorizontalAlignment="Left" Height="23" Margin="131,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" Tag="WarningQty" TabIndex="17" VerticalContentAlignment="Center" />
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0"  HorizontalAlignment="Left" Height="216" Margin="220,121,0,0" VerticalAlignment="Top" Width="219">
+                                        <Grid x:Name="Grid4">
+                                            <CheckBox x:Name="ChkBx_PackMaster" Content="PackMaster Item" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="174" Height="34" FontSize="14" VerticalContentAlignment="Center" Tag="PackagingMaterials" TabIndex="18"/>
+                                            <ComboBox x:Name="ComboBx_PackMasterClass" SelectedValuePath="Content" HorizontalAlignment="Left" Margin="53,49,0,0" VerticalAlignment="Top" Width="154" Tag="MaterialsClass" TabIndex="19">
+
+                                                <ComboBoxItem Content="Boxes"/>
+                                                <ComboBoxItem Content="Wrap"/>
+                                                <ComboBoxItem Content="Filler"/>
+                                                <ComboBoxItem Content="Labor"/>
+                                            </ComboBox>
+                                            <Label x:Name="Lbl_Class" Content="Class" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Width="43"/>
+                                            <CheckBox x:Name="ChkBx_PackMaster_DefaultClass" Content="Default in Class" HorizontalAlignment="Left" Margin="94,184,0,0" VerticalAlignment="Top" Width="113" Height="19" Tag="DefaultInClass" TabIndex="24"/>
+                                            <TextBox x:Name="TxtBx_PackMaster_Length" HorizontalAlignment="Left" Height="23" Margin="35,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" Text="0" FontSize="16" Tag="L" TabIndex="20"/>
+                                            <TextBox x:Name="TxtBx_PackMaster_Width" HorizontalAlignment="Left" Height="23" Margin="35,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" FontSize="16" Tag="W" Text="0" TabIndex="21"/>
+                                            <TextBox x:Name="TxtBx_PackMaster_Height" HorizontalAlignment="Left" Height="23" Margin="36,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="34" FontSize="16" Text="0" Tag="H" TabIndex="22"/>
+                                            <Label x:Name="Lbl_Length" Content="L" HorizontalAlignment="Left" Margin="9,119,0,0" VerticalAlignment="Top" Width="26" FontWeight="Bold" FontSize="16" Height="28"/>
+                                            <Label x:Name="Lbl_Width" Content="W" HorizontalAlignment="Left" Margin="9,147,0,0" VerticalAlignment="Top" Width="26" FontWeight="Bold" FontSize="16" Height="28"/>
+                                            <Label x:Name="Lbl_Height" Content="H" HorizontalAlignment="Left" Margin="10,174,0,0" VerticalAlignment="Top" Width="26" FontWeight="Bold" FontSize="16" Height="28"/>
+                                            <Label x:Name="Lbl_Weight" Content="Weight per&#xD;&#xA;Unit" Margin="94,118,55,0" VerticalAlignment="Top" Height="41"/>
+                                            <TextBox x:Name="TxtBx_PackMaster_Weight" Height="23" Margin="164,123,5,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Text="0.495" Tag="Weight" TabIndex="23"/>
+                                            <TextBlock x:Name="Lbl_PackMaster_Desc" HorizontalAlignment="Left" Margin="10,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Height="33" Foreground="#FFA40808"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0" HorizontalAlignment="Left" Margin="10,10,0,10" Width="205">
+                                        <Grid x:Name="Grid2" Margin="0,0,0,0">
+                                            <CheckBox x:Name="ChkBx_Active" Content="Active" Margin="10,0,63,303" Height="14" VerticalAlignment="Bottom" Tag="Active" TabIndex="7"/>
+                                            <CheckBox x:Name="ChkBx_NoDiscounting" Content="No Discounting" Margin="10,0,86,282" Height="14" VerticalAlignment="Bottom" Tag="NoDiscounting" TabIndex="8"/>
+                                            <CheckBox x:Name="ChkBx_NoFranchising" Content="No Franchising" Margin="10,0,50,259" Height="18" VerticalAlignment="Bottom" Tag="NoFranchising" TabIndex="9"/>
+                                            <CheckBox x:Name="ChkBx_NotIncome" Content="Do Not Include in Net Income" Margin="10,0,10,237" Height="17" VerticalAlignment="Bottom" Tag="Hash" TabIndex="10"/>
+                                            <TextBox x:Name="TxtBx_Barcode" HorizontalAlignment="Left" Height="23" Margin="10,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Tag="BarCode" TabIndex="11" VerticalContentAlignment="Center"/>
+                                            <Label Content="UPC/Barcode" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="92"/>
+                                            <TextBox x:Name="TxtBx_LinkedSKU" HorizontalAlignment="Left" Height="23" Margin="10,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Tag="LinkedSKU" TabIndex="12" VerticalContentAlignment="Center"/>
+                                            <Label Content="Linked SKU" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top" Width="121"/>
+                                            <local:NumberTextBox x:Name="TxtBx_MSRP" HorizontalAlignment="Left" Height="23" Margin="10,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" Tag="MSRP" TabIndex="13" VerticalContentAlignment="Center"/>
+                                            <Label Content="MSRP" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="121"/>
+                                            <TextBox x:Name="TxtBx_Notes_Internal" HorizontalAlignment="Left" Height="67" Margin="10,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="14" Tag="InternalNotes"/>
+                                            <Label Content="Internal Notes" HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top" Width="121"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border  Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0"  HorizontalAlignment="Left" Height="327" Margin="444,10,0,0" VerticalAlignment="Top" Width="227">
+                                        <Grid x:Name="Grid5">
+                                            <Label Content="POS Note" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" Width="64"/>
+                                            <TextBox x:Name="TxtBx_Notes_POS" HorizontalAlignment="Left" Height="115" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Tag="Includes" TabIndex="25"/>
+                                            <Label Content="POS Popup Message" HorizontalAlignment="Left" Margin="0,173,0,0" VerticalAlignment="Top" Width="132"/>
+                                            <TextBox x:Name="TxtBx_PopUpMessage" HorizontalAlignment="Left" Margin="10,198,0,10" TextWrapping="Wrap" Width="205" Tag="PopUpMessage" TabIndex="27" Height="115"/>
+                                            <TextBlock Text="(Prints on POS receipt)" HorizontalAlignment="Left" Margin="104,11,0,0" VerticalAlignment="Top" Width="111" FontSize="11" FontStyle="Italic"/>
+                                            <TextBlock Text="(Displays in POS)" HorizontalAlignment="Left" Margin="137,179,-5,0" VerticalAlignment="Top" Width="95" FontSize="11" FontStyle="Italic"/>
+
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Level Pricing">
+                                <Grid x:Name="Grid6" Background="#FFE5E5E5" Margin="23,23,20,25">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.6*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Quantity" Margin="12,4,7,0" Grid.Row="1" Width="98" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                                    <Label Content="Level 0 (Cost)" Margin="10,4,5,5" Grid.Row="2" Width="98" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                                    <Label Content="Level 1" Margin="10,4,5,5" Grid.Row="3" Width="98" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                                    <Label Content="Level 2" Margin="10,4,5,5" Grid.Row="4" Width="98" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                                    <Label Content="Level 3" Margin="10,4,5,5" Grid.Row="5" Width="98" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                                    <Label Content="Level 4" Margin="10,4,5,5" Grid.Row="6" Width="98" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                                    <Label Content="Level 5" Margin="10,4,5,5" Grid.Row="7" Width="98" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+
+                                    <TextBox x:Name="QL1" Grid.Column="1" Margin="3,10,3,6" Grid.Row="1" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" Foreground="#FFA61111" Tag="QL1" TabIndex="29"/>
+                                    <TextBox x:Name="Level_0A" Tag="Level0A" Grid.Column="1" Margin="3,10,3,6" Grid.Row="2" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" TabIndex="36" />
+                                    <TextBox x:Name="Level_1A" Tag="Level1A" Grid.Column="1" Margin="3,10,3,6" Grid.Row="3" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_2A" Tag="Level2A" Grid.Column="1" Margin="3,10,3,6" Grid.Row="4" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_3A" Tag="Level3A" Grid.Column="1" Margin="3,10,3,6" Grid.Row="5" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_4A" Tag="Level4A" Grid.Column="1" Margin="3,10,3,6" Grid.Row="6" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_5A" Tag="Level5A" Grid.Column="1" Margin="3,10,3,6" Grid.Row="7" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+
+                                    <TextBox x:Name="QL2" Grid.Column="2" Margin="3,10,3,6" Grid.Row="1" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" Foreground="#FFA61111" Tag="QL2" TabIndex="30"/>
+                                    <TextBox x:Name="Level_0B" Tag="Level0B" Grid.Column="2" Margin="3,10,3,6" Grid.Row="2" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_1B" Tag="Level1B" Grid.Column="2" Margin="3,10,3,6" Grid.Row="3" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_2B" Tag="Level2B" Grid.Column="2" Margin="3,10,3,6" Grid.Row="4" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_3B" Tag="Level3B" Grid.Column="2" Margin="3,10,3,6" Grid.Row="5" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_4B" Tag="Level4B" Grid.Column="2" Margin="3,10,3,6" Grid.Row="6" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_5B" Tag="Level5B" Grid.Column="2" Margin="3,10,3,6" Grid.Row="7" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+
+                                    <TextBox x:Name="QL3" Grid.Column="3" Margin="3,10,3,6" Grid.Row="1" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" Foreground="#FFA61111" Tag="QL3" TabIndex="31"/>
+                                    <TextBox x:Name="Level_0C" Tag="Level0C" Grid.Column="3" Margin="3,10,3,6" Grid.Row="2" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_1C" Tag="Level1C" Grid.Column="3" Margin="3,10,3,6" Grid.Row="3" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_2C" Tag="Level2C" Grid.Column="3" Margin="3,10,3,6" Grid.Row="4" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_3C" Tag="Level3C" Grid.Column="3" Margin="3,10,3,6" Grid.Row="5" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_4C" Tag="Level4C" Grid.Column="3" Margin="3,10,3,6" Grid.Row="6" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_5C" Tag="Level5C" Grid.Column="3" Margin="3,10,3,6" Grid.Row="7" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+
+                                    <TextBox x:Name="QL4" Grid.Column="4" Margin="3,10,3,6" Grid.Row="1" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" Foreground="#FFA61111" Tag="QL4" TabIndex="32"/>
+                                    <TextBox x:Name="Level_0D" Tag="Level0D" Grid.Column="4" Margin="3,10,3,6" Grid.Row="2" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_1D" Tag="Level1D" Grid.Column="4" Margin="3,10,3,6" Grid.Row="3" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_2D" Tag="Level2D" Grid.Column="4" Margin="3,10,3,6" Grid.Row="4" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_3D" Tag="Level3D" Grid.Column="4" Margin="3,10,3,6" Grid.Row="5" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_4D" Tag="Level4D" Grid.Column="4" Margin="3,10,3,6" Grid.Row="6" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_5D" Tag="Level5D" Grid.Column="4" Margin="3,10,3,6" Grid.Row="7" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+
+                                    <TextBox x:Name="QL5" Grid.Column="5" Margin="3,10,3,6" Grid.Row="1" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" Foreground="#FFA61111" Tag="QL5" TabIndex="33"/>
+                                    <TextBox x:Name="Level_0E" Tag="Level0E" Grid.Column="5" Margin="3,10,3,6" Grid.Row="2" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_1E" Tag="Level1E" Grid.Column="5" Margin="3,10,3,6" Grid.Row="3" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_2E" Tag="Level2E" Grid.Column="5" Margin="3,10,3,6" Grid.Row="4" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_3E" Tag="Level3E" Grid.Column="5" Margin="3,10,3,6" Grid.Row="5" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_4E" Tag="Level4E" Grid.Column="5" Margin="3,10,3,6" Grid.Row="6" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_5E" Tag="Level5E" Grid.Column="5" Margin="3,10,3,6" Grid.Row="7" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+
+                                    <TextBox x:Name="QL6" Grid.Column="6" Margin="3,10,3,6" Grid.Row="1" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" Foreground="#FFA61111" Tag="QL6" TabIndex="34"/>
+                                    <TextBox x:Name="Level_0F" Tag="Level0F" Grid.Column="6" Margin="3,10,3,6" Grid.Row="2" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_1F" Tag="Level1F" Grid.Column="6" Margin="3,10,3,6" Grid.Row="3" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_2F" Tag="Level2F" Grid.Column="6" Margin="3,10,3,6" Grid.Row="4" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_3F" Tag="Level3F" Grid.Column="6" Margin="3,10,3,6" Grid.Row="5" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_4F" Tag="Level4F" Grid.Column="6" Margin="3,10,3,6" Grid.Row="6" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_5F" Tag="Level5F" Grid.Column="6" Margin="3,10,3,6" Grid.Row="7" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+
+                                    <TextBox x:Name="QL7" Grid.Column="7" Margin="3,10,3,6" Grid.Row="1" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0" Foreground="#FFA61111" Tag="QL7" TabIndex="35"/>
+                                    <TextBox x:Name="Level_0G" Tag="Level0G" Grid.Column="7" Margin="3,10,3,6" Grid.Row="2" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_1G" Tag="Level1G" Grid.Column="7" Margin="3,10,3,6" Grid.Row="3" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_2G" Tag="Level2G" Grid.Column="7" Margin="3,10,3,6" Grid.Row="4" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_3G" Tag="Level3G" Grid.Column="7" Margin="3,10,3,6" Grid.Row="5" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_4G" Tag="Level4G" Grid.Column="7" Margin="3,10,3,6" Grid.Row="6" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <TextBox x:Name="Level_5G" Tag="Level5G" Grid.Column="7" Margin="3,10,3,6" Grid.Row="7" TextWrapping="Wrap" Text="$ 0.00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Padding="2,0"/>
+                                    <Label Content="Chose Default Selling Level:" HorizontalAlignment="Left" Margin="47,0,0,0" VerticalAlignment="Top" Width="169" Grid.ColumnSpan="3"/>
+                                    <ComboBox x:Name="ComboBx_SellingLevel" HorizontalAlignment="Left" Margin="31,4,0,0" VerticalAlignment="Top" Width="154" Tag="SellingLevel" Grid.ColumnSpan="3" Grid.Column="2" TabIndex="28">
+                                        <ComboBoxItem Content="none" />
+                                        <ComboBoxItem Content="Level 0" />
+                                        <ComboBoxItem Content="Level 1" />
+                                        <ComboBoxItem Content="Level 2" />
+                                        <ComboBoxItem Content="Level 3" />
+                                        <ComboBoxItem Content="Level 4" />
+                                        <ComboBoxItem Content="Level 5" />
+                                    </ComboBox>
+                                    <Label Content="Step 1:" HorizontalAlignment="Left" Margin="-13,0,0,0" VerticalAlignment="Top" Width="60"/>
+                                    <Label Content="Step 2:        Fill in Quantities and Pricing Below:" HorizontalAlignment="Right" Margin="-13,41,24,0" VerticalAlignment="Top" Width="325" Grid.ColumnSpan="4" Height="30" Grid.RowSpan="2"/>
+
+                                </Grid>
+
+                            </TabItem>
+                            <TabItem Header="Tax">
+                                <Grid x:Name="TaxGrid" Background="#FFE5E5E5" Margin="0">
+                                    <Label Content="Tax Override" Margin="10,10,543,307" FontWeight="Bold" FontSize="14"/>
+                                    <Label Content="Taxable status of all SKUs is determined by the assigned POS Department. To change taxable status of the entire &#xA;POS Department please click on the POS Setup button below and select &quot;POS Inventory Departments&quot;!&#xA;" Margin="10,40,10,263"  FontSize="12"/>
+                                    <CheckBox x:Name="NonTaxable_ChckBx" Tag="Non_Taxable" Content="Set Item Non-Taxable" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Width="164" Height="20" VerticalContentAlignment="Center" FontSize="14" />
+                                    <Button x:Name="POSSetup_Btn" Content="POS Setup" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="202" Height="27"/>
+                                    <Label Content="Tax 1" HorizontalAlignment="Left" Margin="10,233,0,0" VerticalAlignment="Top" Width="61" FontSize="14"/>
+                                    <local:NumberTextBox x:Name="Tax1_TxtBx" HorizontalAlignment="Left" Height="24" Margin="10,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" FontSize="14" VerticalContentAlignment="Center" Tag="OTax1"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,141,0,0" Stroke="Black" VerticalAlignment="Top" Width="651"/>
+                                    <Label Content="Use this Tax Override option to override the default taxable status for this particular SKU. " Margin="10,156,10,167"  FontSize="12"/>
+                                    <Label Content="Tax 2" HorizontalAlignment="Left" Margin="113,233,0,0" VerticalAlignment="Top" Width="61" FontSize="14"/>
+                                    <local:NumberTextBox x:Name="Tax2_TxtBx" HorizontalAlignment="Left" Height="24" Margin="113,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" FontSize="14" VerticalContentAlignment="Center" Tag="OTax2"/>
+                                    <Label Content="Tax 3" HorizontalAlignment="Left" Margin="212,233,0,0" VerticalAlignment="Top" Width="61" FontSize="14"/>
+                                    <local:NumberTextBox x:Name="Tax3_TxtBx" HorizontalAlignment="Left" Height="24" Margin="212,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" FontSize="14" VerticalContentAlignment="Center" Tag="OTax3"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="76,262,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Height="21" Width="20" FontSize="14"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="179,262,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Height="21" Width="20" FontSize="14"/>
+                                    <TextBlock HorizontalAlignment="Left" Margin="278,262,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Height="21" Width="20" FontSize="14"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Vendor">
+                                <Grid x:Name="VendorGrid" Background="#FFE5E5E5" Margin="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="281*"/>
+                                        <ColumnDefinition Width="390*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Vendor" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="139"/>
+                                    <ComboBox x:Name="Vendor_CmbBx" ItemsSource="{Binding Path=VendorList}" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="246"/>
+                                    <Label Content="Vendor Part Number" HorizontalAlignment="Left" Margin="42.931,10,0,0" VerticalAlignment="Top" Width="139" Grid.Column="1"/>
+                                    <TextBox x:Name="PartNo_TxtBx" HorizontalAlignment="Left" Height="23" Margin="52.931,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Tag="VendorPartNumber" Grid.Column="1"/>
+                                    <Label Content="Model Number" HorizontalAlignment="Left" Margin="42.931,65,0,0" VerticalAlignment="Top" Width="139" Grid.Column="1"/>
+                                    <TextBox x:Name="ModelNo_TxtBx" HorizontalAlignment="Left" Height="23" Margin="52.931,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Tag="ModelNumber" Grid.Column="1"/>
+                                    <Label Content="Brand Name" HorizontalAlignment="Left" Margin="42.931,126,0,0" VerticalAlignment="Top" Width="139" Grid.Column="1"/>
+                                    <TextBox x:Name="Brand_TxtBx" HorizontalAlignment="Left" Height="23" Margin="52.931,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Tag="BrandName" Grid.Column="1"/>
+                                    <TextBox x:Name="VendorDetail_TxtBx" HorizontalAlignment="Left" Height="94" Margin="10,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" IsReadOnly="True"/>
+                                    <Button x:Name="Vendor_Clear_Btn" Content="Clear" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="75"/>
+
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

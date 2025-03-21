@@ -1,0 +1,962 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:ns="http://fedex.com/ws/scanposting/v3" xmlns:s1="http://schemas.xmlsoap.org/wsdl/soap/" name="ScanPostingServiceDefinitions" targetNamespace="http://fedex.com/ws/scanposting/v3" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://fedex.com/ws/scanposting/v3" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="PublishDeliveryEventReply" type="ns:PublishDeliveryEventReply" />
+      <xs:element name="PublishDeliveryEventRequest" type="ns:PublishDeliveryEventRequest" />
+      <xs:element name="PublishInventoryEventReply" type="ns:PublishInventoryEventReply" />
+      <xs:element name="PublishInventoryEventRequest" type="ns:PublishInventoryEventRequest" />
+      <xs:element name="PublishTenderedPackageEventReply" type="ns:PublishTenderedPackageEventReply" />
+      <xs:element name="PublishTenderedPackageEventRequest" type="ns:PublishTenderedPackageEventRequest" />
+      <xs:element name="PublishTransferAcceptanceEventReply" type="ns:PublishTransferAcceptanceEventReply" />
+      <xs:element name="PublishTransferAcceptanceEventRequest" type="ns:PublishTransferAcceptanceEventRequest" />
+      <xs:element name="PublishTransferEventReply" type="ns:PublishTransferEventReply" />
+      <xs:element name="PublishTransferEventRequest" type="ns:PublishTransferEventRequest" />
+      <xs:complexType name="Barcode">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Symbology" type="ns:BarcodeSymbologyType" />
+          <xs:element minOccurs="0" name="Format" type="ns:BarcodeFormatType" />
+          <xs:element minOccurs="0" name="BinaryBarcode" type="ns:BinaryBarcode" />
+          <xs:element minOccurs="0" name="StringBarcode" type="ns:StringBarcode" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="BarcodeEntryType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MANUAL_ENTRY" />
+          <xs:enumeration value="SCAN" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="BarcodeFormatType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="BINARY" />
+          <xs:enumeration value="STRING" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="BarcodeHandlingType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ACCESSIBLE_DANGEROUS_GOODS" />
+          <xs:enumeration value="ADULT_SIGNATURE_REQUIRED" />
+          <xs:enumeration value="ALCOHOL" />
+          <xs:enumeration value="APPOINTMENT_DELIVERY" />
+          <xs:enumeration value="BATTERY" />
+          <xs:enumeration value="BROKER_SELECT_OPTION" />
+          <xs:enumeration value="COD" />
+          <xs:enumeration value="CUSTOMS_CLEARED" />
+          <xs:enumeration value="DATE_CERTAIN_DELIVERY" />
+          <xs:enumeration value="DELIVERY_ON_INVOICE_ACCEPTANCE" />
+          <xs:enumeration value="DIRECT_SIGNATURE_REQUIRED" />
+          <xs:enumeration value="DRY_ICE" />
+          <xs:enumeration value="EAST_COAST_SPECIAL" />
+          <xs:enumeration value="ELECTRONIC_DOCUMENTS_WITH_ORIGINALS" />
+          <xs:enumeration value="ELECTRONIC_TRADE_DOCUMENTS" />
+          <xs:enumeration value="EMAIL_LABEL" />
+          <xs:enumeration value="EVENING_DELIVERY" />
+          <xs:enumeration value="FEDEX_TAG" />
+          <xs:enumeration value="FREIGHT_TO_COLLECT" />
+          <xs:enumeration value="FULLY_REGULATED_DANGEROUS_GOODS" />
+          <xs:enumeration value="HAZARDOUS_MATERIALS" />
+          <xs:enumeration value="HOLD_AT_LOCATION" />
+          <xs:enumeration value="INACCESSIBLE_DANGEROUS_GOODS" />
+          <xs:enumeration value="INDIRECT_SIGNATURE_REQUIRED" />
+          <xs:enumeration value="INTERNATIONAL_CONTROLLED_EXPORT_SERVICE" />
+          <xs:enumeration value="INTERNATIONAL_TRAFFIC_IN_ARMS_REGULATIONS" />
+          <xs:enumeration value="LIMITED_QUANTITIES_DANGEROUS_GOODS" />
+          <xs:enumeration value="NON_STANDARD_CONTAINER" />
+          <xs:enumeration value="NO_SIGNATURE_REQUIRED" />
+          <xs:enumeration value="ORM_D" />
+          <xs:enumeration value="OTHER_HANDLING" />
+          <xs:enumeration value="PHARMACY_DELIVERY" />
+          <xs:enumeration value="PIECE_COUNT_VERIFICATION" />
+          <xs:enumeration value="PRINT_RETURN_LABEL" />
+          <xs:enumeration value="PRIORITY_ALERT" />
+          <xs:enumeration value="PRIORITY_ALERT_PLUS" />
+          <xs:enumeration value="RETURNS_CLEARANCE" />
+          <xs:enumeration value="RETURNS_CLEARANCE_SPECIAL_ROUTING_REQUIRED" />
+          <xs:enumeration value="SATURDAY_DELIVERY" />
+          <xs:enumeration value="SMALL_QUANTITY_EXCEPTION" />
+          <xs:enumeration value="THIRD_PARTY_CONSIGNEE" />
+          <xs:enumeration value="VOICE_CALL_TAG" />
+          <xs:enumeration value="WEEKDAY_DELIVERY" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="BarcodeSymbologyType">
+        <xs:annotation>
+          <xs:documentation>Identification of the type of barcode (symbology) used on FedEx documents and labels.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CODABAR" />
+          <xs:enumeration value="CODE128" />
+          <xs:enumeration value="CODE128B" />
+          <xs:enumeration value="CODE128C" />
+          <xs:enumeration value="CODE128_WIDEBAR" />
+          <xs:enumeration value="CODE39" />
+          <xs:enumeration value="CODE93" />
+          <xs:enumeration value="I2OF5" />
+          <xs:enumeration value="MANUAL" />
+          <xs:enumeration value="PDF417" />
+          <xs:enumeration value="POSTNET" />
+          <xs:enumeration value="QR_CODE" />
+          <xs:enumeration value="UCC128" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="BinaryBarcode">
+        <xs:annotation>
+          <xs:documentation>Each instance of this data type represents a barcode whose content must be represented as binary data (i.e. not ASCII text).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Type" type="ns:BinaryBarcodeType">
+            <xs:annotation>
+              <xs:documentation>The kind of barcode data in this instance.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Value" type="xs:base64Binary">
+            <xs:annotation>
+              <xs:documentation>The data content of this instance.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="BinaryBarcodeType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="COMMON_2D" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="ClientDetail">
+        <xs:annotation>
+          <xs:documentation>Descriptive data for the client submitting a transaction.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="1" name="AccountNumber" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>The FedEx account number associated with this transaction.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="MeterNumber" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>This number is assigned by FedEx and identifies the unique device from which the request is originating</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="MeterInstance" type="xs:string" />
+          <xs:element minOccurs="0" name="IntegratorId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Only used in transactions which require identification of the FedEx Office integrator.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Region" type="ns:ExpressRegionCode">
+            <xs:annotation>
+              <xs:documentation>Indicates the region from which the transaction is submitted.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Localization" type="ns:Localization">
+            <xs:annotation>
+              <xs:documentation>The language to be used for human-readable Notification.localizedMessages in responses to the request containing this ClientDetail object. Different requests from the same client may contain different Localization data. (Contrast with TransactionDetail.localization, which governs data payload language/translation.)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Contact">
+        <xs:annotation>
+          <xs:documentation>The descriptive data for a point-of-contact person.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ContactId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Client provided identifier corresponding to this contact information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="PersonName" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the contact person's name.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Title" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the contact person's title.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="CompanyName" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the company this contact is associated with.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="PhoneNumber" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the phone number associated with this contact.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="PhoneExtension" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the phone extension associated with this contact.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="TollFreePhoneNumber" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies a toll free number, if any, associated with this contact.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="PagerNumber" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the pager number associated with this contact.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="FaxNumber" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the fax number associated with this contact.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="EMailAddress" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the email address associated with this contact.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DeliveredPackageEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ProofOfDeliveryDetail" type="ns:DeliveredPackageProofOfDeliveryDetail" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Packages" type="ns:DeliveredPackageEventDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="DeliveredPackageEventAttributeType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DAMAGED" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="DeliveredPackageEventDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PackageEventDetail" type="ns:PackageEventDetail" />
+          <xs:element minOccurs="0" name="Status" type="ns:PackageDeliveryEventStatusType" />
+          <xs:element minOccurs="0" name="RefusalDetail" type="ns:RefusedPackageDeliveryDetail" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Attributes" type="ns:DeliveredPackageEventAttributeType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DeliveredPackageProofOfDeliveryDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ActualRecipient" type="ns:Contact" />
+          <xs:element minOccurs="0" name="SignatureDetail" type="ns:DeliveredPackageSignatureDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DeliveredPackageSignatureDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Type" type="ns:SignatureImageType" />
+          <xs:element minOccurs="0" name="Image" type="xs:base64Binary" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Dimensions">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Length" type="xs:nonNegativeInteger" />
+          <xs:element minOccurs="0" name="Width" type="xs:nonNegativeInteger" />
+          <xs:element minOccurs="0" name="Height" type="xs:nonNegativeInteger" />
+          <xs:element minOccurs="0" name="Units" type="ns:LinearUnits" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="EventCaptureDetail">
+        <xs:annotation>
+          <xs:documentation>Contains details pertaining to the capture of shipment related events (for example, pickup events, delivery event, etc.).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="LocationId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>The location id for the location at which the event was captured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="LocationType" type="ns:FedExLocationType">
+            <xs:annotation>
+              <xs:documentation>The type of the location at which the event was captured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Agent" type="ns:EventCapturingAgent">
+            <xs:annotation>
+              <xs:documentation>The agent responsible for capturing this event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="DeviceId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>An identifier corresponding to the device that was used by the agent to capture the event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime">
+            <xs:annotation>
+              <xs:documentation>The time at which the event was captured by the agent.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="EventCapturingAgent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Type" type="ns:EventCapturingAgentType" />
+          <xs:element minOccurs="0" name="Id" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="EventCapturingAgentType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AUTHORIZED_AGENT" />
+          <xs:enumeration value="FEDEX_EMPLOYEE" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="ExpressRegionCode">
+        <xs:annotation>
+          <xs:documentation>Indicates a FedEx Express operating region.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="APAC" />
+          <xs:enumeration value="CA" />
+          <xs:enumeration value="EMEA" />
+          <xs:enumeration value="LAC" />
+          <xs:enumeration value="US" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="FedExLocationType">
+        <xs:annotation>
+          <xs:documentation>Identifies a kind of FedEx facility.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FEDEX_AUTHORIZED_SHIP_CENTER" />
+          <xs:enumeration value="FEDEX_EXPRESS_STATION" />
+          <xs:enumeration value="FEDEX_FACILITY" />
+          <xs:enumeration value="FEDEX_FREIGHT_SERVICE_CENTER" />
+          <xs:enumeration value="FEDEX_GROUND_TERMINAL" />
+          <xs:enumeration value="FEDEX_HOME_DELIVERY_STATION" />
+          <xs:enumeration value="FEDEX_OFFICE" />
+          <xs:enumeration value="FEDEX_ONSITE" />
+          <xs:enumeration value="FEDEX_SELF_SERVICE_LOCATION" />
+          <xs:enumeration value="FEDEX_SHIPSITE" />
+          <xs:enumeration value="FEDEX_SHIP_AND_GET" />
+          <xs:enumeration value="FEDEX_SMART_POST_HUB" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="InventoryEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Packages" type="ns:InventoryEventPackageDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="InventoryEventPackageDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PackageEventDetail" type="ns:PackageEventDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="LinearUnits">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CM" />
+          <xs:enumeration value="IN" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="Localization">
+        <xs:annotation>
+          <xs:documentation>Identifies the representation of human-readable text.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="1" name="LanguageCode" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Two-letter code for language (e.g. EN, FR, etc.)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="LocaleCode" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Two-letter code for the region (e.g. us, ca, etc..).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Notification">
+        <xs:annotation>
+          <xs:documentation>The descriptive data regarding the result of the submitted transaction.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Severity" type="ns:NotificationSeverityType">
+            <xs:annotation>
+              <xs:documentation>The severity of this notification. This can indicate success or failure or some other information about the request. The values that can be returned are SUCCESS - Your transaction succeeded with no other applicable information. NOTE - Additional information that may be of interest to you about your transaction. WARNING - Additional information that you need to know about your transaction that you may need to take action on. ERROR - Information about an error that occurred while processing your transaction. FAILURE - FedEx was unable to process your transaction at this time due to a system failure. Please try again later</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Source" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Indicates the source of this notification. Combined with the Code it uniquely identifies this notification</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Code" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>A code that represents this notification. Combined with the Source it uniquely identifies this notification.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Message" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Human-readable text that explains this notification.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="LocalizedMessage" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>The translated message. The language and locale specified in the ClientDetail. Localization are used to determine the representation. Currently only supported in a TrackReply.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MessageParameters" type="ns:NotificationParameter">
+            <xs:annotation>
+              <xs:documentation>A collection of name/value pairs that provide specific data to help the client determine the nature of an error (or warning, etc.) without having to parse the message string.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="NotificationParameter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Id" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies the type of data contained in Value (e.g. SERVICE_TYPE, PACKAGE_SEQUENCE, etc..).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Value" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>The value of the parameter (e.g. PRIORITY_OVERNIGHT, 2, etc..).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="NotificationSeverityType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ERROR" />
+          <xs:enumeration value="FAILURE" />
+          <xs:enumeration value="NOTE" />
+          <xs:enumeration value="SUCCESS" />
+          <xs:enumeration value="WARNING" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="OperatingCompanyType">
+        <xs:annotation>
+          <xs:documentation>Identification for a FedEx operating company (transportation and non-transportation).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FEDEX_CARGO" />
+          <xs:enumeration value="FEDEX_CORPORATE_SERVICES" />
+          <xs:enumeration value="FEDEX_CORPORATION" />
+          <xs:enumeration value="FEDEX_CUSTOMER_INFORMATION_SYSTEMS" />
+          <xs:enumeration value="FEDEX_CUSTOM_CRITICAL" />
+          <xs:enumeration value="FEDEX_EXPRESS" />
+          <xs:enumeration value="FEDEX_FREIGHT" />
+          <xs:enumeration value="FEDEX_GROUND" />
+          <xs:enumeration value="FEDEX_KINKOS" />
+          <xs:enumeration value="FEDEX_OFFICE" />
+          <xs:enumeration value="FEDEX_SERVICES" />
+          <xs:enumeration value="FEDEX_TRADE_NETWORKS" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="OperationalEventType">
+        <xs:annotation>
+          <xs:documentation>Events that can occur during the operational movement of a package.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="REDIRECT_TO_HOLD_AT_LOCATION" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="PackageDeliveryEventStatusType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DELIVERED" />
+          <xs:enumeration value="REFUSED" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="PackageEventBarcodeData">
+        <xs:annotation>
+          <xs:documentation>A set of fields that correspond to the data payload encoded in a FedEx linear barcode, which may be needed to support event publishing.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OperatingCompany" type="ns:OperatingCompanyType">
+            <xs:annotation>
+              <xs:documentation>The operating company corresponding to the package barcode for this event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="TrackingNumber" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>The tracking number corresponding to the package barcode for this event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PackageEventDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Barcodes" type="ns:Barcode" />
+          <xs:element minOccurs="0" name="BarcodeEntryType" type="ns:BarcodeEntryType">
+            <xs:annotation>
+              <xs:documentation>A type describing the method in which the linear barcode string was captured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="BarcodeData" type="ns:PackageEventBarcodeData">
+            <xs:annotation>
+              <xs:documentation>Provides an alternate mechanism for supplying required barcode data values. This field should only be used in the event that the values cannot be parsed from the barcode directly.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PackageEventResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="TrackingNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="OperatingCompany" type="ns:OperatingCompanyType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="BarcodeHandlings" type="ns:BarcodeHandlingType">
+            <xs:annotation>
+              <xs:documentation>The barcode handling types contained in the supplied barcodes.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationalEvents" type="ns:OperationalEventType">
+            <xs:annotation>
+              <xs:documentation>Events that have occurred during the movement of this package.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Weight" type="ns:Weight">
+            <xs:annotation>
+              <xs:documentation>The package's weight.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Dimensions" type="ns:Dimensions">
+            <xs:annotation>
+              <xs:documentation>The package's dimensions.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="PublishDeliveryEventProcessingOptionType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="POST_SIGNATURE_ONLY" />
+          <xs:enumeration value="VALIDATE_ONLY" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="PublishDeliveryEventProcessingOptionsRequested">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Options" type="ns:PublishDeliveryEventProcessingOptionType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishDeliveryEventReply">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="HighestSeverity" type="ns:NotificationSeverityType" />
+          <xs:element minOccurs="1" maxOccurs="unbounded" name="Notifications" type="ns:Notification" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Results" type="ns:PackageEventResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishDeliveryEventRequest">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="WebAuthenticationDetail" type="ns:WebAuthenticationDetail">
+            <xs:annotation>
+              <xs:documentation>Descriptive data to be used in authentication of the sender's identity (and right to use FedEx web services).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="ClientDetail" type="ns:ClientDetail" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" name="ProcessingOptions" type="ns:PublishDeliveryEventProcessingOptionsRequested" />
+          <xs:element minOccurs="0" name="EventCaptureDetail" type="ns:EventCaptureDetail" />
+          <xs:element minOccurs="0" name="Event" type="ns:DeliveredPackageEvent" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishInventoryEventReply">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="HighestSeverity" type="ns:NotificationSeverityType" />
+          <xs:element minOccurs="1" maxOccurs="unbounded" name="Notifications" type="ns:Notification" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Results" type="ns:PackageEventResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishInventoryEventRequest">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="WebAuthenticationDetail" type="ns:WebAuthenticationDetail">
+            <xs:annotation>
+              <xs:documentation>Descriptive data to be used in authentication of the sender's identity (and right to use FedEx web services).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="ClientDetail" type="ns:ClientDetail" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" name="EventCaptureDetail" type="ns:EventCaptureDetail" />
+          <xs:element minOccurs="0" name="Event" type="ns:InventoryEvent" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="PublishTenderedPackageEventProcessingOptionType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="VALIDATE_ONLY" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="PublishTenderedPackageEventProcessingOptionsRequested">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Options" type="ns:PublishTenderedPackageEventProcessingOptionType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishTenderedPackageEventReply">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="HighestSeverity" type="ns:NotificationSeverityType" />
+          <xs:element minOccurs="1" maxOccurs="unbounded" name="Notifications" type="ns:Notification" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Results" type="ns:PackageEventResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishTenderedPackageEventRequest">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="WebAuthenticationDetail" type="ns:WebAuthenticationDetail">
+            <xs:annotation>
+              <xs:documentation>Descriptive data to be used in authentication of the sender's identity (and right to use FedEx web services).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="ClientDetail" type="ns:ClientDetail" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" name="ProcessingOptions" type="ns:PublishTenderedPackageEventProcessingOptionsRequested" />
+          <xs:element minOccurs="0" name="EventCaptureDetail" type="ns:EventCaptureDetail" />
+          <xs:element minOccurs="0" name="Event" type="ns:TenderedPackageEvent" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="PublishTransferAcceptanceEventProcessingOptionType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="VALIDATE_ONLY" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="PublishTransferAcceptanceEventProcessingOptionsRequested">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Options" type="ns:PublishTransferAcceptanceEventProcessingOptionType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishTransferAcceptanceEventReply">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="HighestSeverity" type="ns:NotificationSeverityType" />
+          <xs:element minOccurs="1" maxOccurs="unbounded" name="Notifications" type="ns:Notification" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Results" type="ns:PackageEventResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishTransferAcceptanceEventRequest">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="WebAuthenticationDetail" type="ns:WebAuthenticationDetail">
+            <xs:annotation>
+              <xs:documentation>Descriptive data to be used in authentication of the sender's identity (and right to use FedEx web services).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="ClientDetail" type="ns:ClientDetail" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" name="ProcessingOptions" type="ns:PublishTransferAcceptanceEventProcessingOptionsRequested" />
+          <xs:element minOccurs="0" name="EventCaptureDetail" type="ns:EventCaptureDetail" />
+          <xs:element minOccurs="0" name="Event" type="ns:TransferAcceptanceEvent" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="PublishTransferEventProcessingOptionType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="VALIDATE_ONLY" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="PublishTransferEventProcessingOptionsRequested">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Options" type="ns:PublishTransferEventProcessingOptionType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishTransferEventReply">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="HighestSeverity" type="ns:NotificationSeverityType" />
+          <xs:element minOccurs="1" maxOccurs="unbounded" name="Notifications" type="ns:Notification" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Results" type="ns:PackageEventResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PublishTransferEventRequest">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="WebAuthenticationDetail" type="ns:WebAuthenticationDetail">
+            <xs:annotation>
+              <xs:documentation>Descriptive data to be used in authentication of the sender's identity (and right to use FedEx web services).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="ClientDetail" type="ns:ClientDetail" />
+          <xs:element minOccurs="0" name="TransactionDetail" type="ns:TransactionDetail" />
+          <xs:element minOccurs="1" name="Version" type="ns:VersionId" />
+          <xs:element minOccurs="0" name="ProcessingOptions" type="ns:PublishTransferEventProcessingOptionsRequested" />
+          <xs:element minOccurs="0" name="EventCaptureDetail" type="ns:EventCaptureDetail" />
+          <xs:element minOccurs="0" name="Event" type="ns:TransferEvent" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="RefusedPackageDeliveryDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Reason" type="ns:RefusedPackageDeliveryReasonType" />
+          <xs:element minOccurs="0" name="Description" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="RefusedPackageDeliveryReasonType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DAMAGED" />
+          <xs:enumeration value="LATE_DELIVERY" />
+          <xs:enumeration value="NOT_ORDERED" />
+          <xs:enumeration value="ORDER_CANCELLED" />
+          <xs:enumeration value="ORDER_DUPLICATED" />
+          <xs:enumeration value="ORDER_INCORRECT" />
+          <xs:enumeration value="OTHER" />
+          <xs:enumeration value="SHIPPER_REQUESTED" />
+          <xs:enumeration value="UNWANTED" />
+          <xs:enumeration value="WRONG_ITEM" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="SignatureImageType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="PNG" />
+          <xs:enumeration value="TIFF" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="StringBarcode">
+        <xs:annotation>
+          <xs:documentation>Each instance of this data type represents a barcode whose content must be represented as ASCII text (i.e. not binary data).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Type" type="ns:StringBarcodeType">
+            <xs:annotation>
+              <xs:documentation>The kind of barcode data in this instance.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Value" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>The data content of this instance.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="StringBarcodeType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ADDRESS" />
+          <xs:enumeration value="ASTRA" />
+          <xs:enumeration value="FEDEX_1D" />
+          <xs:enumeration value="GROUND" />
+          <xs:enumeration value="POSTAL" />
+          <xs:enumeration value="USPS" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="TenderedPackageEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Packages" type="ns:TenderedPackageEventPackageDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TenderedPackageEventPackageDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PackageEventDetail" type="ns:PackageEventDetail" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AdditionalHandlings" type="ns:BarcodeHandlingType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TransactionDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CustomerTransactionId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Free form text to be echoed back in the reply. Used to match requests and replies.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Localization" type="ns:Localization">
+            <xs:annotation>
+              <xs:documentation>Governs data payload language/translations (contrasted with ClientDetail.localization, which governs Notification.localizedMessage language selection).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TransferAcceptanceEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Packages" type="ns:TransferAcceptanceEventPackageDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TransferAcceptanceEventPackageDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PackageEventDetail" type="ns:PackageEventDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TransferEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AcceptingOperatingCompany" type="ns:OperatingCompanyType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Packages" type="ns:TransferEventPackageDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TransferEventPackageDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PackageEventDetail" type="ns:PackageEventDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Weight">
+        <xs:annotation>
+          <xs:documentation>The descriptive data for the heaviness of an object.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Units" type="ns:WeightUnits">
+            <xs:annotation>
+              <xs:documentation>Identifies the unit of measure associated with a weight value.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Value" type="xs:decimal">
+            <xs:annotation>
+              <xs:documentation>Identifies the weight value of a package/shipment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="WeightUnits">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="KG" />
+          <xs:enumeration value="LB" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="WebAuthenticationDetail">
+        <xs:annotation>
+          <xs:documentation>Used in authentication of the sender's identity.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ParentCredential" type="ns:WebAuthenticationCredential">
+            <xs:annotation>
+              <xs:documentation>This was renamed from cspCredential.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="UserCredential" type="ns:WebAuthenticationCredential">
+            <xs:annotation>
+              <xs:documentation>Credential used to authenticate a specific software application. This value is provided by FedEx after registration.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="WebAuthenticationCredential">
+        <xs:annotation>
+          <xs:documentation>Two part authentication string used for the sender's identity</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="1" name="Key" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifying part of authentication credential. This value is provided by FedEx after registration</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" name="Password" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Secret part of authentication key. This value is provided by FedEx after registration.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="VersionId">
+        <xs:annotation>
+          <xs:documentation>Identifies the version/level of a service operation expected by a caller (in each request) and performed by the callee (in each reply).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="1" fixed="spst" name="ServiceId" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Identifies a system or sub-system which performs an operation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" fixed="3" name="Major" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>Identifies the service business level.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" fixed="0" name="Intermediate" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>Identifies the service interface level.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="1" fixed="0" name="Minor" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>Identifies the service code level.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </types>
+  <message name="PublishTransferAcceptanceEventReply">
+    <part name="PublishTransferAcceptanceEventReply" element="ns:PublishTransferAcceptanceEventReply" />
+  </message>
+  <message name="PublishInventoryEventReply">
+    <part name="PublishInventoryEventReply" element="ns:PublishInventoryEventReply" />
+  </message>
+  <message name="PublishDeliveryEventRequest">
+    <part name="PublishDeliveryEventRequest" element="ns:PublishDeliveryEventRequest" />
+  </message>
+  <message name="PublishTransferEventReply">
+    <part name="PublishTransferEventReply" element="ns:PublishTransferEventReply" />
+  </message>
+  <message name="PublishDeliveryEventReply">
+    <part name="PublishDeliveryEventReply" element="ns:PublishDeliveryEventReply" />
+  </message>
+  <message name="PublishInventoryEventRequest">
+    <part name="PublishInventoryEventRequest" element="ns:PublishInventoryEventRequest" />
+  </message>
+  <message name="PublishTransferAcceptanceEventRequest">
+    <part name="PublishTransferAcceptanceEventRequest" element="ns:PublishTransferAcceptanceEventRequest" />
+  </message>
+  <message name="PublishTenderedPackageEventReply">
+    <part name="PublishTenderedPackageEventReply" element="ns:PublishTenderedPackageEventReply" />
+  </message>
+  <message name="PublishTransferEventRequest">
+    <part name="PublishTransferEventRequest" element="ns:PublishTransferEventRequest" />
+  </message>
+  <message name="PublishTenderedPackageEventRequest">
+    <part name="PublishTenderedPackageEventRequest" element="ns:PublishTenderedPackageEventRequest" />
+  </message>
+  <portType name="ScanPostingPortType">
+    <operation name="publishDeliveryEvent" parameterOrder="PublishDeliveryEventRequest">
+      <input message="ns:PublishDeliveryEventRequest" />
+      <output message="ns:PublishDeliveryEventReply" />
+    </operation>
+    <operation name="publishTransferAcceptanceEvent" parameterOrder="PublishTransferAcceptanceEventRequest">
+      <input message="ns:PublishTransferAcceptanceEventRequest" />
+      <output message="ns:PublishTransferAcceptanceEventReply" />
+    </operation>
+    <operation name="publishTenderedPackageEvent" parameterOrder="PublishTenderedPackageEventRequest">
+      <input message="ns:PublishTenderedPackageEventRequest" />
+      <output message="ns:PublishTenderedPackageEventReply" />
+    </operation>
+    <operation name="publishInventoryEvent" parameterOrder="PublishInventoryEventRequest">
+      <input message="ns:PublishInventoryEventRequest" />
+      <output message="ns:PublishInventoryEventReply" />
+    </operation>
+    <operation name="publishTransferEvent" parameterOrder="PublishTransferEventRequest">
+      <input message="ns:PublishTransferEventRequest" />
+      <output message="ns:PublishTransferEventReply" />
+    </operation>
+  </portType>
+  <binding name="ScanPostingServiceSoapBinding" type="ns:ScanPostingPortType">
+    <s1:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="publishDeliveryEvent">
+      <s1:operation soapAction="http://fedex.com/ws/scanposting/v3/publishDeliveryEvent" style="document" />
+      <input>
+        <s1:body use="literal" />
+      </input>
+      <output>
+        <s1:body use="literal" />
+      </output>
+    </operation>
+    <operation name="publishTransferAcceptanceEvent">
+      <s1:operation soapAction="http://fedex.com/ws/scanposting/v3/publishTransferAcceptanceEvent" style="document" />
+      <input>
+        <s1:body use="literal" />
+      </input>
+      <output>
+        <s1:body use="literal" />
+      </output>
+    </operation>
+    <operation name="publishTenderedPackageEvent">
+      <s1:operation soapAction="http://fedex.com/ws/scanposting/v3/publishTenderedPackageEvent" style="document" />
+      <input>
+        <s1:body use="literal" />
+      </input>
+      <output>
+        <s1:body use="literal" />
+      </output>
+    </operation>
+    <operation name="publishInventoryEvent">
+      <s1:operation soapAction="http://fedex.com/ws/scanposting/v3/publishInventoryEvent" style="document" />
+      <input>
+        <s1:body use="literal" />
+      </input>
+      <output>
+        <s1:body use="literal" />
+      </output>
+    </operation>
+    <operation name="publishTransferEvent">
+      <s1:operation soapAction="http://fedex.com/ws/scanposting/v3/publishTransferEvent" style="document" />
+      <input>
+        <s1:body use="literal" />
+      </input>
+      <output>
+        <s1:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ScanPostingService">
+    <port name="ScanPostingServicePort" binding="ns:ScanPostingServiceSoapBinding">
+      <s1:address location="https://wsbeta.fedex.com:443/web-services/scanposting" />
+    </port>
+  </service>
+</definitions>

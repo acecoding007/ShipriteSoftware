@@ -1,0 +1,13 @@
+﻿<Window x:Name="ReportViewer_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer" x:Class="ShipRiteReports.ReportViewer"
+        mc:Ignorable="d"
+        Title="Report Viewer">
+    <Grid>
+        <Viewer:CrystalReportsViewer x:Name="CRViewer" ToggleSidePanel="None"/>
+    </Grid>
+</Window>

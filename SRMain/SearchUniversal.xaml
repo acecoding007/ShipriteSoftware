@@ -1,0 +1,147 @@
+﻿<local:CommonWindow x:Name="Search_Window" x:Class="SearchUniversal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Background="#FF577AC0" Width="108" HorizontalAlignment="Right" Margin="0,0,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/Search.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label x:Name="WindowLabel" Content="SEARCH" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PrintButton" Grid.Column="3" ToolTip="Print" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Print_Image" Source="Resources/Printer_Light.png"/>
+                    </Button>
+
+                </Grid>
+
+
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid x:Name="SearchGrid" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70*"/>
+                            <RowDefinition Height="348*"/>
+                            <RowDefinition Height="35*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <!--0-->
+                        <Grid x:Name="LookupPanel" Grid.Row="0" Margin="5,5,5,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="233*"/>
+                                <ColumnDefinition Width="31*"/>
+                                <ColumnDefinition Width="31*"/>
+                                <ColumnDefinition Width="31*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" x:Name="SearchLabel" Content="SearchLabel" Margin="5,2,10,2"/>
+                            <TextBox Grid.Row="1" x:Name="SData" Margin="5,2,10,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+
+
+                            <TextBlock x:Name="DaysToShow_Txt" Grid.Row="0" Grid.Column="3"  Margin="0,-3,0,0"><Run Text="Show Number"/><LineBreak/><Run Text="of Days:"/></TextBlock>
+                            <TextBox x:Name="DaysToShow_TxtBx" Grid.Row="1" Grid.Column="3" Margin="2" FontSize="15" MaxLength="4" />
+
+                            <Button x:Name="AddButton" Grid.Column="1" Grid.RowSpan="2" Margin="5,5,5,5" Style="{StaticResource SearchButton}" Content="Add" Visibility="Hidden"></Button>
+                            <Button x:Name="DeleteButton" Grid.Column="2" Grid.RowSpan="2" Margin="5,5,5,5" Style="{StaticResource SearchButton}" Content="Del" Visibility="Hidden"></Button>
+                            <Button x:Name="CloneButton" Grid.Column="3" Grid.RowSpan="2" Margin="5,5,5,5" Style="{StaticResource SearchButton}" Content="Clone" Visibility="Hidden"></Button>
+                            <DatePicker x:Name="InvoiceFrom_TxtBx" Grid.Column="1" HorizontalAlignment="Left" Margin="48,3,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="27" Width="121"/>
+                            <DatePicker x:Name="InvoiceTo_TxtBx" Grid.Column="1" HorizontalAlignment="Left" Margin="48,2,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="26" Width="121" Grid.Row="1"/>
+                            <Label x:Name="InvoiceFrom_Lbl" Content="From:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="InvoiceTo_Lbl" Content="To:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+
+
+                        </Grid>
+                        <!--1-->
+                        <local:CommonListView x:Name="LV" Margin="5,5,5,5" Grid.Row="1" GridViewColumnHeader.Click="ColumnHeader_Click">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn/>
+                                </GridView>
+                            </ListView.View>
+                        </local:CommonListView>
+                        <!--2-->
+                        <Label Margin="0" Grid.Row="2" FontSize="8">
+                            <TextBlock x:Name="SQLStatement" FontSize="8" TextWrapping="WrapWithOverflow" Text="SQL Statement"/>
+                        </Label>
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+</local:CommonWindow>
+    

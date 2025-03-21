@@ -1,0 +1,430 @@
+﻿<local:CommonWindow x:Name="Reports_Window" x:Class="ReportsManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/Reports_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="REPORTS MANAGER" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="136" Margin="10,212,0,0" VerticalAlignment="Top" Width="235" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+
+                            <ListBox x:Name="Reports_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" HorizontalAlignment="Left" Margin="1,6,0,6" Width="234" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" FontWeight="Bold" BorderThickness="0" Background="White">
+                                <ListBoxItem Content="POS Reports"/>
+                                <ListBoxItem Content="AR Reports / Statements"/>
+                                <ListBoxItem Content="Mailbox Reports"/>
+                                <ListBoxItem Content="Shipping Reports"/>
+                                <ListBoxItem Content="Inventory Reports"/>
+                                <ListBoxItem Content="Other Reports"/>
+                            </ListBox>
+                        </Border>
+
+                        <TabControl x:Name="Reports_TabControl" HorizontalAlignment="Left" BorderThickness="0" Height="443" Margin="250,10,0,0" VerticalAlignment="Top" Width="716" TabStripPlacement="Left" Background="#FFBCB9B2">
+                            <TabItem Header="0">
+                                <Grid>
+
+
+                                    <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="166" VerticalAlignment="Top" Width="227" Margin="0">
+                                        <Grid>
+                                            <Button x:Name="Report_ProductionByDepartment" Content="By Department" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="204" Height="25"/>
+                                            <Button x:Name="Report_ProductionByAccount" Content="By AR Account" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="205" Height="25"/>
+                                            <Button x:Name="Report_ProductionByClerk" Content="By Sales Clerk" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="205" Height="25"/>
+                                            <Button x:Name="DepartmentalChargeback" Content="Departmental Chargeback" HorizontalAlignment="Left" Margin="11,126,0,0" VerticalAlignment="Top" Width="204" Height="25"/>
+                                            <Label Content="Production Reports" Margin="10,5,10,133" FontWeight="Bold" />
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Width="227" Margin="233,139,0,70">
+                                        <Grid>
+
+                                            <Label Content="Sales Reporting" Margin="9,10,11,191" FontWeight="Bold" />
+                                            <Button Content="Sales Inquiries" HorizontalAlignment="Left" Margin="9,42,0,0" VerticalAlignment="Top" Width="204" Height="25" Click="Report_SalesInquiry_Click"/>
+                                            <Button Content="Sales Tax Report" HorizontalAlignment="Left" Margin="9,72,0,0" VerticalAlignment="Top" Width="204" Height="25" Click="Report_SalesTax_Click"/>
+                                            <Button Content="Sales Tax Report for AR Accounts" HorizontalAlignment="Left" Margin="9,102,0,0" VerticalAlignment="Top" Width="204" Height="25" Click="Report_SalesTaxByAR_Click"/>
+                                            <Button Content="Hourly Sales Ticket" HorizontalAlignment="Left" Margin="9,132,0,0" VerticalAlignment="Top" Width="204" Height="25" Click="Report_HourlySales_Click"/>
+                                            <Button Content="Hourly Analysis for a Week" HorizontalAlignment="Left" Margin="9,162,0,0" VerticalAlignment="Top" Width="204" Height="25" Click="Report_HourlySalesForWeek_Click"/>
+                                            <Button Content="Cash Paid Out" HorizontalAlignment="Left" Margin="9,192,0,0" VerticalAlignment="Top" Width="204" Height="25"  Click="Report_Cash_PaidOut_Click" />
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="439" VerticalAlignment="Top" Width="227" Margin="465,0,0,0">
+                                        <Grid Margin="0,0,0,-1">
+                                            <Button x:Name="Reports_ZReport" Content="Consolidated Z Report - By Date" HorizontalAlignment="Left" Margin="9,36,0,0" VerticalAlignment="Top" Width="205" Height="25"/>
+                                            <Button x:Name="Reports_ZReport_ByCloseID" Content="Consolidated Z Report - By Close ID" HorizontalAlignment="Left" Margin="11,408,0,0" VerticalAlignment="Top" Width="204" Height="25"/>
+                                            <Label Content="Closing Z Reports" Margin="11,5,11,407" FontWeight="Bold" />
+                                            <Rectangle Fill="#FFF4F4F5" Stroke="Black" Margin="-1,66,0,371" RenderTransformOrigin="0.5,0.5"/>
+                                            <Label Content="By Close ID" Margin="9,67,137,344" FontWeight="Bold" />
+                                            <local:CommonListView x:Name="ZReport_CloseID_LV" HorizontalAlignment="Left" Height="282" Margin="9,104,0,0" VerticalAlignment="Top" Width="207" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Multiple">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="Close ID" Width="90" DisplayMemberBinding="{Binding Path=CloseID}"/>
+                                                        <GridViewColumn Header="Close Date" Width="90" DisplayMemberBinding="{Binding Path=CloseDate, StringFormat='d'}"/>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </local:CommonListView>
+                                            <Button x:Name="LoadCloseIDs_Btn" Content="Load Close IDs" HorizontalAlignment="Left" Margin="126,79,0,0" VerticalAlignment="Top" Width="90"/>
+                                            <Button x:Name="SelectAll_CloseID_Btn" Content="Select All" HorizontalAlignment="Left" Margin="126,386,0,0" VerticalAlignment="Top" Width="90" Height="17" FontSize="10"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="134" VerticalAlignment="Top" Width="228" Margin="231,0,0,0">
+                                        <Grid Margin="0,0,-1,-1">
+                                            <Button x:Name="Report_SalesJournal" Content="By Date / Invoice" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="207" Height="25"/>
+                                            <Label Content="Sales Journals" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+                                            <Button x:Name="Report_SalesByAccount" Content="By Customer Account" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="207" Height="25"/>
+                                            <Button x:Name="Report_SalesByClerk" Content="By Sales Clerk" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="207" Height="25"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="65" Margin="0,171,0,0" VerticalAlignment="Top" Width="226">
+                                        <Grid Margin="0">
+                                            <Button x:Name="Reports_VoidCancel" Content="Void/Cancel Report" Width="204" Height="25" Margin="1,20,10,0"/>
+                                            <Label Content="Other Reports" Margin="6,0,4,32" FontWeight="Bold" />
+                                        </Grid>
+                                    </Border>
+
+
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem Header="1">
+                                <Grid>
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="137" VerticalAlignment="Top" Width="318" Margin="374,10,0,0">
+                                        <Grid Margin="0,0,-1,-1">
+                                            <Button x:Name="AR_Aging_Btn" Content="AR Aging Summary" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Label Content="AR Reports" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+                                            <Button x:Name="AR_Alpha_Listing_Btn" Content="AR Alpha Listing" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Button x:Name="Vault_Btn" Content="Vault Report" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="429" VerticalAlignment="Top" Width="318" Margin="0,10,0,0">
+                                        <Grid Margin="0,0,-1,-1">
+                                            <Button x:Name="AR_PrintStatements_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="PRINT" HorizontalAlignment="Left" Margin="152,382,0,0" VerticalAlignment="Top" Width="145" Height="39" FontSize="18"/>
+                                            <Label Content="AR Statements" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+                                            <Button x:Name="AR_EmailStatements_Btn" Style="{StaticResource POSKeypadButton_Style}"  Content="EMAIL" HorizontalAlignment="Left" Margin="0,382,0,0" VerticalAlignment="Top" Width="145" Height="39" FontSize="18"/>
+                                            <RadioButton x:Name="AR_ForAccount_RdBtn" Content="Statement for Account:" GroupName="Accounts" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="145" Height="20" VerticalContentAlignment="Center"/>
+                                            <RadioButton x:Name="AR_AllAccounts_RdBtn" Content="All Accounts" GroupName="Accounts" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Width="145" Height="22" IsChecked="True"/>
+                                            <TextBox x:Name="AR_AcctName_TxtBx" HorizontalAlignment="Left" Height="23" Margin="101,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
+                                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="1,127,0,0" Stroke="Black" VerticalAlignment="Top" Width="316" RenderTransformOrigin="0.5,0.5">
+                                                <Rectangle.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="-1"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Rectangle.RenderTransform>
+                                            </Rectangle>
+                                            <Label Content="Date of Statement:" HorizontalAlignment="Left" Margin="11,137,0,0" VerticalAlignment="Top" Width="116"/>
+                                            <DatePicker x:Name="AR_StatementDate_DP" HorizontalAlignment="Left" Margin="152,138,0,0" VerticalAlignment="Top" Width="129"/>
+                                            <Label Content="Due Date:" HorizontalAlignment="Left" Margin="11,168,0,0" VerticalAlignment="Top" Width="116"/>
+                                            <DatePicker x:Name="AR_DueDate_DP" HorizontalAlignment="Left" Margin="152,167,0,0" VerticalAlignment="Top" Width="129"/>
+                                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="-2,263,0,0" Stroke="Black" VerticalAlignment="Top" Width="316" RenderTransformOrigin="0.5,0.5">
+                                                <Rectangle.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="-1"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Rectangle.RenderTransform>
+                                            </Rectangle>
+                                            <RadioButton x:Name="OnlyStatementsWithBalance" Content="Print Statements only for Accounts with Balance" GroupName="Statements" HorizontalAlignment="Left" Margin="9,269,0,0" VerticalAlignment="Top" Width="295" Height="20" VerticalContentAlignment="Center" IsChecked="True" />
+                                            <RadioButton x:Name="PrintBalanceOver" Content="Print Statements for Balances Over:" GroupName="Statements" HorizontalAlignment="Left" Margin="9,312,0,0" VerticalAlignment="Top" Width="213" Height="20" VerticalContentAlignment="Center"/>
+                                            <TextBox x:Name="BalancesOverAmount" HorizontalAlignment="Left" Height="23" Margin="222,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Text=".05"/>
+                                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="-1,344,0,0" Stroke="Black" VerticalAlignment="Top" Width="316" />
+                                            <Label Content="Statement Format:" HorizontalAlignment="Left" Margin="8,351,0,0" VerticalAlignment="Top" Width="116"/>
+                                            <ComboBox HorizontalAlignment="Left" Margin="129,355,0,0" VerticalAlignment="Top" Width="174" SelectedIndex="0">
+                                                <ComboBoxItem Content="All Details" />
+                                                <ComboBoxItem Content="Sale Details" />
+                                                <ComboBoxItem Content="Charge Details" />
+                                                <ComboBoxItem Content="No Details" />
+                                            </ComboBox>
+                                            <Label Content="Statement Begin Date" HorizontalAlignment="Left" Margin="11,197,0,0" VerticalAlignment="Top" Width="141" Visibility="Hidden"/>
+                                            <DatePicker x:Name="AR_StatementBeginDate_DP" HorizontalAlignment="Left" Margin="152,196,0,0" VerticalAlignment="Top" Width="129" Visibility="Hidden"/>
+                                            <Label Content="Statement End Date" HorizontalAlignment="Left" Margin="11,226,0,0" VerticalAlignment="Top" Width="136" Visibility="Hidden"/>
+                                            <DatePicker x:Name="AR_StatementEndDate_DP" HorizontalAlignment="Left" Margin="152,225,0,0" VerticalAlignment="Top" Width="129" Visibility="Hidden"/>
+                                            <TextBox x:Name="AR_AcctNo_TxtBx" HorizontalAlignment="Left" Height="23" Margin="101,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="20,76,0,0" TextWrapping="Wrap" Text="Acct Name:" VerticalAlignment="Top" Width="77" Height="18"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="20,99,0,0" TextWrapping="Wrap" Text="Acct Number:" VerticalAlignment="Top" Width="76" Height="18"/>
+                                            <Button x:Name="AR_SearchName_Btn" Margin="286,71,5,0" VerticalAlignment="Top" Height="23">
+                                                <Image Source="Resources/search.png"/>
+                                            </Button>
+                                            <Button x:Name="AR_SearchAcctNo_Btn" Margin="286,99,5,0" VerticalAlignment="Top" Height="23">
+                                                <Image Source="Resources/Search.png"/>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem Header="2">
+                                <Grid>
+                                    <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" VerticalAlignment="Top" Width="318" Margin="10,0,0,0">
+                                        <Grid Margin="0,0,-1,-1">
+                                            <Button x:Name="MBX_AlphaListing_Btn" Content="Mailbox Alpha Listing " HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Label Content="Mailbox Reports" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+                                            <Button x:Name="MBX_Listing_Btn" Content="Mailbox Listing" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Button x:Name="MBX_PostOfficeQuarterly_Btn" Content="PostMaster's Quarterly Report" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Button x:Name="MBX_CancelledBoxes_Btn" Content="Boxes Cancelled in Last 6 Month" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Button x:Name="Expired_Mailboxes" Content="Expired Mailboxes" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem Header="3">
+                                <Grid>
+                                    <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="318" Margin="10,0,0,0">
+                                        <Grid Margin="0,0,-1,-29">
+                                            <Button x:Name="SHIP_ByCarrierAdvanced_Btn" Content="By Carrier - Advanced" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Label Content="Shipping Reports" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+                                            <Button x:Name="SHIP_ByInvoice_Btn" Content="By Invoice" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Button x:Name="SHIP_ByZone_Btn" Content="By Zone" HorizontalAlignment="Left" Margin="10,232,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Button x:Name="SHIP_Insurance_Btn" Content="Insured Shipments" HorizontalAlignment="Left" Margin="10,262,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <ComboBox x:Name="SHIP_Carrier_Cmb" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="297" SelectedIndex="0">
+                                                <ComboBoxItem Content="ALL" />
+                                                <ComboBoxItem Content="FedEx" />
+                                                <ComboBoxItem Content="UPS" />
+                                                <ComboBoxItem Content="USPS" />
+                                                <ComboBoxItem Content="DHL" />
+                                            </ComboBox>
+                                            <Label Content="Select Carrier" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="181"/>
+                                            <Button x:Name="SHIP_ByCarrierOrig_Btn" Content="By Carrier" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                            <Button x:Name="SHIP_ByCarriersummary_Btn" Content="By Carrier Summary" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Width="297" Height="25"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem Header="4">
+                                <Grid>
+                                    <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="439" VerticalAlignment="Top" Width="449" Margin="233,0,0,0">
+                                        <Grid Margin="0,0,-1,-1">
+                                            <Label Content="Inventory Price Labels" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="137" VerticalAlignment="Top" Width="228" Margin="0">
+                                        <Grid Margin="0,0,-1,-24">
+                                            <Button x:Name="INVENTORY_Listing_Btn" Content="Inventory Listing" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="207" Height="25"/>
+                                            <Label Content="Inventory Reports" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+                                            <Button x:Name="INVENTORY_Valuation_Btn" Content="Inventory Valuation" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="207" Height="25"/>
+                                            <Button x:Name="INVENTORY_Out_Stock" Content="Inventory Out of Stock" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="207" Height="25"/>
+                                            <Button x:Name="INVENTORY_Label_Btn" Content="Inventory Label" HorizontalAlignment="Left" Margin="245,35,-225,0" VerticalAlignment="Top" Width="207" Height="25" Click="INVENTORY_Label_Btn_Click"/>
+                                        </Grid>
+                                    </Border>
+
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem Header="5" Height="24" VerticalAlignment="Top">
+                                <Grid>
+                                    <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="439" VerticalAlignment="Top" Width="692" Margin="0">
+                                        <Grid Margin="0,0,-1,-1">
+
+                                            <Label Content="Other Reports" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="181" FontWeight="Bold"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border>
+                                        <Grid>
+                                            <TextBox x:Name ="name_from" HorizontalAlignment="Left" Height="23" Margin="92,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+                                            <TextBox x:Name ="city_from" HorizontalAlignment="Left" Height="23" Margin="61,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+                                            <TextBox x:Name ="state_from" HorizontalAlignment="Left" Height="23" Margin="61,234,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+                                            <TextBox x:Name ="zip_from" HorizontalAlignment="Left" Height="23" Margin="61,279,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="25,117,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" RenderTransformOrigin="2.335,0.627"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="36,195,0,0" TextWrapping="Wrap" Text="City" VerticalAlignment="Top" RenderTransformOrigin="0.719,-0.174"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="29,241,0,0" TextWrapping="Wrap" Text="State" VerticalAlignment="Top" Width="27" RenderTransformOrigin="0.185,0.501"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="39,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.339,-1.737" Height="15"><Run Text="Zip"/><LineBreak/><Run/></TextBlock>
+                                            <TextBox x:Name ="name_to" HorizontalAlignment="Left" Height="24" Margin="92,152,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                                            <Button x:Name ="Print" Content="Print" HorizontalAlignment="Left" Margin="127,335,0,0" VerticalAlignment="Top" Width="75" Click="Contact_Print_Click"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="61,160,0,0" TextWrapping="Wrap" Text="To" VerticalAlignment="Top" RenderTransformOrigin="0.719,-0.174"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="60,117,0,0" TextWrapping="Wrap" Text="From" VerticalAlignment="Top" RenderTransformOrigin="0.719,-0.174"/>
+                                            <TextBlock HorizontalAlignment="Left" Margin="19,45,0,0" TextWrapping="Wrap" Text="Customer Address Listing Report" VerticalAlignment="Top"/>
+
+                                        </Grid>
+
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="6" Height="24" VerticalAlignment="Top">
+                                <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="690" Margin="0">
+                                    <Grid>
+                                        <Label Content="Email AR Statements" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="180" FontWeight="Bold"/>
+                                        <ListView x:Name="EmailStatements_LV" HorizontalAlignment="Left" Height="366" Margin="10,31,0,0" VerticalAlignment="Top" Width="668" >
+                                            <ListView.View>
+                                                <GridView>
+
+                                                    <GridViewColumn Width="35">
+                                                        <GridViewColumnHeader Content="SEND" Click="GridViewColumnHeader_Click" />
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <CheckBox x:Name="SEND_StatementEmail_ChkBx" IsChecked="{Binding SendEmail, Mode=TwoWay}"/>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Width="100">
+                                                        <GridViewColumnHeader Content="Account#" Click="GridViewColumnHeader_Click" />
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding AccountNumber}" TextAlignment="Right" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Width="160">
+                                                        <GridViewColumnHeader Content="Name" Click="GridViewColumnHeader_Click" />
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding SendAddressBlock}" FontSize="10" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn  Width="200">
+                                                        <GridViewColumnHeader Content="Email" Click="GridViewColumnHeader_Click" />
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" Width="188"/>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Width="70">
+                                                        <GridViewColumnHeader Content="Balance" Click="GridViewColumnHeader_Click" />
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding TotalBalance, StringFormat=c}" TextAlignment="Right" Width="58"/>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+                                                    <GridViewColumn Width="70">
+                                                        <GridViewColumnHeader Content="Sent" Click="GridViewColumnHeader_Click" />
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding EmailSent}">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="{x:Type TextBlock}">
+                                                                            <Setter Property="FontWeight" Value="Bold"/>
+                                                                            <Style.Triggers>
+
+                                                                                <DataTrigger Binding="{Binding EmailSent}" Value="Sent">
+                                                                                    <Setter Property="Foreground" Value="Green"/>
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding EmailSent}" Value="Fail">
+                                                                                    <Setter Property="Foreground" Value="DarkRed"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                        <Button x:Name="EmailStatements_Btn" Content="Email Statements" HorizontalAlignment="Left" Margin="481,402,0,0" VerticalAlignment="Top" Width="197" Height="24" FontWeight="Bold"/>
+                                        <Button x:Name="EmailStatementsCancel_Btn" Content="Cancel" HorizontalAlignment="Left" Margin="279,402,0,0" VerticalAlignment="Top" Width="197" Height="24" Click="EmailStatementsCancel_Btn_Click"/>
+
+                                    </Grid>
+                                </Border>
+
+
+                            </TabItem>
+
+                        </TabControl>
+                        <Border Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="122" Margin="10,41,0,0" VerticalAlignment="Top" Width="235" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                            <Grid>
+                                <DatePicker x:Name="ReportStartDate" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" Width="215"/>
+                                <Label Content="Start Date" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Width="87"/>
+                                <DatePicker x:Name="ReportEndDate" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Width="215"/>
+                                <Label Content="End Date" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="87"/>
+
+                            </Grid>
+                        </Border>
+
+                        <Label Content="Report Date Range" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" Width="235" FontWeight="Bold"/>
+                        <Label Content="Report Selection" HorizontalAlignment="Left" Margin="15,181,0,0" VerticalAlignment="Top" Width="230" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

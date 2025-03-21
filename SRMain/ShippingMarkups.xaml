@@ -1,0 +1,1084 @@
+﻿<local:CommonWindow x:Name="ShippingMarkups_Window" x:Class="ShippingMarkups"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/sHIP_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="SHIPPING SETUP AND PRICING" Style="{DynamicResource HeaderLabel}" Height="44" Margin="0,-4" Width="274"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SaveButton" Grid.Column="3" ToolTip="Save Changes" Style="{StaticResource AddRemoveSave_Style}" HorizontalAlignment="Right" Width="45">
+                        <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+                        <Border x:Name="CarrierBorder" Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="207" Margin="10,5,0,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+
+                            <ListBox x:Name="Carrier_ListBox" Margin="10,0" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Single" TabIndex="1" HorizontalContentAlignment="Center">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Margin="3" Source="{Binding CarrierImage}" Height="40" MaxWidth="75" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <Border x:Name="ServiceBorder" Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="239" Margin="10,217,0,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                            <ListBox x:Name="Service_ListBox" Margin="0,10,0,8" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Single" TabIndex="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentControl Content="{Binding}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" FontSize="12"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+                        <Border BorderBrush="Black" CornerRadius="10" BorderThickness="0" HorizontalAlignment="Left" Height="34" Margin="168,5,0,0" VerticalAlignment="Top" Width="798" Background="white">
+                            <Label x:Name="HeaderName" Content="Service Name" HorizontalContentAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        </Border>
+
+
+                        <TabControl x:Name="Options_TabCntrl" HorizontalAlignment="Left" BorderThickness="0"  Height="412" Margin="168,44,0,0" VerticalAlignment="Top" Width="798" TabStripPlacement="top" Background="#FFBCB9B2">
+                            <TabItem  x:Name="CarrierSetup_Tab" Header="Carrier Setup" Background="#FFBCB9B2" FontWeight="Bold" >
+
+                                <Grid>
+                                    <TabControl x:Name="Carrier_TabControl" Background="#FFBCB9B2" TabStripPlacement="left" BorderThickness="0" Height="386" Margin="0,0,0,0" VerticalAlignment="Top" SelectedIndex="0">
+                                        <TabItem x:Name="FedEx_TabItem" Header="1">
+                                            <Grid >
+
+                                                <Border x:Name="FedExAgreement_Border" Style="{DynamicResource BaseBorder}"  BorderThickness="0" Height="382" Margin="230,0,5,0" VerticalAlignment="Top" Background="#FFE5E5E5">
+
+                                                    <TabControl x:Name="FedEx_TC" Background="#FFE5E5E5" Margin="3" BorderThickness="0">
+                                                        <TabItem x:Name="FedEx_Agreement_Tab">
+                                                            <Grid Margin="0,0,0,-3" >
+                                                                <Label Content="FedEx End-User License Agreement" HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" FontWeight="Bold" Margin="133,10,0,0"/>
+                                                                <TextBox x:Name="FedEx_EULA_TextBox" HorizontalAlignment="Left" Height="266" Margin="0,61,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="520" FontSize="8" FontWeight="Normal"/>
+                                                                <Label Content="Review and accept the FedEx End-User Agreement to utilize the services" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="445" FontSize="11" FontWeight="Normal"/>
+                                                                <CheckBox x:Name="FedEx_ReadAgreement_CheckBox" Content="I have read, understand, and agree to&#xD;&#xA;the above terms and conditions" HorizontalAlignment="Left" Margin="10,332,0,0" VerticalAlignment="Top" Width="238" FontWeight="Normal" Height="37" VerticalContentAlignment="Center"/>
+                                                                <Button x:Name="FedEx_DeclineAgreement_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Decline Agreement" HorizontalAlignment="Left" Margin="266,332,0,0" VerticalAlignment="Top" Width="124" FontSize="12" Height="37"/>
+                                                                <Button x:Name="FedEx_AcceptAgreement_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Accept Agreement" HorizontalAlignment="Left" Margin="390,332,0,0" VerticalAlignment="Top" Width="124" FontSize="12" Height="37" FontFamily="Calibri" FontWeight="Bold"/>
+                                                                <Image HorizontalAlignment="Left" Height="33" Margin="10,3,0,0" VerticalAlignment="Top" Width="106" Source="Resources/Fedex_Logo.png"/>
+                                                            </Grid>
+                                                        </TabItem>
+                                                        <TabItem x:Name="FedEx_REST_Registration_Tab">
+                                                            <Grid>
+                                                                <Grid>
+                                                                    <Label Content="Invoice #" HorizontalAlignment="Left" Margin="27,69,0,0" VerticalAlignment="Top" Width="71" Height="23" FontWeight="Normal"/>
+                                                                    <TextBox x:Name="FedExREST_InvoiceNo_TxtBx" HorizontalAlignment="Left" Height="23" Margin="116,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" FontWeight="Normal"/>
+                                                                    <Label Content="Invoice Date" HorizontalAlignment="Left" Margin="27,92,0,0" VerticalAlignment="Top" Width="84" Height="23" FontWeight="Normal"/>
+                                                                    <Label Content="Amount" HorizontalAlignment="Left" Margin="27,115,0,0" VerticalAlignment="Top" Width="71" Height="23" FontWeight="Normal"/>
+                                                                    <TextBox x:Name="FedExREST_InvoiceAmt_TxtBx" HorizontalAlignment="Left" Height="23" Margin="116,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" FontWeight="Normal"/>
+                                                                    <DatePicker x:Name="FedExREST_InvoiceDate_TxtBx" HorizontalAlignment="Left" Margin="116,92,0,0" VerticalAlignment="Top" Width="137" FontWeight="Normal"/>
+                                                                    <Button x:Name="FedExREST_Register_Btn" Content="Register" HorizontalAlignment="Left" Margin="322,113,0,0" VerticalAlignment="Top" Width="152" Height="26" FontWeight="Bold"/>
+                                                                    <TextBox x:Name="FedExREST_CustName_TxtBx" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" Text="Shiprite Software - CSP" Visibility="Hidden"/>
+                                                                    <Label Content="Invoice Validation" HorizontalAlignment="Left" Margin="20,23,0,0" VerticalAlignment="Top" Width="204" Height="23" FontWeight="Bold"/>
+                                                                    <Label Content="Select One of the 3 options below to authenticate and register your FedEx account." HorizontalAlignment="Left" VerticalAlignment="Top" Width="497" Height="27" FontWeight="Bold" Margin="0,-4,0,0"/>
+                                                                    <Label Content="PIN Validation" HorizontalAlignment="Left" Margin="20,149,0,0" VerticalAlignment="Top" Width="204" Height="23" FontWeight="Bold"/>
+                                                                    <TextBlock Text="Enter invoice details from a FedEx Invoice not older then 90 days" HorizontalAlignment="Left" Margin="20,46,0,0" VerticalAlignment="Top" Width="379" Height="23" FontWeight="Normal" />
+                                                                    <TextBlock Text="A 6 digit PIN will be sent to the phone number or email registered with your FedEx Account number. Select desired contact option and request PIN. " HorizontalAlignment="Left" Margin="20,172,0,0" VerticalAlignment="Top" Width="467" Height="38" TextWrapping="Wrap" FontWeight="Normal" />
+                                                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="5,143,0,0" Stroke="Black" VerticalAlignment="Top" Width="504" RenderTransformOrigin="0.5,0.5"/>
+                                                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="5,23,0,0" Stroke="Black" VerticalAlignment="Top" Width="504" RenderTransformOrigin="0.5,0.5"/>
+                                                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="5,270,0,0" Stroke="Black" VerticalAlignment="Top" Width="504" RenderTransformOrigin="0.5,0.5"/>
+                                                                    <Button x:Name="FedExREST_RequestPin_Btn" Content="Request PIN" HorizontalAlignment="Left" Margin="135,242,0,0" VerticalAlignment="Top" Width="97" Height="23"/>
+                                                                    <TextBlock HorizontalAlignment="Left" Margin="322,215,0,0" TextWrapping="Wrap" Text="Enter PIN:" VerticalAlignment="Top" RenderTransformOrigin="0.493,0.313"/>
+                                                                    <TextBox x:Name="FedExREST_PIN_TxtBx" HorizontalAlignment="Left" Height="23" FontSize="14" Margin="387,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" FontWeight="Normal"/>
+                                                                    <Button x:Name="FedExREST_RegisterPIN_Btn" Content="Register" HorizontalAlignment="Left" Margin="322,242,0,0" VerticalAlignment="Top" Width="152" Height="23" FontWeight="Bold"/>
+                                                                    <Label Content="Validation Via FedEx Tech Support" HorizontalAlignment="Left" Margin="20,271,0,0" VerticalAlignment="Top" Width="212" Height="26" FontWeight="Bold"/>
+                                                                    <TextBlock Text="If you are unable to validate your account via Invoice or PIN validation, please contact FedEx Tech support at 877-339-2774 to validate your identity and authorize access." HorizontalAlignment="Left" Margin="20,297,0,0" VerticalAlignment="Top" Width="464" Height="38" TextWrapping="Wrap" FontWeight="Normal" />
+                                                                    <Button x:Name="FedExREST_RegisterTechSupport_Btn" Content="Register" HorizontalAlignment="Left" Margin="322,340,0,0" VerticalAlignment="Top" Width="152" Height="23" FontWeight="Bold"/>
+                                                                    <TextBlock Text="Once FedEx Tech support provides authorization press the Register button." HorizontalAlignment="Left" Margin="27,333,0,-5" VerticalAlignment="Top" Width="290" Height="38" TextWrapping="Wrap" FontWeight="Bold" />
+                                                                    <RadioButton x:Name="FedExREST_SMS_Radio" Content="Text Message" HorizontalAlignment="Left" Margin="20,210,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+                                                                    <RadioButton x:Name="FedExREST_Phone_Radio" Content="Phone Call" HorizontalAlignment="Left" Margin="20,230,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+                                                                    <RadioButton x:Name="FedExREST_Email_Radio" Content="Email" HorizontalAlignment="Left" Margin="20,250,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+
+                                                                </Grid>
+                                                            </Grid>
+                                                        </TabItem>
+
+
+                                                    </TabControl>
+                                                </Border>
+                                                <Border Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="382" VerticalAlignment="Top" Width="225">
+                                                    <Grid>
+                                                        <Label Content="FedEx FASC Discount Level" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213"  Margin="10,112,0,0"/>
+                                                        <ComboBox x:Name="FedEx_FASC_DiscountLevel_ComboBox" HorizontalAlignment="Stretch" Margin="74,138,11,0" VerticalAlignment="Top" FontWeight="Normal" />
+                                                        <Label Content="Level #" HorizontalAlignment="Left" VerticalAlignment="Top" Width="61" Margin="19,134,0,0" RenderTransformOrigin="0.459,0.077" FontWeight="Normal"/>
+                                                        <Label Content="FedEx Shipment Email Notifications" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213" FontWeight="Bold" Margin="5,315,0,0"/>
+                                                        <CheckBox x:Name="FedEx_DisableEmailNotification_ChkBx" Content="Check to Disable" HorizontalAlignment="Left" Margin="13,340,0,0" VerticalAlignment="Top" Width="203" FontWeight="Normal"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,315,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,276,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,360,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,207,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <Label Content="FedEx Account Number" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213" FontWeight="Bold" Margin="1,1,0,0"/>
+                                                        <TextBox x:Name="FedEx_AccountNumber_TextBox" HorizontalAlignment="Left" FontSize="14" Height="23" Margin="10,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" FontWeight="Normal"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="1,86,-1,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <Label Content="FedEx Hold at Location (HAL) ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213" FontWeight="Bold" Margin="5,208,0,0"/>
+                                                        <Button x:Name="FedEx_Register_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Register" HorizontalAlignment="Left" Margin="138,23,0,0" VerticalAlignment="Top" Width="85" Height="34" FontSize="14" FontWeight="Bold"/>
+                                                        <TextBlock Text="Location ID" HorizontalAlignment="Left" Margin="13,234,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+                                                        <TextBlock Text="Agent ID" HorizontalAlignment="Left" Margin="26,255,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+                                                        <TextBox x:Name="FedEx_HAL_LocationID_TextBox" HorizontalAlignment="Left" Height="18" Margin="89,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" FontWeight="Normal"/>
+                                                        <TextBox x:Name="FedEx_HAL_AgentID_TextBox" HorizontalAlignment="Left" Height="18" Margin="89,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" FontWeight="Normal"/>
+                                                        <CheckBox x:Name="isFASC_CheckBox" Content="FedEx Authorized Ship Center" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Height="29" Width="202" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                                                        <TextBox x:Name="FedEx_AccountNumber_FreightBox_TextBox" HorizontalAlignment="Left" Height="23" Margin="8,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" FontSize="14" Visibility="Collapsed"/>
+                                                        <Label Content="FedEx Freight Box Account #" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213"  Margin="1,62,0,0" Visibility="Collapsed"/>
+                                                        <Button x:Name="FedEx_FreightBox_Register_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Register" HorizontalAlignment="Left" Margin="138,80,0,0" VerticalAlignment="Top" Width="85" Height="34" FontSize="14" FontWeight="Bold" Visibility="Collapsed"/>
+                                                        <CheckBox x:Name="FedEx_MarkupDiscount_CheckBox" Content="Markup From Discount Cost" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Height="19" Width="202" FontWeight="Bold" VerticalContentAlignment="Center" ToolTip="If checked, ShipRite will base all markups on the dicounted store cost. If unchecked, all markups will be based on the carrier's retail rate."/>
+                                                        <CheckBox x:Name="FedEx_AlwaysChargeRetail_CheckBox" Content="Always Charge FedEx Retail Rates" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Height="18" Width="210" FontWeight="Bold" VerticalContentAlignment="Center" ToolTip="If checked, ShipRite will ignore any markups and strictly charge the official DHL retail rate."/>
+                                                        <CheckBox x:Name="FedEx_PrintLaserLabels_CheckBox" Content="Print 8.5x11 Shipping Labels" HorizontalAlignment="Left" Margin="12,362,0,0" VerticalAlignment="Top" Width="211" Height="18" VerticalContentAlignment="Center" FontWeight="Normal"/>
+                                                        <TextBlock Margin="5,57,0,0" TextWrapping="Wrap" Text="FedEx service marks are owned by Federal Express Corporation and are used by permission" VerticalAlignment="Top" Height="29" FontSize="10" FontWeight="Normal"/>
+                                                        <TextBlock Text="FedEx Return Technology" HorizontalAlignment="Left" VerticalAlignment="Top" Width="208" FontWeight="Bold" Margin="10,279,0,0"/>
+                                                        <TextBlock Text="Location ID" HorizontalAlignment="Left" Margin="10,297,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+                                                        <TextBox x:Name="FedEx_FRT_LocationID_TextBox" HorizontalAlignment="Left" Height="18" Margin="89,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" FontWeight="Normal"/>
+                                                    </Grid>
+                                                </Border>
+
+
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem x:Name="UPS_TabItem" Header="2">
+                                            <Grid>
+                                                <Border Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="182" Margin="0" VerticalAlignment="Top" Width="225">
+                                                    <TabControl x:Name="UPS_Auth_TabControl" Background="#FFE5E5E5" BorderThickness="0" TabStripPlacement="Top" Margin="5,1">
+                                                        <TabItem>
+                                                            <Grid Margin="0,0,0,0">
+                                                                <TextBlock Text="UPS.com User ID" HorizontalAlignment="Left" Margin="5,-1,0,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
+                                                                <TextBox x:Name="UPSReady_UserID_TextBox" HorizontalAlignment="Left" Height="23" Margin="5,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Normal"/>
+                                                                <TextBlock Text="UPS.com Password" HorizontalAlignment="Left" Margin="5,43,0,0" VerticalAlignment="Top" Width="200" FontWeight="Bold"/>
+                                                                <PasswordBox x:Name="UPSReady_Password_TextBox" HorizontalAlignment="Left" Margin="5,59,0,0" VerticalAlignment="Top" Width="200" Height="26" FontSize="14" FontWeight="Normal"/>
+                                                                <TextBlock Text="UPS Account Number" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Top" Width="200" FontWeight="Bold"/>
+                                                                <TextBox x:Name="UPSReady_AccountNumber_TextBox" HorizontalAlignment="Left" Height="23" Margin="5,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Normal"/>
+                                                                <Button x:Name="UPSReady_Register_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Register" HorizontalAlignment="Left" Margin="5,134,0,0" VerticalAlignment="Top" Width="200" Height="39" FontSize="14" FontWeight="Bold"/>
+                                                            </Grid>
+                                                        </TabItem>
+                                                        <TabItem>
+                                                            <Grid>
+                                                                <Label Content="UPS Account Number" Margin="5,50,5,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                                                <TextBox x:Name="UPSREST_AccountNumber_TextBox" Height="23" Margin="5,75,5,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
+                                                                <Button x:Name="UPSREST_Authorize_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Authorize UPS Account" Margin="5,100,5,0" VerticalAlignment="Top" Height="38" FontSize="14" FontWeight="Bold"/>
+                                                                <TextBlock Margin="4,143,4,0" TextWrapping="Wrap" Text="You will be prompted to log into your UPS.com Account in your default Web Browser to authorize ShipRite access." VerticalAlignment="Top" Height="27" FontSize="8" FontWeight="Normal"/>
+                                                            </Grid>
+                                                        </TabItem>
+                                                    </TabControl>
+                                                </Border>
+                                                <Border Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="195" Margin="0,187,0,0" VerticalAlignment="Top" Width="225">
+                                                    <Grid>
+                                                        <ComboBox x:Name="UPSDiscountLevel_ComboBox" HorizontalAlignment="Left" Margin="100,78,0,0" VerticalAlignment="Top" Width="113" Visibility="Hidden"/>
+                                                        <Label Content="UPS Shipment Email Notifications" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213" FontWeight="Bold" Margin="2,90,0,0"/>
+                                                        <CheckBox x:Name="UPS_DisableEmailNotification_ChkBx" Content="Check to Disable" HorizontalAlignment="Left" Margin="12,116,0,0" VerticalAlignment="Top" Width="203" Height="25" VerticalContentAlignment="Center" FontWeight="Normal"/>
+                                                        <CheckBox x:Name="isASO_CheckBox" Content="Authorized Shipping Outlet (ASO)" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Height="25" Width="213" VerticalContentAlignment="Center" FontWeight="Normal"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,89,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,141,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <CheckBox x:Name="UPS_MarkupDiscount_CheckBox" Content="Markup From Discount Cost" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Height="25" Width="213" VerticalContentAlignment="Center" FontWeight="Normal" ToolTip="If checked, ShipRite will base all markups on the dicounted store cost. If unchecked, all markups will be based on the carrier's retail rate."/>
+                                                        <CheckBox x:Name="UPS_AlwaysChargeRetail_CheckBox" Content="Always Charge UPS Retail Rates" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Height="25" Width="213" VerticalContentAlignment="Center" FontWeight="Normal" ToolTip="If checked, ShipRite will ignore any markups and strictly charge the official UPS retail rate."/>
+                                                        <Label Content="UPS Drop Offs - Access ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213" FontWeight="Bold" Margin="0,142,0,0"/>
+                                                        <TextBox x:Name="UPS_DropOff_AccessID_TxtBx" HorizontalAlignment="Left" Height="23" Margin="12,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" FontWeight="Normal"/>
+                                                    </Grid>
+                                                </Border>
+                                                <Border x:Name="UPSReady_Border" Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="382" Margin="230,0,0,0" VerticalAlignment="Top" Width="507">
+                                                    <TabControl x:Name="UPSReady_TabControl" BorderThickness="0" Background="#FFE5E5E5" TabStripPlacement="bottom" Margin="5,5,5,-1">
+                                                        <TabItem>
+                                                            <Grid Margin="0,0,0,0" >
+                                                                <Image HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="47" Source="Resources/UPS_logo.png"/>
+                                                                <Label Content="UPS Technology Agreement" HorizontalAlignment="Left" VerticalAlignment="Top" Width="181" FontWeight="Bold" Margin="57,0,0,0"/>
+                                                                <TextBox x:Name="UPS_UserAgreement_TextBox" HorizontalAlignment="Left" Height="237" Margin="0,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" FontWeight="Normal">UPS TECHNOLOGY AGREEMENT</TextBox>
+                                                                <Label Content="Review and accept the UPS Technology Agreement to utilize the services" HorizontalAlignment="Left" Margin="52,53,0,0" VerticalAlignment="Top" Width="415" FontSize="11" FontWeight="Bold"/>
+                                                                <CheckBox x:Name="UPS_ReadAgreement_CheckBox" Content="I have finished to read the agreement" HorizontalAlignment="Left" Margin="0,320,0,0" VerticalAlignment="Top" Width="409" FontWeight="Bold"/>
+                                                                <Button x:Name="UPS_PrintAgreement_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Print Agreement" HorizontalAlignment="Left" Margin="111,335,0,-1" VerticalAlignment="Top" Width="124" FontSize="12" Height="37"/>
+                                                                <Button x:Name="UPS_DeclineAgreement_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Decline Agreement" HorizontalAlignment="Left" Margin="235,335,0,-1" VerticalAlignment="Top" Width="124" FontSize="12" Height="37"/>
+                                                                <Button x:Name="UPS_AcceptAgreement_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Accept Agreement" HorizontalAlignment="Left" Margin="359,335,0,-1" VerticalAlignment="Top" Width="124" FontSize="12" Height="37" FontFamily="Calibri" FontWeight="Bold"/>
+                                                                <TextBlock Text="UPS, the UPS Shield trademark, the UPS Ready Mark and the color brown are trademarks of&#xD;&#xA;United Parcel Service of America, Inc. All Rights Reserved." HorizontalAlignment="Left" Margin="57,26,0,0" VerticalAlignment="Top" Width="419" FontSize="9" Height="34" FontWeight="Normal"/>
+
+                                                            </Grid>
+                                                        </TabItem>
+                                                        <TabItem>
+                                                            <Grid>
+                                                                <Image HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="52" Source="Resources/UPS_logo.png"/>
+                                                                <Label Content="Account Invoice Authentication (AIA)" HorizontalAlignment="Left" VerticalAlignment="Top" Width="247" FontWeight="Bold" Margin="57,0,0,0"/>
+                                                                <Label Content="If you have received a UPS paper bill within the past 90 days, please enter&#xD;&#xA;this invoice information below.&#xD;&#xA;&#xD;&#xA;Authenticated account has Account Based Rates (ABR) privilages." HorizontalAlignment="Left" Margin="52,28,0,0" VerticalAlignment="Top" Width="367" FontSize="11" Height="76"/>
+                                                                <Label Content="Please Note: Customers that have never been issued an invoice older then 90 days&#xD;&#xA;must contact their Account Representative to be enabled for negotiated rates&#xD;&#xA;at RS.com.&#xD;&#xA;&#xD;&#xA;Customers without invoice should skip this section and click Finish button." HorizontalAlignment="Left" Margin="0,245,0,0" VerticalAlignment="Top" Width="419" FontSize="11" Height="83"/>
+
+                                                                <Button x:Name="UPS_Cancel_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Cancel" HorizontalAlignment="Left" Margin="171,348,0,0" VerticalAlignment="Top" Width="124" FontSize="12" Height="37"/>
+                                                                <Button x:Name="UPS_Finish_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Finish" HorizontalAlignment="Left" Margin="295,348,0,0" VerticalAlignment="Top" Width="124" FontSize="12" Height="37" FontFamily="Calibri" FontWeight="Bold"/>
+                                                                <Label Content="UPS, the UPS Shield trademark, the UPS Ready Mark and the color brown are trademarks of&#xD;&#xA;United Parcel Service of America, Inc. All Rights Reserved." HorizontalAlignment="Left" Margin="0,395,0,-17" VerticalAlignment="Top" Width="419" FontSize="9" Height="43"/>
+                                                                <Label Content="Invoice Number" HorizontalAlignment="Left" Margin="14,109,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                                                <Label Content="Invoice Date" HorizontalAlignment="Left" Margin="14,135,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                                                <Label Content="Invoice Amount" HorizontalAlignment="Left" Margin="14,161,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                                                <Label Content="Invoice Control ID" HorizontalAlignment="Left" Margin="14,187,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                                                <TextBox HorizontalAlignment="Left" Height="23" Margin="162,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133"/>
+                                                                <TextBox HorizontalAlignment="Left" Height="23" Margin="162,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133"/>
+                                                                <TextBox HorizontalAlignment="Left" Height="23" Margin="162,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133"/>
+                                                                <DatePicker HorizontalAlignment="Left" Margin="162,140,0,0" VerticalAlignment="Top" Width="133"/>
+
+                                                            </Grid>
+                                                        </TabItem>
+                                                    </TabControl>
+
+                                                </Border>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem x:Name="DHL_TabItem" Header="3">
+                                            <Grid>
+                                                <Border Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="252" VerticalAlignment="Top" Width="225">
+                                                    <Grid Margin="0,0,0,0">
+                                                        <Label Content="DHL Account Number" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
+                                                        <Label Content="DHL Rate Type" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
+                                                        <TextBox x:Name="DHLAccountNo_TxtBox" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="203" Height="26" FontSize="14" FontWeight="Normal"/>
+                                                        <ComboBox x:Name="DHL_RateType_ComboBox" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" Width="203" FontWeight="Normal"/>
+                                                        <Image HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="86" Source="Resources/DHL_logo.png"/>
+                                                        <Label Content="DHL Setup" HorizontalAlignment="Left" Margin="96,10,0,0" VerticalAlignment="Top" Width="117" FontWeight="Bold"/>
+                                                        <CheckBox x:Name="DHL_MarkupDiscount_CheckBox" Content="Markup From Discount Cost" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Height="29" Width="202" FontWeight="Normal" VerticalContentAlignment="Center" ToolTip="If checked, ShipRite will base all markups on the dicounted store cost. If unchecked, all markups will be based on the carrier's retail rate."/>
+                                                        <CheckBox x:Name="DHL_AlwaysChargeRetail_CheckBox" Content="Always Charge DHL Retail Rates" HorizontalAlignment="Left" Margin="10,207,0,0" VerticalAlignment="Top" Height="29" Width="202" FontWeight="Normal" VerticalContentAlignment="Center" ToolTip="If checked, ShipRite will ignore any markups and strictly charge the official DHL retail rate."/>
+                                                    </Grid>
+                                                </Border>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem x:Name="USPS_TabItem" Header="4">
+                                            <Grid>
+                                                <Border x:Name="Endicia_Border" Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Margin="241,0,0,0" Width="496" >
+
+                                                    <Grid Margin="0,0,0,0" >
+                                                        <Label x:Name="EndiciaHeader_Lbl" Content="Endicia Label Server Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" FontWeight="Bold" Margin="133,10,0,0" FontSize="14"/>
+                                                        <Label Content="Current Balance:" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="132" FontSize="11" FontWeight="Normal"/>
+
+                                                        <TextBox x:Name="Endicia_CurrentBalance_TextBox" HorizontalAlignment="Left" Height="21" Margin="114,57,0,0" TextWrapping="Wrap" Text="$ 2.50" VerticalAlignment="Top" Width="93" FontSize="14" Background="#FF6A6868" Foreground="White" HorizontalContentAlignment="Center" BorderThickness="0" BorderBrush="#FF0F0F0F" RenderTransformOrigin="0.505,1.571" FontWeight="Bold"/>
+                                                        <Label Content="Total Postage Printed:" HorizontalAlignment="Left" Margin="0,80,0,0" VerticalAlignment="Top" Width="117" FontSize="11" RenderTransformOrigin="0.393,0.6" FontWeight="Normal"/>
+                                                        <TextBox x:Name="Endicia_TotalPostagePrinted_TextBox" HorizontalAlignment="Left" Height="21" Margin="114,82,0,0" TextWrapping="Wrap" Text="$ 2,235.50" VerticalAlignment="Top" Width="93" FontSize="14" Background="#FF6A6868" Foreground="White" HorizontalContentAlignment="Center" BorderThickness="0" BorderBrush="#FF0F0F0F"/>
+                                                        <Label Content="Purchase Additional Postage" HorizontalAlignment="Left" Margin="0,114,0,0" VerticalAlignment="Top" Width="172" FontSize="11" FontWeight="Bold"/>
+                                                        <TextBox x:Name="Endicia_BuyPostage_TextBox" HorizontalAlignment="Left" Height="23" Margin="268,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" FontSize="14" RenderTransformOrigin="1.94,-0.13" Text="10" FontWeight="Normal"/>
+                                                        <Button x:Name="Endicia_BuyPostage_Button" Style="{StaticResource POSKeypadButton_Style}" Content="Buy Postage" HorizontalAlignment="Left" Margin="363,133,0,0" VerticalAlignment="Top" Width="123" Height="37" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+
+                                                        <Label Content="Enter $ amount of postage to add to account" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Width="263" FontWeight="Normal"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,113,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                                                        <Label Content="Device ID:" HorizontalAlignment="Left" Margin="230,79,0,0" VerticalAlignment="Top" Width="87" FontWeight="Normal"/>
+                                                        <TextBox x:Name="Endicia_DeviceID_TextBox" HorizontalAlignment="Left" Height="21" Margin="329,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" FontSize="14" Background="#FF6A6868" Foreground="White" HorizontalContentAlignment="Center" BorderThickness="0" BorderBrush="#FF0F0F0F"/>
+                                                        <Label Content="Account Status:" HorizontalAlignment="Left" Margin="230,52,0,0" VerticalAlignment="Top" Width="99" FontWeight="Normal"/>
+                                                        <TextBox x:Name="Endicia_AccountStatus_TextBox" HorizontalAlignment="Left" Height="21" Margin="329,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" FontSize="14" Background="#FF6A6868" Foreground="White" HorizontalContentAlignment="Center" BorderThickness="0" BorderBrush="#FF0F0F0F"/>
+                                                        <Image HorizontalAlignment="Left" Height="29" Margin="10,10,0,0" VerticalAlignment="Top" Width="118" Source="Resources/Endicia_Logo.png"/>
+                                                        <Rectangle Fill="#FFF4F4F5" Margin="0,0,0,204" Stroke="Black" Height="1" VerticalAlignment="Bottom"/>
+
+                                                        <Grid x:Name="Endicia_LocationPhrase_Grid" Margin="0,183,0,5">
+                                                            <Label Content="Set Pickup Location" HorizontalAlignment="Left" Margin="0,0,0,166" Width="149" FontSize="11" FontWeight="Bold"/>
+                                                            <Label Content="Special Instructions" HorizontalAlignment="Left" Margin="10,24,0,0" Width="127" Height="27" VerticalAlignment="Top" FontWeight="Normal"/>
+                                                            <ComboBox x:Name="Endicia_SetPickUpLocation_ComboBox" HorizontalAlignment="Left" Margin="149,0,0,170" Width="337" Height="18" VerticalAlignment="Bottom"/>
+                                                            <TextBox x:Name="Endicia_SpecialInstructions_TextBox" HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="Wrap" Width="343" Height="41" VerticalAlignment="Top"/>
+                                                            <Button x:Name="Endicia_SaveLocation_Button" Style="{StaticResource POSKeypadButton_Style}" Content="Save Location" HorizontalAlignment="Left" Margin="363,48,0,0" Width="123" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" Height="39" VerticalAlignment="Top"/>
+                                                            <Rectangle Fill="#FFF4F4F5" Height="1" Margin="0,97,0,0" Stroke="Black" VerticalAlignment="Top" />
+                                                            <Label Content="Change Pass Phrase" HorizontalAlignment="Left" Margin="-2,326,0,91" Width="147" FontSize="11" FontWeight="Bold"/>
+                                                            <TextBox x:Name="Endicia_Enter_OldPassPhrase_TextBox" HorizontalAlignment="Left" Margin="10,0,0,50" TextWrapping="Wrap" Width="220" Height="23" VerticalAlignment="Bottom"/>
+                                                            <TextBox x:Name="Endicia_Enter_NewPassPhrase_TextBox" HorizontalAlignment="Left" Margin="10,0,0,5" TextWrapping="Wrap" Width="220" Height="23" VerticalAlignment="Bottom"/>
+                                                            <Label Content="Re-Enter old Pass Phrase" HorizontalAlignment="Left" Margin="10,0,0,72" Width="147" FontSize="11" Height="25" VerticalAlignment="Bottom" FontWeight="Normal"/>
+                                                            <Label Content="Enter NEW Pass Phrase" HorizontalAlignment="Left" Margin="10,0,0,25" Width="147" FontSize="11" Height="25" VerticalAlignment="Bottom" FontWeight="Normal"/>
+                                                            <Button x:Name="Endicia_ChangePassPhrase_Button" Style="{StaticResource POSKeypadButton_Style}" Content="Change Pass Phrase" HorizontalAlignment="Left" Margin="343,0,0,0" Width="143" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" Height="35" VerticalAlignment="Bottom"/>
+                                                            <Label Content="This will change the Log In / Pass Phrase associated with&#xA;your Endicia Account. " HorizontalAlignment="Left" Margin="235,0,0,32" Width="261" FontSize="10" Height="41" VerticalAlignment="Bottom" FontWeight="Normal"/>
+                                                        </Grid>
+                                                    </Grid>
+
+
+                                                </Border>
+                                                <Border Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="142" VerticalAlignment="Top" Width="225">
+                                                    <Grid>
+                                                        <Label Content="Endicia Label Server Setup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
+                                                        <TextBox x:Name="Endicia_AccountNo_TxtBox" HorizontalAlignment="Left" Margin="12,42,0,0" VerticalAlignment="Top" Width="203" Height="22" FontSize="14"/>
+                                                        <Button x:Name="Endicia_Register_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Register LabelServer Account" HorizontalAlignment="Left" Margin="0,107,0,2" VerticalAlignment="Top" Width="225" Height="38" FontSize="14" FontWeight="Bold"/>
+                                                        <TextBlock Text="Endicia.com User Name" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+                                                        <PasswordBox x:Name="Endicia_PassPhrase_TxtBox" HorizontalAlignment="Left" Margin="12,85,0,0" VerticalAlignment="Top" Width="203" Height="22" FontSize="14"/>
+                                                        <TextBlock Text="Password" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" FontWeight="Normal"/>
+
+                                                    </Grid>
+                                                </Border>
+                                                <Border Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="114" Margin="0,187,0,0" VerticalAlignment="Top" Width="225">
+                                                    <Grid Margin="0,0,0,9">
+                                                        <Label Content="USPS Options" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
+                                                        <CheckBox x:Name="USPS_ApprovedShipper_ChkBx" Content="USPS Approved Shipper Rates" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="203" Height="20" VerticalContentAlignment="Center" FontWeight="Normal"/>
+                                                        <CheckBox x:Name="USPS_CubicRates_ChkBx" Content="Priority Cubic Rates" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="203" Height="20" VerticalContentAlignment="Center" FontWeight="Normal"/>
+                                                        <CheckBox x:Name="USPS_GroundADV_CubicRates_ChkBx" Content="Ground Advantage Cubic Rates" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="215" Height="20" VerticalContentAlignment="Center" FontWeight="Normal"/>
+
+                                                    </Grid>
+                                                </Border>
+
+                                                <Border x:Name="LabelType_Border" Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="35" Margin="0,147,0,0" VerticalAlignment="Top" Width="225">
+                                                    <Grid Margin="5">
+                                                        <TextBlock Text="Label Type" Margin="10,5,144,0"/>
+                                                        <ComboBox x:Name="USPS_LabelType_CmbBx" Margin="76,0,10,0" SelectedValuePath="Content">
+                                                            <ComboBoxItem Content="Eltron Thermal"/>
+                                                            <ComboBoxItem Content="Zebra Thermal"/>
+                                                            <ComboBoxItem Content="PDF Image"/>
+                                                        </ComboBox>
+                                                    </Grid>
+                                                </Border>
+
+                                                <Border x:Name="NetStampSetup_Border" Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Height="138" Margin="0,306,0,-62" VerticalAlignment="Top" Width="225">
+                                                    <Grid Margin="0,0,0,-1">
+                                                        <Label Content="Endicia NetStamps Setup" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="203" FontWeight="Bold"/>
+                                                        <TextBox x:Name="Endicia_NetStamp_SerialNo_TxtBx" HorizontalAlignment="Left" Margin="122,137,0,5" Width="93" FontSize="14" Height="22"/>
+                                                        <TextBlock Text=" NetStamp Serial#" HorizontalAlignment="Left" Margin="5,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.105,0.692" Height="21" Width="117"/>
+                                                        <TextBox x:Name="Endicia_NetStamp_Acct_TxtBx" HorizontalAlignment="Left" Margin="122,53,0,0" VerticalAlignment="Top" Width="93" Height="22" FontSize="14"/>
+                                                        <TextBlock Text=" NetStamp Acct#" HorizontalAlignment="Left" Margin="0,53,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.105,0.692" Height="22" Width="117" FontWeight="Normal"/>
+                                                        <TextBox x:Name="Endicia_NetStamp_Passphrase_TxtBx" HorizontalAlignment="Left" Margin="122,80,0,0" VerticalAlignment="Top" Width="93" Height="22" FontSize="14"/>
+                                                        <TextBlock Text=" NetStamp PassPhrase" HorizontalAlignment="Left" Margin="0,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.105,0.692" Height="22" Width="117" FontWeight="Normal"/>
+                                                        <CheckBox x:Name="Endicia_NetStamp_ChkBx" Content="Use same as LabelServer" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="160"/>
+                                                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,134,0,0" Stroke="Black" VerticalAlignment="Top" Width="225"/>
+                                                        <Button x:Name="Endicia_NetStamp_Register_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Register NetStamp Account" HorizontalAlignment="Left" Margin="0,102,0,0" VerticalAlignment="Top" Width="225" Height="34" FontSize="14" FontWeight="Bold"/>
+
+                                                    </Grid>
+                                                </Border>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem x:Name="SPEEDEE_TabItem" Header="5">
+                                            <Grid>
+                                                <Border x:Name="SpeeDee_Border" Background="#FFE5E5E5" BorderThickness="0" CornerRadius="10" HorizontalAlignment="Left" Margin="10,0,0,10" Width="225" >
+                                                    <Grid>
+                                                        <Label x:Name="SpeeDee_Lbl" Content="Spee-Dee Account Number" HorizontalAlignment="Left" VerticalAlignment="Top" Width="213" FontWeight="Bold" Margin="1,5,0,0"/>
+                                                        <TextBox x:Name="SpeeDee_AccountNumber_TxtBx" HorizontalAlignment="Left" FontSize="14" Height="23" Margin="23,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" FontWeight="Normal"/>
+                                                        <Button x:Name="Add_SpeeDee_Btn" Content="Add Spee-Dee" HorizontalAlignment="Left" Margin="23,72,0,0" VerticalAlignment="Top" Width="176" Height="26" FontWeight="Bold"/>
+
+                                                    </Grid>
+                                                </Border>
+                                            </Grid>
+
+                                        </TabItem>
+                                    </TabControl>
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem x:Name="ServiceMarkups_Tab" Header="Markups" Background="#FFBCB9B2" FontWeight="Bold">
+                                <Grid Background="#FFBCB9B2">
+                                    <Border BorderBrush="Black" CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" HorizontalAlignment="Left" Height="386" VerticalAlignment="Top" Width="794">
+                                        <Grid>
+                                            <Label Content="Shipping Markups" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Width="398" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="14"/>
+
+                                            <TabControl x:Name="Markups_TabCntrl" HorizontalAlignment="Left" Height="355" Background="#FFE5E5E5" Margin="10,31,0,0" VerticalAlignment="Top" Width="784" BorderThickness="0">
+
+
+                                                <TabItem x:Name="PricingMatrix_TabItem" Header="PricingMatrix" BorderThickness="0">
+                                                    <Grid Background="#FFE5E5E5" Margin="0,0,-1,0">
+                                                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Stretch" Height="1" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" />
+                                                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Stretch" Height="1" Margin="0,75,0,0" Stroke="Black" VerticalAlignment="Top" />
+                                                        <local:CommonListView x:Name="PricingMatrix_LV" HorizontalAlignment="Left" Width="763" BorderThickness="0.5" Margin="0,108,0,10" TabIndex="14" SelectionMode="Single">
+                                                            <ListView.ItemContainerStyle>
+                                                                <Style TargetType="ListViewItem">
+                                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                                    <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
+                                                                    <EventSetter Event="LostFocus" Handler="ListViewItem_LostFocus"/>
+                                                                </Style>
+                                                            </ListView.ItemContainerStyle>
+
+                                                            <ListView.View>
+                                                                <GridView>
+                                                                    <GridViewColumn Header="Weight Start" Width="83">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <ComboBox x:Name="Matrix_WeightStart_TxtBx" Width="70" ItemsSource="{Binding Path=WeightList}" Text="{Binding Path=WeightStart, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" SelectionChanged="Matrix_TextChanged">
+                                                                                    <ComboBox.Resources>
+                                                                                        <Style TargetType="{x:Type ComboBox}">
+
+                                                                                            <Style.Triggers>
+                                                                                                <DataTrigger Binding="{Binding Status}" Value="Deleted">
+                                                                                                    <!--Setter Property="TextDecorations" Value="Strikethrough"/-->
+                                                                                                    <Setter Property="Foreground" Value="#FF8F0202"/>
+                                                                                                </DataTrigger>
+                                                                                            </Style.Triggers>
+
+                                                                                        </Style>
+                                                                                    </ComboBox.Resources>
+                                                                                </ComboBox>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                    <GridViewColumn Header="Weight End" Width="76">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <ComboBox x:Name="Matrix_WeightEnd_TxtBx" Width="64" ItemsSource="{Binding Path=WeightList}"  Text="{Binding Path=WeightEnd, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" SelectionChanged="Matrix_TextChanged">
+                                                                                    <ComboBox.Resources>
+                                                                                        <Style TargetType="{x:Type ComboBox}">
+                                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                                            <Style.Triggers>
+                                                                                                <DataTrigger Binding="{Binding Status}" Value="Deleted">
+                                                                                                    <!--Setter Property="TextDecorations" Value="Strikethrough"/-->
+                                                                                                    <Setter Property="Foreground" Value="#FF8F0202"/>
+                                                                                                </DataTrigger>
+
+                                                                                                <DataTrigger Binding="{Binding WeightStart}" Value="ALL">
+                                                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                                                </DataTrigger>
+
+                                                                                                <DataTrigger Binding="{Binding WeightStart}" Value="LETTER">
+                                                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                                                </DataTrigger>
+
+                                                                                            </Style.Triggers>
+
+                                                                                        </Style>
+                                                                                    </ComboBox.Resources>
+                                                                                </ComboBox>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                    <GridViewColumn Width="470" >
+                                                                        <GridViewColumnHeader Content="Zones" />
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <ListBox x:Name="Zones_LB" ItemsSource="{Binding Path=ZoneList}" ItemContainerStyle="{StaticResource PricingMatrix_ListBoxItem_Color}"  HorizontalAlignment="Stretch" SelectionMode="Multiple" SelectionChanged="Matrix_TextChanged">
+                                                                                    <ListBox.ItemTemplate>
+                                                                                        <DataTemplate>
+                                                                                            <ContentControl Content="{Binding Path=Zone}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                                                                                        </DataTemplate>
+                                                                                    </ListBox.ItemTemplate>
+
+
+
+                                                                                    <ListBox.ItemsPanel>
+                                                                                        <ItemsPanelTemplate>
+                                                                                            <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                                                                                        </ItemsPanelTemplate>
+                                                                                    </ListBox.ItemsPanel>
+
+
+                                                                                    <ListBox.Resources>
+                                                                                        <Style TargetType="{x:Type ListBox}">
+                                                                                            <Style.Triggers>
+                                                                                                <DataTrigger Binding="{Binding Status}" Value="Deleted">
+                                                                                                    <Setter Property="Foreground" Value="#FF8F0202"/>
+                                                                                                </DataTrigger>
+                                                                                            </Style.Triggers>
+                                                                                        </Style>
+                                                                                    </ListBox.Resources>
+                                                                                </ListBox>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                    <GridViewColumn Header="Markup" Width="70">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <StackPanel Orientation="Horizontal">
+
+                                                                                    <TextBox x:Name="Matrix_Markup_TxtBx" Width="45" Height="21"  Text="{Binding Path=Markup, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="Matrix_TextChanged" PreviewTextInput="NumericTxtBox_PreviewTextInput" >
+                                                                                        <TextBox.Resources>
+                                                                                            <Style TargetType="{x:Type TextBox}">
+
+                                                                                                <Style.Triggers>
+                                                                                                    <DataTrigger Binding="{Binding Status}" Value="Deleted">
+                                                                                                        <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                                                                        <Setter Property="Foreground" Value="#FF8F0202"/>
+                                                                                                    </DataTrigger>
+
+                                                                                                </Style.Triggers>
+
+                                                                                            </Style>
+                                                                                        </TextBox.Resources>
+                                                                                    </TextBox>
+                                                                                    <TextBlock Text=" %" VerticalAlignment="Center"/>
+                                                                                </StackPanel>
+
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                    <GridViewColumn Width="38">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <Button x:Name="Matrix_Delete_Btn" Content="X" Foreground="darkred" Width="25" Click="Matrix_Delete_Btn_Click"/>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+                                                                </GridView>
+
+                                                            </ListView.View>
+                                                        </local:CommonListView>
+                                                        <Label Content="Package" HorizontalAlignment="Left" Margin="335,28,0,0" VerticalAlignment="Top" Width="70" FontWeight="Normal"/>
+                                                        <TextBox x:Name="Matrix_Level1_TxtBox" HorizontalAlignment="Left" Height="23" Margin="405,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" FontSize="14"/>
+                                                        <Label Content="%" HorizontalAlignment="Left" Margin="471,31,0,0" VerticalAlignment="Top" Height="23"/>
+                                                        <Label x:Name="Level1_Lbl_Copy1" Content="Envelope /&#xA;Letter Markup" HorizontalAlignment="Left" Margin="509,12,0,0" VerticalAlignment="Top" Width="94" FontWeight="Normal"/>
+                                                        <TextBox x:Name="Matrix_Letter_TxtBx" HorizontalAlignment="Left" Height="23" Margin="680,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" FontSize="14"/>
+                                                        <Label Content="%" HorizontalAlignment="Left" Margin="746,12,0,0" VerticalAlignment="Top" Height="23"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="10,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="273" FontWeight="DemiBold" Height="64"><Run Text="Set Default Package and Letter Markups."/><LineBreak/><Run FontWeight="Normal" FontStyle="Italic" Text="(applicable to ALL weight/zone combinations, with exceptions set below)"/></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="5,84,0,0" TextWrapping="Wrap" Text="Set Markup override for specific Zone and Weight ranges:" VerticalAlignment="Top" Width="323" FontWeight="DemiBold"/>
+                                                        <TextBox x:Name="Matrix_Letter_Fixed_TxtBx" HorizontalAlignment="Left" Height="23" Margin="680,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" FontSize="14"/>
+                                                        <Label Content="$" HorizontalAlignment="Left" Margin="746,35,0,0" VerticalAlignment="Top" Height="23"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="608,12,0,0" TextWrapping="Wrap" Text="Percentage " VerticalAlignment="Top" Width="72" Height="23"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="613,36,0,0" TextWrapping="Wrap" Text="$ Fee" VerticalAlignment="Top" Width="67" Height="22"/>
+
+                                                    </Grid>
+                                                </TabItem>
+                                                <TabItem x:Name="LevelMarkup_TabItem" Header="Level Markup" BorderThickness="0">
+                                                    <Grid Background="#FFE5E5E5">
+                                                        <Grid x:Name="Level123_Grid">
+                                                            <Label x:Name="Level1_Lbl" Content="LEVEL 1" HorizontalAlignment="Left" Margin="26,77,0,0" VerticalAlignment="Top" Width="109"/>
+                                                            <Label x:Name="Level2_Lbl" Content="LEVEL 2" HorizontalAlignment="Left" Margin="26,108,0,0" VerticalAlignment="Top" Width="109"/>
+                                                            <Label x:Name="Level3_Lbl" Content="LEVEL 3" HorizontalAlignment="Left" Margin="26,139,0,0" VerticalAlignment="Top" Width="109"/>
+                                                            <TextBox x:Name="Level1_TxtBox" HorizontalAlignment="Left" Height="23" Margin="157,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" FontSize="14"/>
+                                                            <TextBox x:Name="Level2_TxtBox" HorizontalAlignment="Left" Height="23" Margin="157,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" FontSize="14"/>
+                                                            <TextBox x:Name="Level3_TxtBox" HorizontalAlignment="Left" Height="23" Margin="157,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" FontSize="14"/>
+                                                            <Label Content="%" HorizontalAlignment="Left" Margin="237,77,0,0" VerticalAlignment="Top" Height="23"/>
+                                                            <Label Content="%" HorizontalAlignment="Left" Margin="237,108,0,0" VerticalAlignment="Top" Height="23"/>
+                                                            <Label Content="%" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" Height="23"/>
+                                                        </Grid>
+
+                                                        <Label Content="Envelope/Letter Markup" HorizontalAlignment="Left" Margin="0,190,0,0" VerticalAlignment="Top" Width="152" Height="25"/>
+                                                        <TextBox x:Name="LTR_Markup_Percent_TxtBox" HorizontalAlignment="Left" Height="23" Margin="157,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" FontSize="14"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="26,267,0,0" TextWrapping="Wrap" Text="Percentage " VerticalAlignment="Top" Width="117" Height="19"/>
+                                                        <Label Content="Package Markups" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" Width="152" Height="30"/>
+                                                        <TextBlock x:Name="LevelMarkup_Description_TxtBx" HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" Text="Enter percentage markup for each level. Level Ranges are based on the $ shipping cost and can be setup in Shipping Setup." VerticalAlignment="Top" Width="374" Height="37" FontWeight="Normal"/>
+                                                        <TextBox x:Name="LTR_Markup_Fixed_TxtBox" HorizontalAlignment="Left" Height="23" Margin="157,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" FontSize="14"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="26,291,0,0" TextWrapping="Wrap" Text="$ Fee" VerticalAlignment="Top" Width="117" Height="19"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="10,220,0,0" TextWrapping="Wrap" Text="Enter either a Percentage Markup OR a Fixed $ markup.  This markup is only applicable when shipping an Express Envelope." VerticalAlignment="Top" Width="374" Height="32" FontWeight="Normal"/>
+                                                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,186,0,0" Stroke="Black" VerticalAlignment="Top" Width="369" />
+
+                                                        <Label Content="%" HorizontalAlignment="Left" Margin="240,262,0,0" VerticalAlignment="Top" Height="23"/>
+                                                        <Label Content="$" HorizontalAlignment="Left" Margin="240,290,0,0" VerticalAlignment="Top" Height="28"/>
+                                                        <Button x:Name="GlobalUpdate_Markups_Btn" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="407,20,0,0" VerticalAlignment="Top" Height="36" ToolTip="Update markups for all services!" Width="114">
+                                                            <StackPanel Orientation="Horizontal" Width="69" >
+                                                                <Image x:Name="SetupOptionsImage1" Source="Resources/GlobalUpdate.png" Margin="1"/>
+                                                                <TextBlock Foreground="white" Margin="3,-2,0,0" FontSize="10"><Run Text="Global"/><LineBreak/><Run Text="Update"/></TextBlock>
+                                                            </StackPanel>
+                                                        </Button>
+                                                        <Label x:Name="LevelR_Lbl" Content="Retail Rate Markup" HorizontalAlignment="Left" Margin="26,158,0,0" VerticalAlignment="Top" Width="126"/>
+                                                        <TextBox x:Name="LevelR_TxtBox" HorizontalAlignment="Left" Height="23" Margin="157,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" FontSize="14"/>
+                                                        <Label x:Name="LevelRpercent_Lbl" Content="%" HorizontalAlignment="Left" Margin="237,158,0,0" VerticalAlignment="Top" Height="23"/>
+
+                                                    </Grid>
+                                                </TabItem>
+                                                <TabItem x:Name="FirstClass_TabItem" Header="First Class Mail" BorderThickness="0">
+                                                    <Grid Background="#FFE5E5E5">
+
+                                                        <local:CommonListView x:Name="FirstClass_LV" Margin="0,3,1,61" HorizontalContentAlignment="Center" KeyboardNavigation.TabNavigation="Continue">
+                                                            <ListView.ItemContainerStyle>
+                                                                <Style TargetType="ListViewItem">
+                                                                    <Setter Property="Height" Value="21" />
+                                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                                    <Setter Property="IsTabStop" Value="False" />
+                                                                </Style>
+                                                            </ListView.ItemContainerStyle>
+
+                                                            <ListView.View>
+                                                                <GridView>
+                                                                    <GridViewColumn Header="Wt (Oz)" Width="55">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock Text="{Binding Path=Weight}" Background="#F0F8FF" Width="20" Height="25"/>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                    <GridViewColumn x:Name="CostLetter_Column" Header="COST Letter" Width="75">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBlock Width="35" Text="{Binding Path=COST_Letter, StringFormat='c'}" HorizontalAlignment="Center">
+                                                                                    <TextBlock.Style>
+                                                                                        <!-- Hide TextBoxes where the cost is 0. Hides Selling prices for Letters over 3.5oz -->
+                                                                                        <Style TargetType="TextBlock">
+                                                                                            <Style.Triggers>
+                                                                                                <DataTrigger Binding="{Binding COST_Letter}" Value="0">
+                                                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                                                </DataTrigger>
+                                                                                            </Style.Triggers>
+                                                                                        </Style>
+                                                                                    </TextBlock.Style>
+                                                                                </TextBlock>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                    <GridViewColumn x:Name="RetailLetter_Column" Header="SELL Letter" Width="75">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox Width="55" Text="{Binding Path=RETAIL_Letter, StringFormat='c'}" Background="#FFFFE0" GotFocus="TxtBox_GotFocus" GotMouseCapture="TxtBox_GotFocus">
+                                                                                    <TextBox.Style>
+                                                                                        <!-- Hide TextBoxes where the cost is 0. Hides Selling prices for Letters over 3.5oz -->
+                                                                                        <Style TargetType="TextBox">
+                                                                                            <Style.Triggers>
+                                                                                                <DataTrigger Binding="{Binding COST_Letter}" Value="0">
+                                                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                                                </DataTrigger>
+                                                                                            </Style.Triggers>
+                                                                                        </Style>
+                                                                                    </TextBox.Style>
+                                                                                </TextBox>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                    <GridViewColumn x:Name="CostFlat_Column"  Header="COST Flat" Width="75" DisplayMemberBinding="{Binding Path=COST_Flat, StringFormat='c'}"/>
+
+                                                                    <GridViewColumn x:Name="RetailFlat_Column" Header="SELL Flat" Width="75">
+                                                                        <GridViewColumn.CellTemplate>
+                                                                            <DataTemplate>
+                                                                                <TextBox Width="55" Text="{Binding Path=RETAIL_Flat, StringFormat='c'}" Background="#FFFFE0"/>
+                                                                            </DataTemplate>
+                                                                        </GridViewColumn.CellTemplate>
+                                                                    </GridViewColumn>
+
+                                                                </GridView>
+                                                            </ListView.View>
+                                                        </local:CommonListView>
+                                                        <TextBox x:Name="FirstClass_MarkupPercent_TxtBox" HorizontalAlignment="Left" Margin="307,0,0,17" TextWrapping="Wrap" Text="" Width="41" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="Flats Markup %" HorizontalAlignment="Left" Margin="307,0,0,36" Width="86" FontWeight="Normal" Height="19" VerticalAlignment="Bottom"/>
+                                                        <Button x:Name="Apply_PercentMarkup_Btn" Content="Apply" HorizontalAlignment="Left" Margin="353,0,0,17" Width="40" FontWeight="Normal" VerticalContentAlignment="Center" Height="19" VerticalAlignment="Bottom"/>
+                                                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="1,0,0,55" Stroke="Black" VerticalAlignment="Bottom" Width="393" RenderTransformOrigin="0.5,0.5"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="120,0,0,36" Width="76" Text="POSTCARDS" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="120,0,0,17" Width="59" Text="Domestic" FontWeight="Normal" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="120,0,0,0" Width="71" Text="International" FontWeight="Normal" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBox x:Name="PC_Dom_Sell_Txt" HorizontalAlignment="Left" Margin="246,0,0,18" TextWrapping="Wrap" Text="" Width="50" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBox x:Name="PC_Intl_Sell_Txt" HorizontalAlignment="Left" Margin="246,0,0,0" TextWrapping="Wrap" Text="" Width="50" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="191,0,0,38" Width="50" Text="Cost" TextAlignment="Center" FontWeight="Normal" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBlock HorizontalAlignment="Left" Margin="246,0,0,37" Width="50" Text="Sell" TextAlignment="Center" FontWeight="Normal" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBlock x:Name="PC_Dom_Cost_Txt" HorizontalAlignment="Left" Margin="191,0,0,17" Width="53" Text="$1.00" FontWeight="Bold" TextAlignment="Center" Height="19" VerticalAlignment="Bottom"/>
+                                                        <TextBlock x:Name="PC_Intl_Cost_Txt" HorizontalAlignment="Left" Margin="191,0,0,-2" VerticalAlignment="Bottom" Height="19" Width="53" Text="$1.00" FontWeight="Bold" TextAlignment="Center"/>
+                                                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="55" Margin="110,0,0,0" Stroke="Black" VerticalAlignment="Bottom" Width="1" RenderTransformOrigin="0.5,0.5"/>
+                                                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="56" Margin="301,0,0,-1" Stroke="Black" VerticalAlignment="Bottom" Width="1" RenderTransformOrigin="0.5,0.5"/>
+                                                    </Grid>
+                                                </TabItem>
+
+                                            </TabControl>
+
+
+                                        </Grid>
+                                    </Border>
+
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem x:Name="Accesorial_Tab" Header="Accessorial Surcharges" Background="#FFBCB9B2" FontWeight="Bold">
+                                <Grid Background="#FFBCB9B2">
+                                    <Border BorderBrush="Black" CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" HorizontalAlignment="Left" Height="386" Margin="0,0,0,0" VerticalAlignment="Top" Width="370">
+                                        <Grid>
+                                            <TextBlock x:Name="AccsHeader_Label" HorizontalAlignment="Left" Margin="86,345,0,1" VerticalAlignment="Center" Width="186" FontWeight="Normal" TextWrapping="Wrap" Height="40" FontSize="10"><Run Text="Copy Accessorial pricing to other services! "/><LineBreak/><Run Text="Select charges above and click "/><LineBreak/><Run Text="Global Update button!"/></TextBlock>
+                                            <local:CommonListView x:Name="Accessorial_LV" HorizontalAlignment="Left" Height="331" Margin="10,10,0,0" VerticalAlignment="Top" Width="350" TabIndex="22" SelectionMode="Multiple" KeyboardNavigation.TabNavigation="Continue">
+
+
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+                                                        <Setter Property="IsTabStop" Value="False" />
+
+                                                        <Style.Triggers>
+
+                                                            <!-- Seperation Lines for Declared Value and Third party Insurance -->
+                                                            <DataTrigger Binding="{Binding Name}" Value="Decl. Value - Free Coverage Up To">
+                                                                <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+                                                                <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                                                                <Setter Property="BorderBrush" Value="Black"/>
+                                                            </DataTrigger>
+
+                                                            <DataTrigger Binding="{Binding Name}" Value="3rd Party Ins. - Free Coverage Up To">
+                                                                <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+                                                                <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                                                                <Setter Property="BorderBrush" Value="Black"/>
+                                                            </DataTrigger>
+
+
+
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="Accessorial Charge" Width="194">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <StackPanel Orientation="Vertical">
+                                                                        <TextBlock Margin="0,0,-8,0"  Text="{Binding Path=Name, StringFormat='c'}" FontSize="11" ToolTip="{Binding Path=Description}"/>
+
+                                                                        <!-- Additional Textbox only visible for Declared Value and ThirdParty Insurance -->
+                                                                        <TextBox x:Name="Accs_Name_TxtBox" Width="55" Margin="4,0,0,0" HorizontalAlignment="Left" GotFocus="TxtBox_GotFocus" GotMouseCapture="TxtBox_GotFocus">
+                                                                            <TextBox.Style>
+                                                                                <Style TargetType="TextBox">
+                                                                                    <Setter Property="Text" Value="{Binding Path=NameBoxAmount, StringFormat='c'}"/>
+                                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                                    <Setter Property="KeyboardNavigation.IsTabStop" Value="true" />
+
+
+                                                                                    <Style.Triggers>
+                                                                                        <DataTrigger Binding="{Binding NameBoxField}" Value="">
+                                                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                        </DataTrigger>
+                                                                                    </Style.Triggers>
+                                                                                </Style>
+                                                                            </TextBox.Style>
+                                                                        </TextBox>
+
+                                                                    </StackPanel>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+
+                                                        <GridViewColumn Header="Cost" Width="62">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBox x:Name="Accs_Cost_TxtBox" Width="50" VerticalAlignment="Bottom" IsTabStop="true" GotFocus="TxtBox_GotFocus" GotMouseCapture="TxtBox_GotFocus">
+                                                                        <TextBox.Style>
+                                                                            <Style TargetType="TextBox">
+                                                                                <Setter Property="Text" Value="{Binding Path=Cost, StringFormat='c'}"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Name}" Value="Fuel Surcharge">
+                                                                                        <Setter Property="Text" Value="{Binding Path=Cost, StringFormat=#0.00\\%}"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding CostField}" Value="">
+                                                                                        <Setter Property="Text" Value=""/>
+                                                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                                                    </DataTrigger>
+
+
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBox.Style>
+                                                                    </TextBox>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+
+                                                        <GridViewColumn Header="Sell" Width="62">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBox Width="50" IsTabStop="true" GotFocus="TxtBox_GotFocus" GotMouseCapture="TxtBox_GotFocus">
+                                                                        <TextBox.Style>
+                                                                            <Style TargetType="TextBox">
+                                                                                <Setter x:Name="Accs_Sell_TxtBox" Property="Text" Value="{Binding Path=Sell, StringFormat='c'}"></Setter>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Name}" Value="Fuel Surcharge">
+                                                                                        <Setter Property="Text" Value="{Binding Path=Sell, StringFormat=#0.00\\%}"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding Name}" Value="USPS C.O.D">
+                                                                                        <Setter Property="Text" Value="{Binding Path=Sell, StringFormat=#0.00\\%}"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding SellField}" Value="">
+                                                                                        <Setter Property="Text" Value=""/>
+                                                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                                                    </DataTrigger>
+
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBox.Style>
+                                                                    </TextBox>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </local:CommonListView>
+                                            <Button x:Name="GlobalUpdate_Btn" Style="{StaticResource POSFunctionButton_Style}" HorizontalAlignment="Left" Margin="277,346,0,0" VerticalAlignment="Top" Height="39" ToolTip="Global Update for Accessorial Charges!" Width="83">
+                                                <StackPanel Orientation="Horizontal" Width="70" >
+                                                    <Image x:Name="SetupOptionsImage" Source="Resources/GlobalUpdate.png" Margin="1"/>
+                                                    <TextBlock Foreground="white" Margin="3,-2,0,0" FontSize="10" Width="40" Height="28"><Run Text="Global"/><LineBreak/><Run Text="Update"/></TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button x:Name="Accessorial_SelectAll_Btn"  Content="Select All" HorizontalAlignment="Left" VerticalAlignment="Top" Width="62" Height="17" FontWeight="Normal" FontSize="10"  Margin="10,341,0,0"/>
+
+                                        </Grid>
+                                    </Border>
+
+
+
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem x:Name="ServiceOptions_Tab" Header="Options" Background="#FFBCB9B2" FontWeight="Bold">
+                                <Grid Background="#FFBCB9B2">
+                                    <Border BorderBrush="Black" CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" HorizontalAlignment="Left" Height="387" Margin="0,-1,0,0" VerticalAlignment="Top" Width="794">
+                                        <Grid x:Name="ServiceOptions_Grid">
+                                            <Label Content="Service Options" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="774" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16"/>
+                                            <TextBox x:Name="POSDepartment_TxtBox" HorizontalAlignment="Left" Height="23" Margin="432,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="329" TabIndex="30" FontSize="14" Tag="PosDept"/>
+                                            <Label Content="POS Department" HorizontalAlignment="Left" Margin="432,44,0,0" VerticalAlignment="Top" Width="122" FontSize="14"/>
+
+                                            <Border Margin="57,46,459,10" BorderThickness="1" BorderBrush="black" CornerRadius="10">
+                                                <Grid x:Name="ServiceCheckBoxes_Grid" Margin="0,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+
+                                                    </Grid.RowDefinitions>
+
+                                                    <CheckBox Grid.Row="0" Content="Disable Service" Margin="5,5,5,5" FontSize="14" VerticalContentAlignment="Center" TabIndex="23" Tag="Disabled"/>
+                                                    <CheckBox Grid.Row="1" Content="Saturday Delivery" Margin="5,5,5,5" FontSize="14" VerticalContentAlignment="Center" TabIndex="24" Tag="SaturdayDelivery"/>
+                                                    <CheckBox Grid.Row="2" Content="Saturday Pickup" Margin="5,5,5,5" FontSize="14" VerticalContentAlignment="Center" TabIndex="25" Tag="SaturdayPickup"/>
+                                                    <CheckBox Grid.Row="3" Content="Surcharge for Residential" Margin="5,5,5,5" FontSize="14" VerticalContentAlignment="Center" TabIndex="26" Tag="ResidentialService"/>
+                                                    <CheckBox Grid.Row="4" Content="Request ID from Shipper" Margin="5,5,5,5" FontSize="14" VerticalContentAlignment="Center" TabIndex="27" Tag="VerifyShipperContact"/>
+                                                    <CheckBox Grid.Row="5" Content="Shipper Not Required" Margin="5,5,5,5" FontSize="14" VerticalContentAlignment="Center" TabIndex="28" Tag="DontRequireShipper"/>
+                                                    <CheckBox Grid.Row="6" Content="Consignee Not Required" Margin="5,5,5,5" FontSize="14" VerticalContentAlignment="Center" TabIndex="29" Tag="DontRequireConsignee"/>
+                                                </Grid>
+                                            </Border>
+
+
+                                            <CheckBox Content="Popup Message" HorizontalAlignment="Left" Margin="432,121,0,0" VerticalAlignment="Top" FontSize="14" Width="146" Height="28" VerticalContentAlignment="Center" TabIndex="31" Tag="PopupEnabled"/>
+                                            <TextBox HorizontalAlignment="Left" Height="88" Margin="432,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="329" TabIndex="32" Tag="PopupMsg"/>
+
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem x:Name="Packaging_Tab" Header="Packaging" Background="#FFBCB9B2" FontWeight="Bold">
+                                <Border BorderBrush="Black" CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" HorizontalAlignment="Left" Height="386" VerticalAlignment="Top" Width="793">
+                                    <Grid>
+                                        <Border x:Name="Packagin_Border" Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="366" Margin="10,10,0,0" VerticalAlignment="Top" Width="223" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+
+                                            <ListBox x:Name="Packaging_ListBox" Margin="10" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Single" TabIndex="3" HorizontalContentAlignment="Left">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ContentControl Content="{Binding Path='SettingName'}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Left"  VerticalAlignment="Stretch" FontSize="12"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Border>
+                                        <Border x:Name="FlatRate_Border" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="223" Margin="247,153,0,0" VerticalAlignment="Top" Width="536" CornerRadius="10">
+                                            <Grid>
+                                                <Label Content="Flat Rate Pricing" HorizontalAlignment="Left" Margin="0,-21,0,0" VerticalAlignment="Top" Width="169"/>
+                                                <Label Content="Domestic" HorizontalAlignment="Left" Margin="7,5,0,0" VerticalAlignment="Top" Width="76"/>
+                                                <Label Content="Canada" HorizontalAlignment="Left" Margin="7,120,0,0" VerticalAlignment="Top" Width="76"/>
+                                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,114,0,0" Stroke="Black" VerticalAlignment="Top" Width="185"/>
+                                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="205" Margin="205,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5"/>
+
+                                                <Label Content="Cost" HorizontalAlignment="Left" Margin="20,31,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                                <Label Content="Sell" HorizontalAlignment="Left" Margin="110,31,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                                                <TextBox x:Name="FlatR_Dom_Cost" HorizontalAlignment="Left" Height="23" Margin="20,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" VerticalContentAlignment="Center" FontSize="14" TabIndex="9" IsTabStop="False" IsReadOnly="True"/>
+                                                <TextBox x:Name="FlatR_Dom_Sell" HorizontalAlignment="Left" Height="23" Margin="110,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" VerticalContentAlignment="Center" FontSize="14" TabIndex="9"/>
+                                                <Label Content="Cost" HorizontalAlignment="Left" Margin="20,151,0,0" VerticalAlignment="Top"/>
+                                                <Label Content="Sell" HorizontalAlignment="Left" Margin="110,151,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                                                <TextBox x:Name="FlatR_CAN_Cost" HorizontalAlignment="Left" Height="23" Margin="20,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" VerticalContentAlignment="Center" FontSize="14" IsTabStop="False" IsReadOnly="True"/>
+                                                <TextBox x:Name="FlatR_CAN_Sell" HorizontalAlignment="Left" Height="23" Margin="110,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="3" VerticalContentAlignment="Center" FontSize="14" TabIndex="10"/>
+                                                <Label Content="International - Flat Rate Price Groups" HorizontalAlignment="Left" Margin="222,0,0,0" VerticalAlignment="Top" Width="248"/>
+                                                <local:CommonListView x:Name="FlatR_INTL_lv" HorizontalAlignment="Left" Height="185" Margin="222,26,0,0" VerticalAlignment="Top" Width="302" TabIndex="11" IsTabStop="True">
+                                                    <ListView.View>
+                                                        <GridView>
+
+                                                            <GridViewColumn Header="Price Group" Width="135" DisplayMemberBinding="{Binding Path=ServiceTypeName}"/>
+                                                            <GridViewColumn Header="Cost" Width="70"  DisplayMemberBinding="{Binding Path=BaseCost, StringFormat='c'}"/>
+                                                            <GridViewColumn Header="Sell" Width="70">
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBox Width="55" Text="{Binding Path=SellPrice, StringFormat='c'}" GotFocus="TxtBox_GotFocus" GotMouseCapture="TxtBox_GotFocus"/>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+
+
+                                                        </GridView>
+
+
+                                                    </ListView.View>
+                                                </local:CommonListView>
+                                            </Grid>
+                                        </Border>
+
+                                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="247,27,0,0" VerticalAlignment="Top" Width="536" CornerRadius="10">
+                                            <Grid>
+                                                <TextBox x:Name="Pkg_Length" Text="{Binding SelectedItem.Length, ElementName=Packaging_ListBox, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="90,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" FontSize="14" TabIndex="4"/>
+                                                <TextBox x:Name="Pkg_Width" Text="{Binding SelectedItem.Width, ElementName=Packaging_ListBox, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="90,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" FontSize="14" TabIndex="5"/>
+                                                <TextBox x:Name="Pkg_Height" Text="{Binding SelectedItem.Height, ElementName=Packaging_ListBox, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="90,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" FontSize="14" TabIndex="6"/>
+                                                <Label Content="Length" HorizontalAlignment="Left" Margin="15,9,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                                                <Label Content="Width" HorizontalAlignment="Left" Margin="15,37,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                                                <Label Content="Height" HorizontalAlignment="Left" Margin="15,65,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                                                <TextBox x:Name="Pkg_WeightLimit" Text="{Binding SelectedItem.MaxLBs, ElementName=Packaging_ListBox, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="299,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" VerticalContentAlignment="Center" FontSize="14" TabIndex="7"/>
+                                                <Label Content="Weight Limit (lb)" HorizontalAlignment="Left" Margin="188,64,0,0" VerticalAlignment="Top" Width="106" Height="28"/>
+                                                <CheckBox x:Name="Pkg_Disable_ChkBox" IsChecked="{Binding SelectedItem.Disabled, ElementName=Packaging_ListBox, Mode=TwoWay}" Content="Disable Packaging" HorizontalAlignment="Left" Margin="395,61,0,0" VerticalAlignment="Top" Width="129" Height="32" VerticalContentAlignment="Center" TabIndex="8"/>
+                                                <TextBox x:Name="Pkg_Description" Text="{Binding SelectedItem.SettingDesc, ElementName=Packaging_ListBox, Mode=TwoWay}" HorizontalAlignment="Left" Height="34" Margin="188,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="336" VerticalContentAlignment="Center" FontWeight="Normal" IsReadOnly="True"/>
+                                                <Label Content="Description" HorizontalAlignment="Left" Margin="188,0,0,0" VerticalAlignment="Top" Width="106" Height="28"/>
+
+                                            </Grid>
+                                        </Border>
+                                        <Label Content="Settings" HorizontalAlignment="Left" Margin="247,6,0,0" VerticalAlignment="Top" Width="169"/>
+                                    </Grid>
+                                </Border>
+                            </TabItem>
+
+                            <TabItem x:Name="PeakCharges_Tab" Header="Peak Charges" Background="#FFBCB9B2" FontWeight="Bold">
+                                <Border BorderBrush="Black" CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" HorizontalAlignment="Left" Height="386" VerticalAlignment="Top" Width="793">
+                                    <Grid>
+                                        <TextBox x:Name="Peak_MarkupPercent_TxtBox" HorizontalAlignment="Left" Height="21" Margin="529,9,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="45"/>
+                                        <Label Content="Markup %" HorizontalAlignment="Left" Margin="454,7,0,0" VerticalAlignment="Top" Height="30" Width="70"/>
+                                        <Button x:Name="Apply_PeakPercentMarkup_Btn" Content="Apply" HorizontalAlignment="Left" Margin="579,10,0,0" VerticalAlignment="Top" Width="115"/>
+                                        <local:CommonListView x:Name="PeakSurcharges_LV" HorizontalAlignment="Left" Height="334" Margin="58,42,0,0" VerticalAlignment="Top" Width="684" TabIndex="12" KeyboardNavigation.TabNavigation="Continue">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="IsTabStop" Value="False" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Surcharge" Width="180" DisplayMemberBinding="{Binding Path=Surcharge}"/>
+                                                    <GridViewColumn Header="Service" Width="130" DisplayMemberBinding="{Binding Path=Service}"/>
+                                                    <GridViewColumn Header="Cost" Width="70" DisplayMemberBinding="{Binding Path=Cost, StringFormat='c'}"/>
+                                                    <GridViewColumn Header="Retail" Width="70">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Width="55" Text="{Binding Path=Retail, StringFormat='c'}" Background="#FFFFE0" GotFocus="TxtBox_GotFocus" GotMouseCapture="TxtBox_GotFocus"/>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="From_Date" Width="100" DisplayMemberBinding="{Binding Path=DateFrom, StringFormat=dd-MM-yyyy}"/>
+                                                    <GridViewColumn Header="To_Date" Width="100" DisplayMemberBinding="{Binding Path=DateTo, StringFormat=dd-MM-yyyy}"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </local:CommonListView>
+
+                                    </Grid>
+                                </Border>
+                            </TabItem>
+
+                            <TabItem x:Name="PostalInsurance_Tab" Header="Postal Insurance" Background="#FFBCB9B2" FontWeight="Bold" TabIndex="13">
+                                <Border BorderBrush="Black" CornerRadius="10" Background="#FFE5E5E5" BorderThickness="0" HorizontalAlignment="Left" Height="386" VerticalAlignment="Top" Width="793">
+                                    <Grid>
+                                        <Border x:Name="Insurance_Border" Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="366" Margin="10,10,0,0" VerticalAlignment="Top" Width="223" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+
+                                            <ListBox x:Name="Insurance_ListBox" Margin="10" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Single" TabIndex="3" HorizontalContentAlignment="Left" FontSize="14">
+                                                <ListBoxItem Content="Domestic Insurance"/>
+                                                <ListBoxItem Content="Express Mail"/>
+                                                <ListBoxItem Content="Express Mail International"/>
+                                                <ListBoxItem Content="Global Express Guaranteed"/>
+                                                <ListBoxItem Content="Priority Mail International"/>
+
+                                            </ListBox>
+                                        </Border>
+
+                                        <local:CommonListView x:Name="Insurance_lv" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Height="366" Margin="257,10,0,0" VerticalAlignment="Top" Width="302" TabIndex="11" IsTabStop="True" KeyboardNavigation.TabNavigation="Continue">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="IsTabStop" Value="False" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+
+                                            <ListView.View>
+                                                <GridView>
+
+                                                    <GridViewColumn Header="Cover Up To" Width="115" DisplayMemberBinding="{Binding Path=Amount, StringFormat='c'}"/>
+                                                    <GridViewColumn Header="Cost" Width="70"  DisplayMemberBinding="{Binding Path=Cost, StringFormat='c'}"/>
+                                                    <GridViewColumn Header="Sell" Width="70">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Width="55" Text="{Binding Path=Sell, StringFormat='c'}"  Background="#FFFFE0" GotFocus="TxtBox_GotFocus" GotMouseCapture="TxtBox_GotFocus"/>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+
+
+                                                </GridView>
+                                            </ListView.View>
+                                        </local:CommonListView>
+
+                                        <TextBox x:Name="Insurance_MarkupPercent_TxtBox" HorizontalAlignment="Left" Height="21" Margin="655,19,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66"/>
+                                        <Label Content="Markup %" HorizontalAlignment="Left" Margin="580,16,0,0" VerticalAlignment="Top" Height="24" Width="70"/>
+                                        <Button x:Name="Apply_InsurancePercentMarkup_Btn" Content="Apply" HorizontalAlignment="Left" Margin="585,45,0,0" VerticalAlignment="Top" Width="136"/>
+                                    </Grid>
+                                </Border>
+                            </TabItem>
+
+
+
+                        </TabControl>
+
+                        <Popup x:Name="GlobalUpdate_Popup" PlacementTarget="{Binding ElementName=GlobalUpdate_Btn}" Placement="Left" AllowsTransparency="true" StaysOpen="True" PopupAnimation="Slide">
+                            <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Width="197" Background="#FFE0E0E0" Height="332" Margin="0">
+                                <Grid ClipToBounds="True" Height="331" VerticalAlignment="Top" HorizontalAlignment="Left" Width="196" Margin="0,0,-1,-1">
+                                    <Button x:Name="Save_GlobalUpdate_Btn" Content="Save" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="83,298,0,-12" VerticalAlignment="Top" Width="103" FontSize="14" Height="33" ClipToBounds="True"/>
+                                    <Label Content="Global Update" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Width="101" FontWeight="Bold"/>
+                                    <TextBlock Text="Select services to copy pricing to!" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="191" Height="20"/>
+
+                                    <Border Style="{StaticResource BaseBorder}" HorizontalAlignment="Left" Height="252" Margin="10,46,0,0" VerticalAlignment="Top" Width="176" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                                        <ListBox x:Name="GlobalUpdate_Service_ListBox" Margin="0,10,0,8" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Multiple" TabIndex="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ContentControl Content="{Binding}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" FontSize="12"/>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </Border>
+                                    <Button x:Name="SelectAllGlobal_Btn" Content="Select All" HorizontalAlignment="Left" Margin="111,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10"/>
+                                </Grid>
+                            </Border>
+                        </Popup>
+
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+
+
+            </Grid>
+        </Viewbox>
+
+
+    </Grid>
+</local:CommonWindow>

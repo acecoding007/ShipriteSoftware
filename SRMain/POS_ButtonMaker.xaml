@@ -1,0 +1,270 @@
+﻿<local:CommonWindow x:Name="POS_ButtonMaker_Window" x:Class="POS_ButtonMaker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click" Visibility="Hidden">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click" Visibility="Hidden">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/Themes_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="POS BUTTON MAKER" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SaveButton" Grid.Column="3" ToolTip="Save Changes" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="81*"/>
+                            <ColumnDefinition Width="407*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="433" Margin="10,26,0,0" VerticalAlignment="Top" Width="142"  Background="White" BorderThickness="0">
+
+                            <ListBox x:Name="ButtonType_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" HorizontalAlignment="Left" Margin="3,4" Width="137" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" FontWeight="Bold" BorderThickness="0" Background="White">
+                                <ListBoxItem Content="SKU"/>
+                                <ListBoxItem Content="BUTTON GROUP"/>
+                                <ListBoxItem Content="GO BACK"/>
+
+                                <ListBoxItem Content="Ship One"/>
+                                <ListBoxItem Content="Ship Multiple"/>
+                                <ListBoxItem Content="Ship Letter"/>
+                                <ListBoxItem Content="Ship Other Packaging"/>
+                                <ListBoxItem Content=""/>
+                                <ListBoxItem Content="Mailbox Rental"/>
+                                <ListBoxItem Content="Mailbox Renewal"/>
+                                <ListBoxItem Content="Mailbox Maintenance"/>
+                                <ListBoxItem Content=""/>
+                                <ListBoxItem Content="Mail Master"/>
+                                <ListBoxItem Content="1st Class Mail"/>
+                                <ListBoxItem Content="PackMaster"/>
+                                <ListBoxItem Content="Drop Off Manager"/>
+                                <ListBoxItem Content=""/>
+                                <ListBoxItem Content="POS Discount"/>
+                                <ListBoxItem Content="Sales Tax Change"/>
+                                <ListBoxItem Content="POS Memo"/>
+
+                                <ListBoxItem Content=""/>
+                            </ListBox>
+                        </Border>
+                        <Label Content="Choose Button Type" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="124" FontWeight="Bold"/>
+                        <Border Style="{DynamicResource BaseBorder}" Background="#FFE5E5E5" BorderThickness="0" Grid.Column="1" HorizontalAlignment="Left" Height="304" Margin="10,155,0,0" VerticalAlignment="Top" Width="388">
+                            <Grid x:Name="ButtonDetails_Grid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="136*"/>
+                                    <RowDefinition Height="83*"/>
+                                    <RowDefinition Height="83*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="SKUHeader_Label" Content="SKU" HorizontalAlignment="Left" Margin="1,44,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold" FontSize="14"/>
+                                <Label x:Name="SKU_Label" Content="" HorizontalAlignment="Left" BorderThickness="1" Margin="95,44,0,0" VerticalAlignment="Top" Width="163" FontWeight="Bold" FontSize="14" BorderBrush="Black" Foreground="Black" Background="#FFA2A9B4"/>
+                                <Button x:Name="Search_Button" Style="{StaticResource POSFunctionButton_Style}" Content="   SEARCH&#xD;&#xA;INVENTORY" HorizontalAlignment="Left" Margin="263,44,0,0" VerticalAlignment="Top" Width="113" Height="67" FontSize="14" Foreground="White"/>
+                                <Label x:Name="Quantity_Label" Content="Quantity:" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Width="103" FontWeight="Bold" FontSize="14" Grid.Row="1"/>
+                                <TextBox x:Name="Quantity_TextBox" HorizontalAlignment="Left" Height="27" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" PreviewTextInput="TextBox_PreviewTextInput" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                                <Label x:Name="Instructions_Label" Content="Click Search button and select Item SKU from Inventory." HorizontalAlignment="Left" Margin="6,10,0,0" VerticalAlignment="Top" Width="312"/>
+                                <Label x:Name="Quantity_Desc_Label" Content="Enter Default Order Quantity. &#xD;&#xA;Enter '?' to ask for Quantity at time of sale.&#xD;&#xA;Blank entry defaults to Quantity of 1." HorizontalAlignment="Left" Margin="140,11,0,0" VerticalAlignment="Top" Width="236" Height="66" Grid.Row="1"/>
+                                <Label x:Name="SKUDescHeader_Label" Content="Description" HorizontalAlignment="Left" Margin="1,82,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold" FontSize="14"/>
+                                <Label x:Name="SKUDesc_Label" Content="" HorizontalAlignment="Left" BorderThickness="1" Margin="95,82,0,0" VerticalAlignment="Top" Width="163" FontWeight="Bold" FontSize="14" BorderBrush="Black" Foreground="Black" Background="#FFA2A9B4"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,135,0,0" Stroke="Black" VerticalAlignment="Top" Width="386"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,82,0,0" Stroke="Black" VerticalAlignment="Top" Width="386" Grid.Row="1"/>
+                                <Label x:Name="Group_Label" Content="Select Existing Group" HorizontalAlignment="Left" Margin="6,5,0,0" VerticalAlignment="Top" Width="370" FontWeight="Bold" Grid.Row="2"/>
+                                <ComboBox x:Name="Group_ComboBox" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="366" Height="27" Grid.Row="2"/>
+                                <TextBox x:Name="GroupName_TxtBox" HorizontalAlignment="Left" Height="31" Margin="95,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" FontSize="14" Visibility="Hidden"/>
+
+                            </Grid>
+                        </Border>
+                        <Label Content="Button Details" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="124" FontWeight="Bold" Grid.Column="1"/>
+                        <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="433" Margin="403,26,0,0" VerticalAlignment="Top" Width="401">
+                            <Grid>
+                                <Label Content="Display Caption On Button:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="379" FontWeight="Bold"/>
+                                <TextBox x:Name="ButtonCaption_TextBox" HorizontalAlignment="Left" Height="27" Margin="10,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="379" FontSize="14"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,63,0,0" Stroke="Black" VerticalAlignment="Top" Width="399"/>
+                                <Button x:Name="Preview_Button" Style="{StaticResource POSSKUButton_Style}" FontSize="14" Foreground="Black" Height="50" Width="98" Margin="256,354,45,27" />
+                                <Label Content="POS Button Preview:" HorizontalAlignment="Left" Margin="243,307,0,0" VerticalAlignment="Top" Width="131" FontWeight="Bold"/>
+                                <Label Content="Button Color Selection" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
+                                <Label Content="Button Text Color Selection" HorizontalAlignment="Left" Margin="10,307,0,0" VerticalAlignment="Top" Width="167" FontWeight="Bold"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,302,0,0" Stroke="Black" VerticalAlignment="Top" Width="399"/>
+                                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Margin="199,303,0,1" Stroke="Black" Width="1" RenderTransformOrigin="0.5,0.5">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="-1"/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                                <Grid HorizontalAlignment="Left" Height="207" Margin="10,90,0,0" VerticalAlignment="Top" Width="379">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="BT0" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click"  FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Background="#FFFCD2A8" />
+                                    <Button x:Name="BT1" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Column="1" Background="#FFE3DCC0" />
+                                    <Button x:Name="BT2" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Column="2" Background="#FFFFFFBA" />
+                                    <Button x:Name="BT3" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Column="3" Background="#FFC1D2D6" />
+                                    <Button x:Name="BT4" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,9,0" Grid.Column="4" Background="#FFEAC3B8" />
+                                    <Button x:Name="BT5" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Row="1" Background="#FFD9A88F" />
+                                    <Button x:Name="BT6" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,10,41" Grid.Row="2" Grid.Column="1" Background="#FF9BAF8E" Grid.RowSpan="2" />
+                                    <Button x:Name="BT7" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Row="1" Grid.Column="2" Background="#FFF5E344" />
+                                    <Button x:Name="BT8" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Row="1" Grid.Column="3" Background="#FFAEBBC7" />
+                                    <Button x:Name="BT9" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,9,0" Grid.Row="1" Grid.Column="4" Background="#FFF9ACAC" />
+                                    <Button x:Name="CustomButtonColor_Button" Style="{StaticResource POSSKUButton_Style}" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="11,41,9,0" Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Content="Custom Color" />
+                                    <Button x:Name="BT11" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,10,-1" Grid.Row="4" Grid.Column="2" Background="#FF444444" />
+                                    <Button x:Name="BT12" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,10,-1" Grid.Row="4" Grid.Column="1" Background="#FFDDDDDD" />
+                                    <Button x:Name="BT13" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,10,-1" Grid.Row="4" Background="#FFF9F9F9" />
+                                    <Button x:Name="BT14" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,10,41" Grid.Row="2" Background="#FFAB9C73" Grid.RowSpan="2" />
+                                    <Button x:Name="BT15" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,1,10,40" Grid.Row="3" Background="#FFD2BE96" Grid.RowSpan="2" />
+                                    <Button x:Name="BT16" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Row="1" Grid.Column="1" Background="#FFC1CC89" />
+                                    <Button x:Name="BT17" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Row="3" Grid.Column="1" Background="#FF5E7703" />
+                                    <Button x:Name="BT18" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,41,10,0" Grid.Row="1" Grid.Column="2" Background="#FFFFE500" Grid.RowSpan="2" />
+                                    <Button x:Name="BT19" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Row="3" Grid.Column="2" Background="#FF74736D" />
+                                    <Button x:Name="BT20" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0,10,41" Grid.Row="2" Grid.Column="3" Background="#FF6A7D8E" Grid.RowSpan="2" />
+                                    <Button x:Name="BT21" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Grid.Row="3" Grid.Column="3" Background="#FF466EB4" />
+                                    <Button x:Name="BT22" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="9,0,10,41" Grid.Row="2" Grid.Column="4" Background="#FFBD7070" Grid.RowSpan="2" />
+                                    <Button x:Name="BT23" Style="{StaticResource POSSKUButton_Style}" Click="Color_Button_Click" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,1,9,40" Grid.Row="3" Grid.Column="4" Background="#FFB65B5B" Grid.RowSpan="2" />
+                                </Grid>
+                                <Grid HorizontalAlignment="Left" Height="93" Margin="35,333,0,0" VerticalAlignment="Top" Width="125">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="BT24" Style="{StaticResource POSSKUButton_Style}" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Background="Black" />
+                                    <Button x:Name="BT25" Style="{StaticResource POSSKUButton_Style}" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="10,0" Background="#FFF9F9F9" Grid.Row="1" />
+                                    <Button x:Name="Custom_Text_Button" Style="{StaticResource POSSKUButton_Style}" FontSize="14" Foreground="Black" Height="Auto" Width="Auto" Margin="11,0,10,0" Background="#FFDDDDDD" Grid.Row="2" Content="Custom Color" />
+                                </Grid>
+
+
+                            </Grid>
+
+                        </Border>
+                        <Label Content="Button Appearance" HorizontalAlignment="Left" Margin="403,0,0,0" VerticalAlignment="Top" Width="124" FontWeight="Bold" Grid.Column="1"/>
+                        <Border x:Name="Desc_Border" Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="93" Margin="10,26,0,0" VerticalAlignment="Top" Width="388" Background="White">
+                            <TextBlock x:Name="Description_Label" Text="" HorizontalAlignment="Left" Width="367"  Background="White" Margin="9,5,0,5" TextWrapping="WrapWithOverflow"/>
+                        </Border>
+                        <Label Content="Description" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" FontWeight="Bold" Grid.Column="1" Margin="10,0,0,0"/>
+
+                        <Popup x:Name="SKUSearch_Popup" PlacementTarget="{Binding ElementName=Desc_Border}" AllowsTransparency="True" StaysOpen="False" PopupAnimation="Slide" Placement="Right">
+                            <Border Style="{DynamicResource BaseBorder}" Margin="0" BorderThickness="1" Grid.ColumnSpan="2" Grid.Column="1" Height="435" Width="407" Background="#FFE5E5E5">
+                                <Grid >
+                                    <local:CommonListView x:Name="SKUSearch_LV" Margin="0,50,0,44" BorderThickness="0" Background="#FFE5E5E5" GridViewColumnHeader.Click="ColumnHeader_Click">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="SKU" DisplayMemberBinding="{Binding SKU}" Width="100"/>
+                                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="175"/>
+                                                <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price, StringFormat='c'}" Width="65" />
+
+                                            </GridView>
+                                        </ListView.View>
+                                    </local:CommonListView>
+                                    <Button x:Name="SKUSearch_Cancel_Btn" Content="Cancel" Margin="10,394,205,10" >
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                    <Button x:Name="SKUSearch_Select_Btn" Content="Select" Margin="205,394,10,10" FontWeight="Bold">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                    <TextBlock HorizontalAlignment="Left" Margin="24,10,0,0" TextWrapping="Wrap" Text="Search:" VerticalAlignment="Top" Height="25" Width="58" FontWeight="Bold" FontSize="14"/>
+                                    <TextBox x:Name="InventorySearch_TxtBx" HorizontalAlignment="Left" Height="23" Margin="87,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontSize="14"/>
+                                </Grid>
+                            </Border>
+                        </Popup>
+
+
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

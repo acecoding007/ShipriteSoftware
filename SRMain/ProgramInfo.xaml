@@ -1,0 +1,133 @@
+﻿<local:CommonWindow x:Name="ProgramInfo_Window" x:Class="ProgramInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/ProgramInfo_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="PROGRAM INFORMATION" Style="{DynamicResource HeaderLabel}" Width="215"/>
+                    </Border>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+                        <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Height="443" Margin="10,10,0,0" VerticalAlignment="Top" Width="457">
+                            <Grid Margin="-1,0,0,0">
+                                <Label Content="SYSTEM INFORMATION" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="456" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center"/>
+                                <Label Content="OS Full Name:" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="OS Version:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="Is OS 64-Bit:" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="PC Name:" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="User Name:" HorizontalAlignment="Left" Margin="10,216,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="Processor:" HorizontalAlignment="Left" Margin="10,299,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="Hard Disk Size:" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="Hard Disk Free Space:" HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Width="134"/>
+                                <Label Content="Installed Memory (RAM):" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top" Width="154"/>
+                                <Label Content="Operating System" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="123" FontWeight="Bold"/>
+                                <Label Content="Hardware" HorizontalAlignment="Left" Margin="10,268,0,0" VerticalAlignment="Top" Width="123" FontWeight="Bold"/>
+                                <Label x:Name="OSName_Label" Content="OS_Name" HorizontalAlignment="Left" Margin="175,92,0,0" VerticalAlignment="Top" Width="281"/>
+                                <Label x:Name="OSVersion_Label" Content="OS_Version" HorizontalAlignment="Left" Margin="175,123,0,0" VerticalAlignment="Top" Width="281"/>
+                                <Label x:Name="Is64Bit_Label" Content="Is_64Bit" HorizontalAlignment="Left" Margin="175,154,0,0" VerticalAlignment="Top" Width="172"/>
+                                <Label x:Name="PCName_Label" Content="PC_Name" HorizontalAlignment="Left" Margin="175,185,0,0" VerticalAlignment="Top" Width="281"/>
+                                <Label x:Name="UserName_Label" Content="UserName" HorizontalAlignment="Left" Margin="175,216,0,0" VerticalAlignment="Top" Width="281"/>
+                                <Label x:Name="Processor_Label" Content="Processor" HorizontalAlignment="Left" Margin="175,299,0,0" VerticalAlignment="Top" Width="281"/>
+                                <Label x:Name="HDSize_Label" Content="HD Size" HorizontalAlignment="Left" Margin="175,330,0,0" VerticalAlignment="Top" Width="271"/>
+                                <Label x:Name="HD_FreeSpace_Label" Content="HD_FreeSpace" HorizontalAlignment="Left" Margin="175,361,0,0" VerticalAlignment="Top" Width="281"/>
+                                <Label x:Name="RAM_Label" Content="RAM" HorizontalAlignment="Left" Margin="175,392,0,0" VerticalAlignment="Top" Width="271"/>
+
+                            </Grid>
+                        </Border>
+
+                        <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Height="443" Margin="472,10,0,0" VerticalAlignment="Top" Width="494">
+                            <Grid Margin="-1,0,0,0">
+                                <Label Content="SOFTWARE INFORMATION" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="437" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center"/>
+                                <Label Content="Program Version" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="Program Location:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="Program Creation:" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="123"/>
+                                <Label Content="ShipRite Next Database:" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Width="160"/>
+                                <Label Content="ShipRite Next" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="123" FontWeight="Bold"/>
+                                <Label Content="Database" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Width="123" FontWeight="Bold"/>
+                                <Label x:Name="ProgramVersion_Label"  Content="Version" HorizontalAlignment="Left" Margin="175,92,0,0" VerticalAlignment="Top" Width="272"/>
+                                <Label x:Name="ProgramLocation_Label"  Content="Location" HorizontalAlignment="Left" Margin="175,123,0,0" VerticalAlignment="Top" Width="308"/>
+                                <Label x:Name="ProgramCreation_Label" Content="Creation" HorizontalAlignment="Left" Margin="175,154,0,0" VerticalAlignment="Top" Width="272"/>
+                                <Label x:Name="DatabasePath_Label"  Content="Database" HorizontalAlignment="Left" Margin="175,231,0,0" VerticalAlignment="Top" Width="272"/>
+                                <Label Content="SHIPRITENEXT.INI" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Width="174" FontWeight="Bold"/>
+                                <Label Content="Data Path:" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" Width="160"/>
+                                <Label Content="Report Path:" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Width="160"/>
+                                <Label Content="Application Path:" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="160"/>
+                                <Label x:Name="DataPath_Label"  Content="DataPath" HorizontalAlignment="Left" Margin="175,304,0,0" VerticalAlignment="Top" Width="172"/>
+                                <Label x:Name="ReportPath_Label"  Content="ReportPath" HorizontalAlignment="Left" Margin="175,335,0,0" VerticalAlignment="Top" Width="172"/>
+                                <Label x:Name="ApplicationPath_Label"  Content="ApplicationPath" HorizontalAlignment="Left" Margin="175,366,0,0" VerticalAlignment="Top" Width="172"/>
+
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+</local:CommonWindow>

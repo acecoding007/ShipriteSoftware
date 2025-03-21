@@ -1,0 +1,497 @@
+﻿<local:CommonWindow x:Name="MailboxManager_Window" x:Class="MailboxManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized"
+        KeyDown="Window_KeyDown">
+
+    <Grid Style="{DynamicResource BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_Click">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/Mailbox_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="MAILBOX MANAGER" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PrintButton" Grid.Column="2" ToolTip="Print" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Print_Image" Source="Resources/Printer_Light.png"/>
+                    </Button>
+                    <Button x:Name="SaveButton" Grid.Column="3" ToolTip="Rent Mailbox" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                    </Button>
+                    <Button x:Name="CancelMailbox_Button" Grid.Column="1" ToolTip="Cancel Mailbox" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image Source="Resources/Remove.png" Margin="1" />
+                    </Button>
+                    <Button x:Name="Notifications_Button" Grid.Column="0" ToolTip="Mailbox Notices" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image Source="Resources/Email_Light.png" Margin="1" />
+                    </Button>
+                </Grid>
+
+                <Border Style="{DynamicResource BaseBorder}">
+                    <Grid>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="164" Margin="10,193,0,0" VerticalAlignment="Top" Width="130" Background="White" BorderThickness="0">
+                            <Grid>
+                                <ListBox x:Name="MBX_Panels_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" BorderThickness="0" SelectionMode="Multiple" Height="129" Margin="0,25,0,0" VerticalAlignment="Top" HorizontalContentAlignment="left" Background="White" VerticalContentAlignment="Stretch" IsTabStop="True" TabIndex="3">
+
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Content="{Binding Description}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" FontSize="11"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button  x:Name="All_Panels_Btn" Content=" All Panels" HorizontalAlignment="Left" Margin="3,9,3,0" VerticalAlignment="Top" Width="130" Height="18" FontWeight="Bold" FontSize="11" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" Padding="1">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}" >
+                                                            <ContentPresenter HorizontalAlignment="left" VerticalAlignment="Top"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="White"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="94" Margin="10,72,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+
+                            <ListBox x:Name="MBX_Display_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" HorizontalAlignment="Left" Margin="1,6,0,6" Width="123" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" FontWeight="Bold" BorderThickness="0" Background="White" TabIndex="2">
+
+                                <ListBoxItem Content="All Boxes"/>
+                                <ListBoxItem Content="Expired"/>
+                                <ListBoxItem Content="Rented"/>
+                                <ListBoxItem Content="Available"/>
+
+                            </ListBox>
+                        </Border>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="71" Margin="10,383,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.5,0.5" Background="White" BorderThickness="0">
+                            <ListBox x:Name="SortBy_ListBox" ItemContainerStyle="{StaticResource ListBoxItem_Color}" HorizontalAlignment="Left" Margin="3,4,0,10" Width="123" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" FontWeight="Bold" BorderThickness="0" Background="White" Height="62" TabIndex="4">
+                                <ListBoxItem Content="MailBox Number"/>
+                                <ListBoxItem Content="Name"/>
+                                <ListBoxItem Content="Renewal Date"/>
+                            </ListBox>
+                        </Border>
+                        <Label Content="Display" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+                        <Label Content="Sort By" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+                        <Label Content="Panels" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+                        <Border Style="{DynamicResource BaseBorder}" HorizontalAlignment="Left" Height="431" Margin="150,22,0,0" VerticalAlignment="Top" Width="514" Background="White" BorderThickness="0">
+
+
+                            <ItemsControl x:Name="Mailboxes_Control" Margin="5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                <ItemsControl.Template>
+                                    <ControlTemplate>
+                                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" IsDeferredScrollingEnabled="true">
+                                            <WrapPanel  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"  FlowDirection="LeftToRight"  IsItemsHost="true" Margin="0,0,0,0" Orientation="Horizontal" >
+                                            </WrapPanel>
+                                        </ScrollViewer>
+                                    </ControlTemplate>
+                                </ItemsControl.Template>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="Mailbox_Button" Style="{StaticResource POSKeypadButton_Style}" VerticalContentAlignment="Stretch" Margin="1" Width="119"  Background="{Binding DisplayColor}" Foreground="{Binding DisplayTextColor}" Click="Mailbox_Button_Click" Tag="{Binding Number}" ToolTip="{Binding ExpirationDate}" >
+
+                                            <Grid Width="104">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock x:Name="MailboxNumberButton_Label" Margin="1,0,0,0" Grid.Column="0" FontSize="16" FontWeight="Bold" Text="{Binding Number}"  Height="20" />
+
+                                                <TextBlock Grid.Column="1" Margin="5,0,0,0" FontSize="12" Text="{Binding Name}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+
+                                            </Grid>
+                                        </Button>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Border>
+                        <Label x:Name="Mbx_Lbl" Content="Mailboxes" HorizontalAlignment="Left" Margin="160,0,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+                        <Label Content="Customer" HorizontalAlignment="Left" Margin="681,0,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+
+
+                        <Label x:Name="MailboxNo_Label" Content="" HorizontalAlignment="Left" Margin="874,11,0,369" Width="92" FontWeight="Bold" FontSize="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Tag="MailboxNumber"/>
+                        <Label Content="MBX #" HorizontalAlignment="Left" Margin="874,0,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+
+
+                        <Grid x:Name="MBX_Details_Grid" HorizontalAlignment="Left" Height="338" Margin="669,116,0,0" VerticalAlignment="Top" Width="307">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.9*" x:Name="rowOne"/>
+                                <RowDefinition Height="0.1*" x:Name="rowTwo"/>
+                                <RowDefinition Height="0.1*" x:Name="rowThree"/>
+                                <RowDefinition Height="0.1*" x:Name="rowFour"/>
+                            </Grid.RowDefinitions>
+                            <Expander x:Name="Pricing_Expander" Header="Pricing and Rental Period" Grid.Row="0" HorizontalAlignment="Left" Height="253" VerticalAlignment="Top" Width="307" ClipToBounds="True">
+                                <Grid x:Name="Rent_DatePricing_Grid" Background="#FFE5E5E5" ClipToBounds="True">
+                                    <ComboBox x:Name="RateType_ComboBox" VerticalAlignment="Top" Margin="158,126,40,0" Tag="Business">
+                                        <ComboBoxItem IsSelected="True" Content="Personal"/>
+                                        <ComboBoxItem Content="Business"/>
+                                        <ComboBoxItem Content="Other"/>
+                                        <ComboBoxItem Content="Custom Rate" Foreground="DarkRed"/>
+                                    </ComboBox>
+                                    <Label x:Name="Price_Label" Tag="Cost"  Content="" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="58" Width="145" FontWeight="Bold" FontSize="30" HorizontalContentAlignment="Center" Margin="154,63,0,0"/>
+                                    <RadioButton x:Name="ThreeMonth_Btn" Content="3 Months" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="21,97,0,0"/>
+                                    <RadioButton x:Name="SixMonth_Btn" Content="6 Months" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="21,117,0,0" />
+                                    <RadioButton x:Name="TvelweMonth_Btn" Content="12 Months" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="21,138,0,0"/>
+                                    <RadioButton x:Name="OneMonth_Btn" Content="1 Month" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="21,76,0,0"/>
+                                    <DatePicker x:Name="EndDate" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="120" FontSize="14" Margin="179,36,0,0" Tag="EndDate" IsEnabled="True"/>
+                                    <Label Content="End Date" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="88" FontWeight="Bold" Margin="179,10,0,0"/>
+                                    <DatePicker x:Name="StartDate" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="120" FontSize="14" Margin="21,36,0,0" Tag="StartDate" IsEnabled="True"/>
+                                    <Label Content="Start Date" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="88" FontWeight="Bold" Margin="21,10,0,0"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="0,178,0,0" Stroke="Black" VerticalAlignment="Top" Width="305"/>
+                                    <CheckBox x:Name="KeyDeposit_CheckBox" Content="Key Deposit" HorizontalAlignment="Left" Margin="21,185,0,0" VerticalAlignment="Top" Tag="KeyDeposit"/>
+                                    <CheckBox x:Name="AdminFee_CheckBox" Content="Admin Fee" HorizontalAlignment="Left" Margin="127,188,0,0" VerticalAlignment="Top"  Tag=""/>
+                                    <CheckBox x:Name="OtherFee_CheckBox" Content="Other Fee" HorizontalAlignment="Left" Margin="21,205,0,0" VerticalAlignment="Top"  Tag="OtherDeposit"/>
+                                    <CheckBox x:Name="LateFee_CheckBox" Content="Late Fee" HorizontalAlignment="Left" Margin="127,205,0,0" VerticalAlignment="Top" Tag=""/>
+                                    <RadioButton x:Name="CustomMonth_Btn" Content="Months" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="21,158,0,0"/>
+                                    <Label Content="Free Months" HorizontalAlignment="Left" Margin="223,182,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.118,1.615"/>
+                                    <ComboBox x:Name="FreeMonths_ComboBox" HorizontalAlignment="Left" Margin="223,205,0,0" VerticalAlignment="Top" Width="76" Height="19" Tag="FreeMonths"/>
+                                    <CheckBox x:Name="ExpireEndOfMonth_CheckBox" Content="Expire End of Month" HorizontalAlignment="Left" Margin="158,158,0,0" VerticalAlignment="Top" Width="137" Tag="ProRateToNextMonth"/>
+                                    <TextBlock x:Name="OneMonthPrice_TxtBlock" HorizontalAlignment="Left" Margin="105,75,0,0" TextWrapping="Wrap" Text="$ 0.00" VerticalAlignment="Top" Width="44"/>
+                                    <TextBlock x:Name="ThreeMonthPrice_TxtBlock" HorizontalAlignment="Left" Margin="105,96,0,0" TextWrapping="Wrap" Text="$ 0.00" VerticalAlignment="Top" Width="44"/>
+                                    <TextBlock x:Name="SixMonthPrice_TxtBlock" HorizontalAlignment="Left" Margin="105,116,0,0" TextWrapping="Wrap" Text="$ 0.00" VerticalAlignment="Top" Width="44"/>
+                                    <TextBlock x:Name="TvelweMonthPrice_TxtBlock" HorizontalAlignment="Left" Margin="105,137,0,0" TextWrapping="Wrap" Text="$ 0.00" VerticalAlignment="Top" Width="44"/>
+                                    <TextBlock x:Name="CustomMonthPrice_TxtBlock" HorizontalAlignment="Left" Margin="105,157,0,0" TextWrapping="Wrap" Text="$ 0.00" VerticalAlignment="Top" Width="44"/>
+                                    <Button x:Name="Edit_CustomRates_Btn" Content="Edit" HorizontalAlignment="Left" Margin="270,126,0,0" VerticalAlignment="Top" Width="29" Height="22">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=RateType_ComboBox, Path=SelectedIndex}" Value="3">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                </Grid>
+                            </Expander>
+                            <Expander x:Name="AdditionalNames_Expander" Header="Name Display and Additional Names" HorizontalAlignment="Left" Height="257" Grid.Row="1" VerticalAlignment="Top" Width="307">
+                                <Grid Background="#FFE5E5E5">
+                                    <Button x:Name="Add_AdditionalName_Btn" Content="Add Name" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top" Width="122" FontSize="12" Height="34"/>
+                                    <Button x:Name="Delete_AdditionalName_Btn" Content="Delete Name" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="160,10,0,0" VerticalAlignment="Top" Width="122" FontSize="12" Height="34" RenderTransformOrigin="1.508,0.059"/>
+                                    <local:CommonListView x:Name="Additional_Names_LV" BorderThickness="0" SelectionMode="Multiple" Height="175" Margin="10,49,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Left" Background="White" VerticalContentAlignment="Stretch" IsTabStop="True">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Display Name" Width="210" DisplayMemberBinding="{Binding DisplayName}" />
+                                                <GridViewColumn Header="Contact ID" Width="60"  DisplayMemberBinding="{Binding CID}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </local:CommonListView>
+                                </Grid>
+                            </Expander>
+                            <Expander x:Name="Forwarding_Expander" Header="Mail Forwarding" HorizontalAlignment="Left" Height="257" Grid.Row="2" VerticalAlignment="Top" Width="307">
+                                <Grid Background="#FFE5E5E5" Height="232">
+                                    <Label Content="Forwarding Address" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Width="130" FontWeight="Bold"/>
+                                    <Button Name="Forwarding_Address_Button" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="178" Height="83" VerticalContentAlignment="Bottom">
+                                        <TextBlock x:Name="FWD_Address_TxtBox" TextWrapping="Wrap" Width="151" Height="73" FontSize="14"/>
+                                    </Button>
+                                    <Label Content="Forwarding Period" HorizontalAlignment="Left" Margin="183,2,-8,0" VerticalAlignment="Top" Width="130" FontWeight="Bold"/>
+                                    <RadioButton x:Name="FWD_Never_RadioBtn" Content="Never" HorizontalAlignment="Left" Margin="201,35,0,0" VerticalAlignment="Top"/>
+                                    <RadioButton x:Name="FWD_Daily_RadioBtn" Content="Daily" HorizontalAlignment="Left" Margin="201,50,0,0" VerticalAlignment="Top"/>
+                                    <RadioButton x:Name="FWD_Weekly_RadioBtn" Content="Weekly" HorizontalAlignment="Left" Margin="201,65,0,0" VerticalAlignment="Top"/>
+                                    <RadioButton x:Name="FWD_BiWeekly_RadioBtn" Content="Bi-Weekly" HorizontalAlignment="Left" Margin="201,80,0,0" VerticalAlignment="Top"/>
+                                    <RadioButton x:Name="FWD_Monthly_RadioBtn" Content="Monthly" HorizontalAlignment="Left" Margin="201,96,0,0" VerticalAlignment="Top"/>
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="0,116,0,0" Stroke="Black" VerticalAlignment="Top" Width="305"/>
+                                    <local:NumberTextBox x:Name="FWD_DepositAmount_TxtBox" HorizontalAlignment="Left" Height="20" Margin="178,123,0,0" TextWrapping="Wrap" Text="$0.00" VerticalAlignment="Top" Width="117"  FontSize="14" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="ForwardingDeposit"/>
+                                    <Label Content="Notes" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                                    <TextBox x:Name="FWD_Notes_TxtBox" HorizontalAlignment="Left" Height="39" Margin="10,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" SpellCheck.IsEnabled="True" AcceptsReturn="True" Tag="ForwardingNotes"/>
+                                    <ComboBox x:Name="FWD_Day_ComboBox" HorizontalAlignment="Left" Margin="178,149,0,0" VerticalAlignment="Top" Width="117" Tag="ForwardingTimeDue"/>
+                                    <Label Content="Preferred Day" HorizontalAlignment="Left" Margin="58,145,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,-0.231"/>
+                                    <Label Content="Forwarding Deposit" HorizontalAlignment="Left" Margin="58,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,-0.231" Width="120"/>
+                                </Grid>
+                            </Expander>
+                            <Expander x:Name="History_Expander" Header="Mailbox History" HorizontalAlignment="Left" Height="233" Grid.Row="3" VerticalAlignment="Top" Width="307">
+                                <Grid Background="#FFE5E5E5">
+                                    <local:CommonListView x:Name="MBX_History_ListView" HorizontalAlignment="Left" Height="190" Margin="0,10,0,0" VerticalAlignment="Top" Width="305">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Date" Width="65" DisplayMemberBinding="{Binding TransactionDate}"/>
+                                                <GridViewColumn Header="Desc" Width="50" DisplayMemberBinding="{Binding Description}"/>
+                                                <GridViewColumn Header="Customer" Width="108" DisplayMemberBinding="{Binding Customer}"/>
+                                                <GridViewColumn Header="Charge" Width="55" DisplayMemberBinding="{Binding Charge}"/>
+                                                <GridViewColumn Header="Clerk" DisplayMemberBinding="{Binding Clerk}"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </local:CommonListView>
+                                </Grid>
+                            </Expander>
+                        </Grid>
+
+                        <Popup x:Name="Print_Popup" PlacementTarget="{Binding ElementName=PrintButton}" AllowsTransparency="True" StaysOpen="false" Margin="0,0,0,0" PopupAnimation="Slide">
+                            <Border x:Name="Print_Border"  BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Height="301" Margin="0,0,0,0" VerticalAlignment="Top" Width="215" Background="#FFE0E0E0">
+                                <Grid x:Name="Print_Grid" ClipToBounds="True" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="216" Margin="0,0,-3,-1">
+                                    <Label Content="Renewal Notice" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="117" FontWeight="Bold"/>
+
+                                    <Button x:Name="Print_Renewal_Btn"  Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="99" FontSize="14" Height="33" ClipToBounds="True"/>
+                                    <Button x:Name="Email_Renewal_Btn"  Content="Email" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="109,36,0,0" VerticalAlignment="Top" Width="94" FontSize="14" Height="33" ClipToBounds="True"/>
+
+                                    <Button x:Name="Print_Expiration_Btn" Content="Print " Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="13,106,0,0" VerticalAlignment="Top" Width="96" FontSize="14" Height="33" ClipToBounds="True"/>
+                                    <Button x:Name="Email_Expiration_Btn" Content="Email" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="109,106,0,0" VerticalAlignment="Top" Width="96" FontSize="14" Height="33" ClipToBounds="True"/>
+
+                                    <Button x:Name="Print_Cancellation_Btn" Content="Print" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top" Width="99" FontSize="14" Height="33" ClipToBounds="True"/>
+                                    <Button x:Name="Email_Cancellation_Btn" Content="Email" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="109,176,0,0" VerticalAlignment="Top" Width="99" FontSize="14" Height="33" ClipToBounds="True"/>
+
+                                    <Button x:Name="Print_PS1583_Btn" Content="Print PS1583" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top" Width="193" FontSize="14" Height="33" ClipToBounds="True"/>
+                                    <Button x:Name="PrintAgreement_Btn" Content="Print Rental Agreement" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,257,0,0" VerticalAlignment="Top" Width="193" FontSize="14" Height="33" ClipToBounds="True"/>
+
+                                    <Label Content="Expiration Notice" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="117" FontWeight="Bold"/>
+                                    <Label Content="Cancellation Notice" HorizontalAlignment="Left" Margin="13,150,0,0" VerticalAlignment="Top" Width="137" FontWeight="Bold"/>
+
+                                    <Rectangle Fill="#FFF4F4F5" Height="1" Margin="5,79,5,0" Stroke="Black" VerticalAlignment="Top"/>
+                                    <Rectangle Fill="#FFF4F4F5" Height="1" Margin="5,149,5,0" Stroke="Black" VerticalAlignment="Top"/>
+                                    <Rectangle Fill="#FFF4F4F5" Height="1" Margin="5,221,5,0" Stroke="Black" VerticalAlignment="Top"/>
+                                </Grid>
+                            </Border>
+                        </Popup>
+
+                        <Popup x:Name="Notification_Popup" PlacementTarget="{Binding ElementName=Notifications_Button}" AllowsTransparency="True" StaysOpen="false" Margin="0,0,0,0" PopupAnimation="Slide">
+                            <Border x:Name="Notification_Border"  BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Height="185" Margin="0,0,0,0" VerticalAlignment="Top" Width="215" Background="#FFE0E0E0">
+                                <Grid x:Name="Notification_Grid" ClipToBounds="True" Height="189" VerticalAlignment="Top" HorizontalAlignment="Left" Width="216" Margin="0,0,-1,-6">
+                                    <Button x:Name="DailyNotice_Btn" Content="You Got Mail - Daily Notice" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="193" FontSize="14" Height="33" ClipToBounds="True"/>
+
+                                    <Button x:Name="Renewal_BulkEmail" Content="Renewal - Email Bulk Notice" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Width="193" FontSize="14" Height="33" ClipToBounds="True"/>
+                                    <Button x:Name="Expiration_BulkEmail" Content="Expiration - Email Bulk Notice" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="193" FontSize="14" Height="33" ClipToBounds="True"/>
+                                    <Button x:Name="Cancel_BulkEmail" Content="Cancellation - Email Bulk Notice" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top" Width="193" FontSize="14" Height="33" ClipToBounds="True"/>
+                                </Grid>
+                            </Border>
+                        </Popup>
+
+                        <Popup x:Name="Save_Popup" PlacementTarget="{Binding ElementName=SaveButton}" AllowsTransparency="True" StaysOpen="false" PopupAnimation="Slide">
+                            <Border BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="2" HorizontalAlignment="Left" Height="453" Margin="0" VerticalAlignment="Top" Width="300" Background="#FFE0E0E0">
+                                <Grid>
+                                    <CheckBox x:Name="PrintAgreement_CheckBox" Content="Print Mailbox Rental Agreement" HorizontalAlignment="Left" Margin="21,10,0,0" VerticalAlignment="Top" Width="200"/>
+
+                                    <Border x:Name="Form1583_Border" Style="{DynamicResource BaseBorder}" BorderThickness="0" Margin="10,50,10,56" Background="#FFE0E0E0">
+                                        <Grid Margin="0,0,0,-1">
+                                            <Border Style="{DynamicResource BaseBorder}" Margin="0,10,0,214" Background="#FFE0E0E0" BorderThickness="1"/>
+                                            <Border Style="{DynamicResource BaseBorder}" Margin="0,142,0,5" Background="#FFE0E0E0" BorderThickness="1" RenderTransformOrigin="0.5,0.5">
+                                                <Border.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="-1"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Border.RenderTransform>
+                                            </Border>
+
+
+                                            <TextBlock x:Name="TypeOfBusiness_Lbl" Text="Type Of Business" Margin="10,36,164,289" FontWeight="Bold"/>
+                                            <TextBox x:Name="TypeOfBusiness_TextBox" Tag="TypeOfBusiness" HorizontalAlignment="Left" Height="19" Margin="82,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" TabIndex="501"/>
+                                            <TextBlock Text="Photo ID" Margin="8,202,196,118" FontWeight="Bold" FontSize="14"/>
+                                            <TextBlock Text="Address ID" Margin="10,309,183,10" FontWeight="Bold" FontSize="14"/>
+                                            <TextBox x:Name="ID_1_TextBox" Tag="FormOfID1" HorizontalAlignment="Left" Height="19" Margin="108,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" LostFocus="Update_1583_fields" TabIndex="505"/>
+                                            <TextBlock Text="ID Number" Margin="13,229,173,95" RenderTransformOrigin="0.439,5.87"/>
+                                            <TextBox x:Name="ID_1_IssuingEntity_TextBox" Tag="ID1_IssuingEntity" HorizontalAlignment="Left" Height="19" Margin="108,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" LostFocus="Update_1583_fields" TabIndex="506"/>
+                                            <TextBlock Text="Issuing Entity" Margin="13,252,173,72"/>
+                                            <TextBox x:Name="ID_1_ExpDate_TextBox" Tag="ID1_ExpDate" HorizontalAlignment="Left" Height="19" Margin="108,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" LostFocus="Update_1583_fields" TabIndex="507"/>
+                                            <TextBlock Text="Exp. Date on ID" Margin="13,275,173,49"/>
+                                            <ComboBox x:Name="ID_1_Type_CmbBx" Tag="ID1_Type" HorizontalAlignment="Left" Margin="108,202,0,0" VerticalAlignment="Top" Width="156" SelectedValuePath="Content" SelectionChanged="Update_1583_fields" TabIndex="504">
+                                                <ComboBoxItem Content=""/>
+                                                <ComboBoxItem Content="U.S. Driver's or Nondriver's ID Card"/>
+                                                <!-- 1 -->
+                                                <ComboBoxItem Content="Uniformed Service ID"/>
+                                                <!-- 2 -->
+                                                <ComboBoxItem Content="Passport"/>
+                                                <!-- 3 -->
+                                                <ComboBoxItem Content="Certificate of Naturalization"/>
+                                                <!-- 4 -->
+                                                <ComboBoxItem Content="U.S. Access Card"/>
+                                                <!-- 5 -->
+                                                <ComboBoxItem Content="Matricula Consular"/>
+                                                <!-- 6 -->
+                                                <ComboBoxItem Content="U.S. Permanent Resident Card"/>
+                                                <!-- 7 -->
+                                                <ComboBoxItem Content="U.S. University ID Card "/>
+                                                <!-- 8 -->
+                                                <ComboBoxItem Content="NEXUS Card"/>
+                                                <!-- 9 -->
+                                            </ComboBox>
+
+                                            <ComboBox x:Name="ID_2_Type_CmbBx" Tag="ID2_Type" SelectedValuePath="Content" HorizontalAlignment="Left" Margin="108,310,0,0" VerticalAlignment="Top" Width="156" SelectionChanged="Update_1583_fields" TabIndex="508">
+                                                <ComboBoxItem Content=""/>
+                                                <ComboBoxItem Content="U.S. Driver's or Nondriver's ID Card"/>
+                                                <!-- 1 -->
+                                                <ComboBoxItem Content="Current Lease"/>
+                                                <!-- 2 -->
+                                                <ComboBoxItem Content="Home or Vehicle Insurance Policy"/>
+                                                <!-- 3 -->
+                                                <ComboBoxItem Content="Mortgage or Deed of Trust"/>
+                                                <!-- 4 -->
+                                                <ComboBoxItem Content="Vehicle Registration Card"/>
+                                                <!-- 5 -->
+                                                <ComboBoxItem Content="Voter Card"/>
+                                                <!-- 6 -->
+                                            </ComboBox>
+                                            <TextBlock x:Name="PlaceOfRegistration_Lbl" Text="Place Of Registration" Margin="10,79,139,244" FontWeight="Bold"/>
+                                            <TextBox x:Name="PlaceOfRegistration_TextBox" Tag="PlaceOfRegistration" HorizontalAlignment="Left" Height="19" Margin="82,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" TabIndex="502"/>
+                                            <CheckBox x:Name="IsBusiness_ChkBx" Tag="isBusiness" Content="Business/Organization Use" HorizontalAlignment="Left" Margin="15,16,0,0" VerticalAlignment="Top" Width="177" TabIndex="500"/>
+                                            <ComboBox x:Name="PS1583_Names_CmbBx" DisplayMemberPath="DisplayName" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="254" TabIndex="503"/>
+                                            <TextBlock Text="Select Name:" Margin="13,157,121,169" RenderTransformOrigin="0.439,5.87"/>
+
+                                        </Grid>
+                                    </Border>
+                                    <Button x:Name="Rent_Button" Style="{StaticResource POSKeypadButton_Style}" Content="Rent" HorizontalAlignment="Left" Margin="160,398,0,0" VerticalAlignment="Top" Width="126" Height="51" FontSize="24" TabIndex="509"/>
+                                    <CheckBox x:Name="Print1583_CheckBox" Content="Print USPS 1583 Form" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.197,-0.8" Margin="21,30,0,0"/>
+                                </Grid>
+                            </Border>
+                        </Popup>
+
+                        <Popup x:Name="DailyNotice_Popup" PlacementTarget="{Binding ElementName=HomeButton}" AllowsTransparency="True" StaysOpen="True" Margin="0,0,0,0" PopupAnimation="Slide">
+
+                        </Popup>
+
+                        <Popup x:Name="CustomRates_Popup" PlacementTarget="{Binding ElementName=RateType_ComboBox}" AllowsTransparency="True" StaysOpen="True" Margin="0,0,0,0" PopupAnimation="Slide">
+                            <Border x:Name="CustomRates_Border"  BorderBrush="Black" Style="{DynamicResource BaseBorder}" BorderThickness="1" HorizontalAlignment="Left" Height="162" Margin="0,0,0,0" VerticalAlignment="Top" Width="365" Background="#FFE0E0E0">
+                                <Grid x:Name="CustomRates_Grid" ClipToBounds="True" Margin="0,0,-1,-1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="65*"/>
+                                        <ColumnDefinition Width="70*"/>
+                                        <ColumnDefinition Width="70*"/>
+                                        <ColumnDefinition Width="70*"/>
+                                        <ColumnDefinition Width="75*"/>
+                                        <ColumnDefinition Width="30*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.75*"/>
+                                        <RowDefinition Height="0.95*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Total:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1" Width="40"  Margin="0,5,0,0" Height="26"/>
+                                    <Label Content="Monthly:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="1" Width="60"  Margin="0,0,0,7" Height="26"/>
+
+
+                                    <Label Content="1 Month" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0"  FontWeight="Bold"/>
+                                    <Label Content="3 Months" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="0"  FontWeight="Bold"/>
+                                    <Label Content="6 Months" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="3" Grid.Row="0"  FontWeight="Bold"/>
+                                    <Label Content="12 Months" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="4" Grid.Row="0"  FontWeight="Bold"/>
+                                    <TextBlock x:Name="_3Month" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="$0.00" Margin="17,36,0,10" Width="50" Height="16" FontFamily="Calibri" />
+                                    <TextBlock x:Name="_6Month" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="$0.00" Margin="17,36,0,10" Width="50" Height="16" FontFamily="Calibri"/>
+                                    <TextBlock x:Name="_12Month" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="$0.00" Margin="17,36,0,10" Width="50" Height="16" FontFamily="Calibri"/>
+
+                                    <TextBox x:Name="CustomPrice_One_Month_TxtBox" Margin="5,7,5,0" Grid.Column="1" Grid.Row="1" Style="{DynamicResource ContactManager_Textbox}" Height="23"   Text="$0.00"  VerticalAlignment="Top" TabIndex="5" Tag="" />
+                                    <TextBox x:Name="CustomPrice_Three_Month_TxtBox" Margin="5,7,5,0" Grid.Column="2" Grid.Row="1"  Style="{DynamicResource ContactManager_Textbox}" Height="23"  Text="$0.00"  VerticalAlignment="Top" TabIndex="10" Tag=""/>
+                                    <TextBox x:Name="CustomPrice_Six_Month_TxtBox" Margin="5,7,5,0" Grid.Column="3" Grid.Row="1"  Style="{DynamicResource ContactManager_Textbox}" Height="23" Text="$0.00" VerticalAlignment="Top" TabIndex="15" Tag=""/>
+                                    <TextBox x:Name="CustomPrice_Twelve_Month_TxtBox" Margin="5,7,5,0" Grid.Column="4" Grid.Row="1"  Style="{DynamicResource ContactManager_Textbox}" Height="23"  Text="$0.00" VerticalAlignment="Top" TabIndex="15" Tag=""/>
+
+                                    <Button x:Name="CustomRates_Save_Btn" Content="Save Pricing" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="165" FontSize="14" Height="33" ClipToBounds="True" Grid.ColumnSpan="3" Grid.Column="3" Grid.Row="2"/>
+                                    <Button x:Name="CustomRates_Cancel_Btn" Content="X" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="30" FontSize="14" Height="33" ClipToBounds="True" Grid.Column="5" Grid.Row="0"/>
+                                    <Button x:Name="CustomRates_Delete_Btn" Content="Delete Custom Pricing" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="LEft" VerticalAlignment="Center" Width="150" FontSize="14" Height="33" ClipToBounds="True" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2"/>
+                                </Grid>
+                            </Border>
+                        </Popup>
+
+
+                        <TextBox x:Name="Customer_TxtBox" HorizontalAlignment="Left" Height="89" Margin="681,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+                        <Label Content="Search" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+
+                        <Border CornerRadius="4" Background="White" BorderBrush="White" BorderThickness="0" Margin="10,22,836,415" >
+                            <Grid x:Name="SearchGrid" VerticalAlignment="Center" Background="White" Margin="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.3*"/>
+                                    <ColumnDefinition Width="6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image HorizontalAlignment="Center" Height="20" VerticalAlignment="Center" Width="20" Source="Resources/Search.png" Margin="5"/>
+                                <TextBox x:Name="Search_TxtBox" Grid.Column="1" Text="Box# or Name" FontFamily="Calibri Light" FontSize="12" Foreground="#FF78777F" BorderThickness="0" VerticalContentAlignment="Center" Padding="5,0,0,0" MaxLines="1" MaxLength="35" TabIndex="1" />
+                            </Grid>
+                        </Border>
+                        <Label x:Name="MailboxSize_Label" Content="" HorizontalAlignment="Left" Margin="865,85,-4,0" VerticalAlignment="Top" Height="27" Width="115" HorizontalContentAlignment="Center" Tag="Size"/>
+
+
+
+                    </Grid>
+
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>

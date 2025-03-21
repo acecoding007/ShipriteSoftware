@@ -1,0 +1,520 @@
+﻿<local:CommonWindow x:Name="InventoryManager_Window" x:Class="InventoryManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_ClickInventory">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_ClickInventory">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_ClickInventory">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_ClickInventory">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_Home}" Click="HomeButton_ClickInventory">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_Home}"/>
+                    </Button>
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/Inventory_Light.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="INVENTORY MANAGER" Style="{DynamicResource HeaderLabel}" />
+                    </Border>
+                </Grid>
+
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="213" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PrintButton" Grid.Column="0" ToolTip="Print" Style="{StaticResource AddRemoveSave_Style}" TabIndex="20">
+                        <Image x:Name="Print_Image" Source="Resources/Printer_Light.png"/>
+                    </Button>
+                    <Button x:Name="AddItem_Button" Grid.Column="2" ToolTip="Add New Inventory Item" Style="{StaticResource AddRemoveSave_Style}" TabIndex="19">
+                        <Image x:Name="AddContact_Image" Source="Resources/Add_New.png" />
+                    </Button>
+                    <Button x:Name="RemoveItem_Button" Grid.Column="3" ToolTip="Delete Inventory Item" Style="{StaticResource AddRemoveSave_Style}" TabIndex="18">
+                        <Image x:Name="RemoveContact_Image" Source="Resources/Remove.png" />
+                    </Button>
+                    <Button x:Name="SaveButton" Grid.Column="4" ToolTip="Save Inventory Item" Style="{StaticResource AddRemoveSave_Style}" TabIndex="17">
+                        <Image x:Name="Save_Image" Source="Resources/Save_Icon.png"/>
+                    </Button>
+                    <Button x:Name="OpenInventoryDetail_Button" Grid.Column="1" ToolTip="Show Item Details" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image Source="Resources/InventoryDetail.png" Margin="-1" />
+                    </Button>
+                </Grid>
+
+                <Border Style="{StaticResource BaseBorder}" >
+                    <Grid>
+
+                        <Border Style="{StaticResource BaseBorder}" BorderThickness="0" Background="white" Margin="152,10,10,10">
+                            <Grid Margin="10,0,0,0">
+                                <local:CommonListView x:Name="Inventory_ListView" Margin="0,0,10,0" BorderThickness="0" TabIndex="5" ScrollViewer.IsDeferredScrollingEnabled="true" SelectionMode="Single">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="Margin" Value="0,-1,0,-1"/>
+                                            <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn x:Name="Delete_GVColumn"  Width="0">
+                                                <GridViewColumnHeader Content="Delete" Click="GridViewColumnHeader_Click" FontWeight="Bold" Background="PaleVioletRed"/>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox IsChecked="{Binding Path=Delete, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Width="125" >
+                                                <GridViewColumnHeader Content="SKU" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=SKU, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="0,0,-3,0"   FontWeight="Bold" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Width="220" >
+                                                <GridViewColumnHeader Content="Description" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=Desc, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextChanged="Inventory_Changed"  HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center"  />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn x:Name="Department_GVColumn" Width="97" >
+                                                <GridViewColumnHeader Content="Department" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <ComboBox x:Name="Dept_CmbBx" Text="{Binding Path=Department, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" ItemsSource="{Binding Path=Department_List}" HorizontalAlignment="Stretch" Margin="-3,0,-3,0" IsEditable="True" SelectionChanged="Inventory_Changed">
+                                                            <ComboBox.Style>
+                                                                <Style TargetType="{x:Type ComboBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </ComboBox.Style>
+                                                        </ComboBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                            <GridViewColumn x:Name="Cost_GVColumn" Width="65" >
+                                                <GridViewColumnHeader Content="Cost" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=Cost, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:$0.00##}}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center">
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                            <GridViewColumn x:Name="Sell_GVColumn" Width="65" >
+                                                <GridViewColumnHeader Content="Sell" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=Sell, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:$0.00##}}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center">
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                            <GridViewColumn x:Name="Count_GVColumn" Width="35">
+                                                <GridViewColumnHeader Content="Count" Click="GridViewColumnHeader_Click"/>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox IsChecked="{Binding Path=Zero, UpdateSourceTrigger=LostFocus}" Checked="Inventory_Changed" Unchecked="Inventory_Changed" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                            <GridViewColumn x:Name="Qty_GVColumn" Width="37">
+                                                <GridViewColumnHeader Content="QTY" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=Quantity, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                            <GridViewColumn x:Name="ReOrder_GVColumn" Width="45" >
+                                                <GridViewColumnHeader Content="ReOrder" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=WarningQty, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                            <GridViewColumn x:Name="Active_GVColumn" Width="40">
+                                                <GridViewColumnHeader Content="Active" Click="GridViewColumnHeader_Click"/>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox IsChecked="{Binding Path=Active, UpdateSourceTrigger=LostFocus}" Checked="Inventory_Changed" Unchecked="Inventory_Changed" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                            <GridViewColumn x:Name="PackItem_GVColumn" Width="60">
+                                                <GridViewColumnHeader Content="Pack Item" Click="GridViewColumnHeader_Click"/>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox IsChecked="{Binding Path=PackagingMaterials}" Checked="Inventory_Changed" Unchecked="Inventory_Changed" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn x:Name="PackClass_GVColumn" Width="80" >
+                                                <GridViewColumnHeader Content="Pack Class" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <ComboBox x:Name="Dept_CmbBx" Text="{Binding Path=MaterialsClass, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" ItemsSource="{Binding Path=PackMaterials_Class_List}" SelectionChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-3,0,-3,0" IsEditable="True" >
+                                                            <ComboBox.Style>
+                                                                <Style TargetType="{x:Type ComboBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </ComboBox.Style>
+                                                        </ComboBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn x:Name="PackWeight_GVColumn" Width="55" >
+                                                <GridViewColumnHeader Content="Weight" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=Weight, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" FontWeight="Bold" Margin="-2,0,-2,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn x:Name="PackLength_GVColumn" Width="42" >
+                                                <GridViewColumnHeader Content="Length" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=L, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn x:Name="PackWidth_GVColumn" Width="42" >
+                                                <GridViewColumnHeader Content="Width" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=W, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn x:Name="PackHeight_GVColumn" Width="42" >
+                                                <GridViewColumnHeader Content="Height" Click="GridViewColumnHeader_Click" />
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=H, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  TextChanged="Inventory_Changed" HorizontalAlignment="Stretch" Margin="-2,0,-2,0" VerticalContentAlignment="Center"  HorizontalContentAlignment="Center">
+                                                            <TextBox.Style>
+                                                                <Style TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="True">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding ElementName=Packmaster_ChkBx, Path=IsChecked}" Value="False">
+                                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                        </GridView>
+                                    </ListView.View>
+
+                                </local:CommonListView>
+                            </Grid>
+                        </Border>
+
+                        <Label Content="Search" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="88" FontWeight="Bold"/>
+                        <Border CornerRadius="4" Background="White" BorderBrush="White" BorderThickness="0" Margin="11,26,835,411" >
+                            <Grid x:Name="SearchSKUGrid" VerticalAlignment="Center" Background="White" Margin="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.3*"/>
+                                    <ColumnDefinition Width="6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image HorizontalAlignment="Center" Height="20" VerticalAlignment="Center" Width="20" Source="Resources/Search.png" Margin="5"/>
+                                <TextBox x:Name="SearchSKU_TxtBox" Grid.Column="1" Text="SKU" FontFamily="Calibri Light" FontSize="12" Foreground="#FF78777F" BorderThickness="0" VerticalContentAlignment="Center" Padding="5,0,0,0" MaxLines="1" MaxLength="35" TabIndex="1" />
+                            </Grid>
+
+                        </Border>
+
+                        <Border CornerRadius="4" Background="White" BorderBrush="White" BorderThickness="0" Margin="10,60,836,377" >
+                            <Grid x:Name="SearchDescGrid" VerticalAlignment="Center" Background="White" Margin="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.3*"/>
+                                    <ColumnDefinition Width="6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image HorizontalAlignment="Center" Height="20" VerticalAlignment="Center" Width="20" Source="Resources/Search.png" Margin="5"/>
+                                <TextBox x:Name="SearchDesc_TxtBox" Grid.Column="1" Text="Description" FontFamily="Calibri Light" FontSize="12" Foreground="#FF78777F" BorderThickness="0" VerticalContentAlignment="Center" Padding="5,0,0,0" MaxLines="1" MaxLength="35" TabIndex="2" />
+                            </Grid>
+
+                        </Border>
+                        <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="290" Margin="11,117,0,0" VerticalAlignment="Top" Width="129" Background="white" >
+                            <ListBox x:Name="Departments_ListBox" Margin="0,10" BorderThickness="0" ItemContainerStyle="{StaticResource ListBoxItem_Color}" SelectionMode="Multiple" TabIndex="3">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentControl Content="{Binding Department}" FontWeight="Bold" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" FontSize="11"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+                        <Label Content="Departments" HorizontalAlignment="Left" Margin="11,91,0,0" VerticalAlignment="Top" Width="130" FontWeight="Bold"/>
+
+                        <Popup x:Name="Add_New_Item_Popup" PlacementTarget="{Binding ElementName=HomeButton}" Placement="Bottom" AllowsTransparency="True" StaysOpen="True" Margin="0,0,0,0" PopupAnimation="Slide">
+                            <Border Style="{StaticResource BaseBorder}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="196" Margin="0" VerticalAlignment="Top" Width="831" Background="#FFE5E5E5">
+                                <Grid>
+                                    <Label Content="SKU" HorizontalAlignment="Left" Margin="13,34,0,0" VerticalAlignment="Top" Width="74"/>
+                                    <TextBox x:Name="SKU_TxtBox" HorizontalAlignment="Left" Height="25" Margin="14,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="167" Tag="SKU" FontWeight="Bold" TabIndex="6" FontSize="14"/>
+                                    <Label Content="Description" HorizontalAlignment="Left" Margin="186,34,0,0" VerticalAlignment="Top" Width="74"/>
+                                    <TextBox x:Name="Desc_TxtBox" HorizontalAlignment="Left" Height="25" Margin="186,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="290"  Tag="Desc" TabIndex="7" FontSize="14"/>
+                                    <Label Content="Department" HorizontalAlignment="Left" Margin="481,34,0,0" VerticalAlignment="Top" Width="74"/>
+                                    <Label Content="Cost" HorizontalAlignment="Left" Margin="14,91,0,0" VerticalAlignment="Top" Width="55"/>
+                                    <local:NumberTextBox x:Name="Cost_TxtBox" Text="{Binding Amount,Mode=TwoWay,StringFormat={}{0:C}}" HorizontalAlignment="Left" Height="23" Margin="14,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"  Tag="Cost" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TabIndex="9" FontSize="14"/>
+                                    <Label Content="Sell" HorizontalAlignment="Left" Margin="203,91,0,0" VerticalAlignment="Top" Width="55"/>
+                                    <local:NumberTextBox x:Name="Sell_TxtBox" HorizontalAlignment="Left" Height="23" Margin="203,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"  Tag="Sell" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" TabIndex="11" FontSize="14"/>
+                                    <Label Content="Markup" HorizontalAlignment="Left" Margin="107,91,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.455,-0.346"/>
+                                    <local:NumberTextBox x:Name="Markup_TxtBox" HorizontalAlignment="Left" Height="23" Margin="107,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" TabIndex="10" FontSize="14"/>
+                                    <ComboBox x:Name="Department_ComboBox" HorizontalAlignment="Left" Margin="481,60,0,0" VerticalAlignment="Top" Width="171" IsReadOnly="True" Tag="Department" TabIndex="8" Height="25"/>
+                                    <CheckBox x:Name="Active_CheckBox" Content="Active" HorizontalAlignment="Left" Margin="678,60,0,0" Width="75" Height="25" VerticalContentAlignment="Center" VerticalAlignment="Top" Tag="Active" TabIndex="12" IsChecked="true" FontSize="14"/>
+                                    <Button x:Name="Add_New_Item_to_DB_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="Add Item" HorizontalAlignment="Left" Margin="678,129,0,0" VerticalAlignment="Top" Width="141" Height="55" RenderTransformOrigin="1.723,-0.837" FontSize="16"/>
+                                    <Button x:Name="Close_Popup" Style="{StaticResource POSKeypadButton_Style}" Content="X" HorizontalAlignment="Left" Margin="776,4,0,151" Width="43" FontSize="14" VerticalContentAlignment="Stretch" TabIndex="16"/>
+                                    <Label Content="ADD NEW INVENTORY  ITEM" HorizontalAlignment="Left" Margin="13,8,0,0" VerticalAlignment="Top" Width="186" FontWeight="Bold"/>
+                                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="363,100,0,0" VerticalAlignment="Top" Width="272">
+                                        <Grid>
+                                            <CheckBox x:Name="Count_CheckBox" Content="Inventory Count" HorizontalAlignment="Left" Margin="14,3,0,0" Width="116" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Top"  Tag="Zero" TabIndex="13" FontWeight="Bold"/>
+                                            <local:NumberTextBox x:Name="Qty_TxtBox" HorizontalAlignment="Left" Height="23" Margin="186,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"  Tag="Quantity" TabIndex="14"/>
+                                            <Label Content="Quantity On Hand" HorizontalAlignment="Left" Margin="61,27,0,0" VerticalAlignment="Top" Width="120"/>
+                                            <Label Content="Reorder Warning Qty" HorizontalAlignment="Left" Margin="61,50,0,0" VerticalAlignment="Top" Width="125"/>
+                                            <local:NumberTextBox x:Name="ReOrder_TxtBox" HorizontalAlignment="Left" Height="23" Margin="186,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"  Tag="WarningQty" TabIndex="15"/>
+
+                                        </Grid>
+                                    </Border>
+
+                                </Grid>
+                            </Border>
+                        </Popup>
+
+                        <ComboBox x:Name="Active_ComboBox" HorizontalAlignment="Left" Margin="11,412,0,0" VerticalAlignment="Top" Width="129" SelectedIndex="0" TabIndex="4">
+                            <ComboBoxItem Content="ALL" />
+                            <ComboBoxItem Content="Active" />
+                            <ComboBoxItem Content="Inactive" />
+                        </ComboBox>
+                        <local:CommonListView x:Name="TempData_LV" HorizontalAlignment="Left" Height="265" Margin="-145,142,0,0" VerticalAlignment="Top" Width="105">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="SKU" Width="80" DisplayMemberBinding="{Binding SKU}"/>
+                                    <GridViewColumn Header="Desc" Width="80" DisplayMemberBinding="{Binding Desc}"/>
+                                    <GridViewColumn Header="Department" Width="80" DisplayMemberBinding="{Binding Department}"/>
+                                    <GridViewColumn Header="Cost" Width="80" DisplayMemberBinding="{Binding Cost}"/>
+                                    <GridViewColumn Header="Sell" Width="80" DisplayMemberBinding="{Binding Sell}"/>
+                                    <GridViewColumn Header="Quantity" Width="80" DisplayMemberBinding="{Binding Quantity}"/>
+                                    <GridViewColumn Header="ReOrder" Width="80" DisplayMemberBinding="{Binding WarningQty}"/>
+                                    <GridViewColumn Header="Zero" Width="80" DisplayMemberBinding="{Binding Zero}"/>
+                                    <GridViewColumn Header="Active" Width="80" DisplayMemberBinding="{Binding Active}"/>
+
+                                    <GridViewColumn Header="PackagingMaterials" Width="80" DisplayMemberBinding="{Binding PackagingMaterials}"/>
+                                    <GridViewColumn Header="MaterialsClass" Width="80" DisplayMemberBinding="{Binding MaterialsClass}"/>
+                                    <GridViewColumn Header="Weight" Width="80" DisplayMemberBinding="{Binding Weight}"/>
+                                    <GridViewColumn Header="L" Width="80" DisplayMemberBinding="{Binding L}"/>
+                                    <GridViewColumn Header="W" Width="80" DisplayMemberBinding="{Binding W}"/>
+                                    <GridViewColumn Header="H" Width="80" DisplayMemberBinding="{Binding H}"/>
+                                </GridView>
+                            </ListView.View>
+                        </local:CommonListView>
+                        <CheckBox x:Name="Packmaster_ChkBx" Content="PackMaster View" HorizontalAlignment="Left" Margin="10,438,0,0" VerticalAlignment="Top" Height="21" Width="129" VerticalContentAlignment="Center"/>
+
+                    </Grid>
+                </Border>
+
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+</local:CommonWindow>
+

@@ -1,0 +1,109 @@
+﻿<Window x:Name="Customs_Window" x:Class="Customs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        WindowStyle="none"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Width="800"
+        Height="519.697"
+        >
+
+
+
+    <Viewbox Style="{DynamicResource BaseViewbox}">
+        <Border Background="#FFE5E5E5" CornerRadius="10" BorderBrush="white" BorderThickness="10">
+            <Grid>
+                <local:CommonListView x:Name="Customs_LV" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" Width="642" Height="223" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="10,79,10,59">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <EventSetter Event="LostFocus" Handler="ListViewItem_LostFocus"/>
+                            <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+
+                    <ListView.View>
+
+                        <GridView>
+
+                            <GridViewColumn Header="Qty" Width="35">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox x:Name="Qty_TxtBox" Width="23" Text="{Binding Path=Qty}" GotKeyboardFocus="TxtBox_GotKeyboardFocus" KeyboardNavigation.TabIndex="1" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Description" Width="259">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox x:Name="Desc_TxtBox" Width="247" Text="{Binding Path=Description}" KeyboardNavigation.TabIndex="2" Loaded="FocusTextBoxOnLoad"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Value" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox x:Name="Value_TxtBox" Width="48" Text="{Binding Path=Value, StringFormat='c'}"  GotKeyboardFocus="TxtBox_GotKeyboardFocus" KeyboardNavigation.TabIndex="3"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Weight (Lb)" Width="65">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox x:Name="Weight_TxtBox" Width="53" Text="{Binding Path=Weight}" GotKeyboardFocus="TxtBox_GotKeyboardFocus" KeyboardNavigation.TabIndex="4"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Country Of Origin" Width="104">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox x:Name="Origin_TxtBox" Width="92" Text="{Binding Path=OriginCountry}" GotKeyboardFocus="TxtBox_GotKeyboardFocus" KeyboardNavigation.TabIndex="5"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Harmonized Code" Width="99">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox x:Name="HarmonizedCode_TxtBox" Width="87" Text="{Binding Path=HarmonizedCode}" GotKeyboardFocus="TxtBox_GotKeyboardFocus" KeyboardNavigation.TabIndex="6"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </local:CommonListView>
+                <Label Content="Customs Declaration" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" Width="180" FontWeight="Bold" FontSize="16"/>
+                <Label Content="International, Canada, Puerto Rico, Virgin Islands" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Width="275"/>
+                <Button x:Name="Close_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="X" HorizontalAlignment="Left" Margin="623,3,0,0" VerticalAlignment="Top" Width="39" Height="37" FontSize="14"/>
+                <Label Content="Enter Contents of Package" HorizontalAlignment="Left" Margin="15,49,0,0" VerticalAlignment="Top" Width="195" FontWeight="Bold"/>
+                <Button x:Name="Save_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="SAVE" HorizontalAlignment="Left" Margin="508,327,0,-5" VerticalAlignment="Top" Width="144" Height="39" FontSize="16" FontWeight="Bold" FontFamily="Calibri"/>
+                <Label Content="Total" HorizontalAlignment="Left" Margin="229,334,0,0" VerticalAlignment="Top" Width="39" FontWeight="Bold" Height="24"/>
+                <TextBox x:Name="ValueTotal_TxtBox" HorizontalAlignment="Left" Height="23" Margin="268,335,0,0" TextWrapping="Wrap" Text="$0.00" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" TextAlignment="Center"/>
+                <TextBox x:Name="WeightTotal_TxtBox" HorizontalAlignment="Left" Height="23" Margin="338,335,0,0" TextWrapping="Wrap" Text="0 lb" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" TextAlignment="Center"/>
+                <ComboBox x:Name="ContentsType_CmbBox" HorizontalAlignment="Left" Margin="497,50,0,0" VerticalAlignment="Top" Width="155" Height="25" SelectedIndex="0" FontSize="14">
+                    <ComboBoxItem Content="Gift"/>
+                    <ComboBoxItem Content="Documents"/>
+                    <ComboBoxItem Content="Other"/>
+                    <ComboBoxItem Content="Commercial Sample"/>
+                    <ComboBoxItem Content="Returned Goods"/>
+                </ComboBox>
+                <Label Content="Type of Contents" HorizontalAlignment="Left" Margin="391,49,0,0" VerticalAlignment="Top" Width="106" FontWeight="Bold"/>
+                <Button x:Name="Delete_Btn" Content="Delete Line" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="65" Height="20"/>
+                <Button x:Name="Clear_Btn" Content="Clear All" HorizontalAlignment="Left" Margin="80,302,0,0" VerticalAlignment="Top" Width="65" Height="20"/>
+                <CheckBox x:Name="DistributeWeight_CheckBox" Content="Distribute Weight Evenly" HorizontalAlignment="Left" Margin="15,331,0,0" VerticalAlignment="Top" Width="155" Height="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsChecked="True"/>
+                <Button x:Name="HarmonizedCodeLookup_Btn" Content="Look up HS Codes 1" HorizontalAlignment="Left" Margin="452,302,0,0" VerticalAlignment="Top" Width="100" FontSize="10"/>
+                <Button x:Name="HarmonizedCodeLookup_Btn2" Content="Look up HS Codes 2" HorizontalAlignment="Left" Margin="552,302,0,0" VerticalAlignment="Top" Width="100" FontSize="10"/>
+            </Grid>
+        </Border>
+    </Viewbox>
+
+</Window>

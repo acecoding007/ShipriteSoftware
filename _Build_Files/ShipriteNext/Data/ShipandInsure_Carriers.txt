@@ -1,0 +1,50 @@
+CarrierNumber	ShortName	LongName	ShipRite Code
+1	FE Same D	Federal Express Same Day (U.S.)	
+2	FE 1st ov	Federal Express First Overnight Express Service (U.S.)	FEDEX-1ST
+3	FE Pri Ov	Federal Express Priority Overnight Express Service (U.S.)	FEDEX-PRI
+4	FE Stan Ov	Federal Express Standard Overnight Express Service (U.S.)	FEDEX-STD
+5	FE Two D	Federal Express Two Day Express Service (U.S.)	FEDEX-2DY
+5	FE Two D	Federal Express Two Day Express Service (U.S.) AM 	FEDEX-2DY-AM
+6	FE Ground	Federal Express Ground Parcel Delivery Service	FEDEX-GND
+7	USPS Registered	United States Postal Service Shipped by Registered	
+8	USPS Pri Express	United States Postal Service Shipped by Priority Express Mail	USPS-EXPR
+9	UPS Ground	United Parcel Service Ground	COM-GND
+10	UPS Air	United Parcel Service Next Day Air	1DAY
+11	Fed Ex Sav	Federal Express Saver	FEDEX-SVR
+12	FedEx Intl Priority	FedEx International Priority®Service	FEDEX-INTP
+13	FedEx Intl Econ	FedEx International Economy Service	FEDEX-INTE
+15	USPS Priority	United States Postal Service Shipped by Priority Mail	USPS-PRI
+15	USPS Priority	USPS Priority Mail   Cubic Rates	USPS-PRI_CubicRate
+16	FedEx Intl Next	FedEx International Next Flight Service	FEDEX-INT-1ST
+19	FedEx Freight	Federal Freight Priority	FEDEX-FRP
+22	UPS Freight	United Postal Service Freight	
+22	FedEx Freight	FedEx Freight Economy	FEDEX-FRE
+23	SAIA Inc	SAIA Inc	
+24	R & L Carriers	R & L Carriers	
+25	YRC Freight	YRC Freight	
+26	Roadrunner Trnsprt Svcs	Roadrunner Transportation Services Inc	
+27	Clear Lane Freight Systems	Clear Lane Freight Systems	
+28	Frontline Freight Inc	Frontline Freight Inc	
+29	Central Transport	Central Transport	
+30	Daylight Transport	Daylight Transport	
+31	Land Air Express of NE	Land Air Express of New England	
+32	Town Aire Frieght	Town Aire Frieght	
+33	Pilot Freight Services	Pilot Freight Services	
+34	Con Way Freight	Con Way Freight	
+35	XPO Logisitics	XPO Logisitics	
+36	Southeaster Freight Lines	Southeaster Freight Lines	
+37	ABF	ABF	
+38	A Duie Pyle	A Duie Pyle	
+39	FedEx Intl Freight	Federal International Express Freight	
+40	FedEx Dom Freight	Federal Domestic Express Freight 1 Day	FEDEX-FR1
+40	FedEx Dom Freight	Federal Domestic Express Freight 2 Day	FEDEX-FR2
+40	FedEx Dom Freight	Federal Domestic Express Freight 3 Day	FEDEX-FR3
+41	Company Car	Company Car	
+42	Company Truck	Company Truck	
+43	Brinks Inc	Brinks Inc	
+44	Dunbar Armored	Dunbar Armored	
+45	Loomis US	Loomis US	
+46	Garda	Garda	
+49	DHL International	DHL International Documents	DHL-INT-DOC
+49	DHL International	DHL International	DHL-INT
+50	DHL Freight	DHL Freight	

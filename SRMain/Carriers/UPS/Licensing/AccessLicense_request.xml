@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AccessLicenseRequest>
+  <Request>
+    <RequestAction>AccessLicense</RequestAction>
+    <RequestOption>AllTools</RequestOption>
+  </Request>
+  <CompanyName></CompanyName>
+  <AddressArtifactFormat>
+    <StreetNumberLow></StreetNumberLow>
+    <StreetName></StreetName>
+    <PoliticalDivision2></PoliticalDivision2>
+    <PoliticalDivision1></PoliticalDivision1>
+    <CountryCode></CountryCode>
+    <PostcodePrimaryLow></PostcodePrimaryLow>
+  </AddressArtifactFormat>
+  <PrimaryContact>
+    <Name></Name>
+    <Title>Shipping Store Owner</Title>
+    <EMailAddress></EMailAddress>
+    <PhoneNumber></PhoneNumber>
+    <FaxNumber></FaxNumber>
+  </PrimaryContact>
+  <CompanyURL></CompanyURL>
+  <ShipperNumber>F00100</ShipperNumber>
+  <DeveloperLicenseNumber>2CB2702381CB5253</DeveloperLicenseNumber>
+  <AccessLicenseProfile>
+    <CountryCode>US</CountryCode>
+    <LanguageCode>EN</LanguageCode>
+    <AccessLicenseText>
+      UPS TECHNOLOGY AGREEMENT
+    </AccessLicenseText>
+  </AccessLicenseProfile>
+  <ClientSoftwareProfile>
+    <SoftwareInstaller>ShipRite Software</SoftwareInstaller>
+    <SoftwareProductName>ShipRite</SoftwareProductName>
+    <SoftwareProvider>ShipRite Software</SoftwareProvider>
+    <SoftwareVersionNumber>10.9</SoftwareVersionNumber>
+    </ClientSoftwareProfile>
+</AccessLicenseRequest>

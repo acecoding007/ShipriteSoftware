@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SHIPRITE">
+
+    <!--Ship Menu: Button Style-->
+    <Style x:Key="ShipButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="SelectedButtonBorder" 
+                            CornerRadius="10" 
+                            Background="{TemplateBinding Background}" 
+                            BorderThickness="0"
+                            BorderBrush="#FF1E4174" 
+                            Margin="5"
+                            Cursor="Hand"
+                            >
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SelectedButtonBorder" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter TargetName="SelectedButtonBorder" Property="Background" Value="#FFBED9F4" />
+                            <Setter TargetName="SelectedButtonBorder" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Accessorial_ToggleButon" TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SHIP_DisplayNotifier" TargetType="Border">
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Width" Value="54"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="IsEnabled" Value="False"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.2" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,16 @@
+<AccessLicenseAgreementRequest xml:lang="en-US">
+	<!--Validate combination of Request Option and Tool ID-->
+	<Request>
+		<TransactionReference>
+			<CustomerContext>QAST GetAgreement</CustomerContext>
+			<XpciVersion>1.0</XpciVersion>
+		</TransactionReference>
+		<RequestAction>AccessLicense</RequestAction>
+		<RequestOption>AllTools</RequestOption>
+	</Request>
+	<DeveloperLicenseNumber>EB5906EAF78FBEA0</DeveloperLicenseNumber>
+	<AccessLicenseProfile>
+		<CountryCode>US</CountryCode>
+		<LanguageCode>EN</LanguageCode>
+	</AccessLicenseProfile>
+</AccessLicenseAgreementRequest>

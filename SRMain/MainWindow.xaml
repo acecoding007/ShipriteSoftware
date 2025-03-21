@@ -1,0 +1,327 @@
+﻿<local:CommonWindow x:Name="Main_Window" x:Class="MainWindow" Style="{DynamicResource BaseMainWindow}"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+                   
+        WindowStartupLocation="CenterScreen"
+        d:DesignWidth="1024"
+        d:DesignHeight="576"
+        >
+
+
+    <Grid x:Name="MainGrid" Style="{DynamicResource BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid x:Name="HeaderGrid" Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Menu x:Name="HeaderMenu" Style="{DynamicResource HeaderMenu}">
+                        <MenuItem x:Name="File" Header="_File" Style="{DynamicResource HeaderMenuItem}">
+                            <MenuItem x:Name="Window" Header="_Window" Style="{DynamicResource HeaderMenuItem}">
+                                <MenuItem x:Name="Clear_Window_History" Header="_Clear Window History" Style="{DynamicResource HeaderMenuItem}"/>
+                                <MenuItem x:Name="View_Window_History" Header="_View Window History" Style="{DynamicResource HeaderMenuItem}"/>
+                            </MenuItem>
+                            <MenuItem Header="_Program Updates" Style="{DynamicResource HeaderMenuItem}">
+                                <MenuItem x:Name="Updater_Check" Header="_Check Now" Style="{DynamicResource HeaderMenuItem}"/>
+                                <MenuItem x:Name="Updater_Configure" Header="_Configure" Style="{DynamicResource HeaderMenuItem}"/>
+                            </MenuItem>
+                            <MenuItem x:Name="Restart" Header="_Restart" Style="{DynamicResource HeaderMenuItem}"/>
+                            <MenuItem x:Name="Exit" Header="_Exit" Style="{DynamicResource HeaderMenuItem}" Click="CloseButton_Click"/>
+                        </MenuItem>
+                    </Menu>
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+
+                    <Label x:Name="VersionNo_Lbl" Content="v1.1.1.1"  Foreground="white" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                </Grid>
+
+                <Grid x:Name="ToolsGrid" Style="{DynamicResource ToolsGrid}" Width="198" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SetupOptions" Style="{DynamicResource ControlButton}" Grid.Column="2" ToolTip="Setup Options">
+                        <Image x:Name="SetupOptionsImage" Source="Resources/Gear.png" />
+                    </Button>
+                    <Button x:Name="Utilities" Style="{DynamicResource ControlButton}" Grid.Column="1" ToolTip="Utilities" >
+                        <Image x:Name="UtilitiesImage" Source="Resources/Utilities_Light.png" />
+                    </Button>
+                    <StackPanel x:Name="UserName_Display" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" >
+                        <Button x:Name="User_Btn"  Style="{DynamicResource ControlButton}" ToolTip="Change User">
+                            <Image Source="Resources/Profile_Default.png" />
+                        </Button>
+                        <TextBlock x:Name="UserName_TxtBx" Text="UserName" Foreground="White" Height="16" Margin="2,4,0,0"/>
+
+                    </StackPanel>
+                    
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+                    <Button x:Name="HomeButton" Style="{DynamicResource ControlButton_MainHome}">
+                        <Image x:Name="Home_Icon" Style="{DynamicResource ControlButtonImage_MainHome}"/>
+                    </Button>
+                </Grid>
+
+                <Border x:Name="Border" Style="{DynamicResource BaseBorder}" Margin="20,75,20,65" >
+                    <Border.Background>
+                        <ImageBrush ImageSource ="Resources/ShipRiteNextWallpaper.jpg"  ></ImageBrush>
+                    </Border.Background>
+                    <Grid x:Name="ButtonGrid" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="POSButton" Style="{DynamicResource MainPOSButton}" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+
+                            <Grid x:Name="POSButtonGrid" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="175*"/>
+                                    <RowDefinition Height="75*"/>
+                                </Grid.RowDefinitions>
+                                <Image x:Name="POS_Image" Source="Resources/POS_Light.png" Margin="5"/>
+                                <Label x:Name="POS_Label" Style="{DynamicResource MainLabel}" Grid.Row="1"  Content="POS" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="ShipButton" Style="{DynamicResource MainShipButton}" Grid.Column="2"  Grid.ColumnSpan="2" Grid.RowSpan="2">
+                            <Grid x:Name="ShipButtonGrid" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="175*"/>
+                                    <RowDefinition Height="75*"/>
+                                </Grid.RowDefinitions>
+                                <Image x:Name="Ship_Image" Grid.Row="0" Source="Resources/Ship_Light.png" Margin="5"/>
+                                <Label x:Name="Ship_Label" Style="{DynamicResource MainLabel}" Grid.Row="1" Content="SHIP" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="MBXButton" Style="{DynamicResource MainMailboxButton}" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                            <Grid x:Name="MBXButtonGrid" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="175*"/>
+                                    <RowDefinition Height="75*"/>
+                                </Grid.RowDefinitions>
+                                <Image x:Name="MBX_Image" Grid.Row="0" Source="Resources/Mailbox_Light.png" Margin="7" />
+                                <Label x:Name="MBX_Label" Style="{DynamicResource MainLabel}" Grid.Row="1" Content="MAILBOX" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="ReportsButton" Style="{DynamicResource MainReportsButton}" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                            <Grid x:Name="ReportsButtonGrid"  >
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="175*"/>
+                                    <RowDefinition Height="75*"/>
+                                </Grid.RowDefinitions>
+                                <Image x:Name="Reports_Image" Grid.Row="0" Source="Resources/Reports_Light.png" Margin="5"/>
+                                <Label x:Name="Reports_Label" Style="{DynamicResource MainLabel}" Grid.Row="1" Content="REPORTS" />
+                            </Grid>
+                        </Button>
+
+
+
+                        <Button x:Name="ContactsButton" Style="{DynamicResource SubButton}" Grid.Column="7" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Contacts_Light.png" Margin="2" Grid.Row="0"/>
+                                <Label Style="{DynamicResource SubLabel}" Content="CONTACTS" Grid.Row="1" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="EODButton" Style="{DynamicResource SubButton}" Grid.Column="4" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/EODManifest.png" Margin="4,2,0,0" Grid.Row="0" Height="36" VerticalAlignment="Top"/>
+                                <Label Style="{DynamicResource SubLabel}" Content="EOD - MANIFEST" Grid.Row="1" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="PackageValetButton" Style="{DynamicResource SubButton}" Grid.Column="3"  Grid.Row="2" ToolTip="Ctrl+F5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/PackageValet_Light.png" Margin="2" Grid.Row="0"/>
+                                <Label Style="{DynamicResource SubLabel}" Content="PACKAGE VALET" Grid.Row="1" />
+                            </Grid>
+                        </Button>
+                        <Button x:Name="DropOffManagerButton" Style="{DynamicResource SubButton}" Grid.Column="2"  Grid.Row="2" ToolTip="F5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/DropOff_Light.png" Margin="2" Grid.Row="0"/>
+                                <Label Style="{DynamicResource SubLabel}" Content="DROP OFF" Grid.Row="1"  />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="ShipHistoryButton" Style="{DynamicResource SubButton}" Grid.Column="5"  Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/ShipHistory_Light.png" Margin="3,4,1,18" Grid.Row="0" Grid.RowSpan="2"/>
+                                <Label Style="{DynamicResource SubLabel}" Content="SHIP HISTORY" Grid.Row="1" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="TimeClock_Btn" Style="{DynamicResource SubButton}" Grid.Column="1" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/TimeClock_Light.png" Margin="2" Grid.Row="0"/>
+                                <Label Style="{DynamicResource SubLabel}" Content="TIME CLOCK" Grid.Row="1" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="Inventory_Btn" Style="{DynamicResource SubButton}" Grid.Column="6"  Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Inventory_Light.png" Margin="2" Grid.Row="0"/>
+                                <Label Style="{DynamicResource SubLabel}" Content="INVENTORY" Grid.Row="1" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="Tickler_Btn" Style="{DynamicResource SubButton}" Grid.Column="0" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="52*"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="Resources/Tickler.png" Margin="2" Grid.Row="0"/>
+                                <Label x:Name="Tickler_Btn_Lbl" Style="{DynamicResource SubLabel}" Content="TICKLER" Grid.Row="1"/>
+                                <Label x:Name="Tickler_Count_Lbl" Style="{StaticResource Circular_Label_Notification}" Content="15" Margin="85,-10,-10,20"/>
+                            </Grid>
+                        </Button>
+
+                    </Grid>
+                </Border>
+
+                <Grid Height="55" Margin="20,0,20,5" VerticalAlignment="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="151*"/>
+                        <ColumnDefinition Width="151*"/>
+                        <ColumnDefinition Width="151*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid x:Name="SearchGrid" VerticalAlignment="Center" Background="White" Height="35" Margin="10,0,0,0" HorizontalAlignment="Left">
+                        <Image HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="35" Source="Resources/Search.png" Margin="5,0,0,0" />
+                        <TextBox x:Name="SearchBox" Height="34" Margin="40,1,0,0" Text="Type here to search" VerticalAlignment="Center" Width="278" FontFamily="Calibri" FontSize="16" Foreground="#FF78777F" BorderThickness="0" VerticalContentAlignment="Center" Padding="5,0,0,0" HorizontalAlignment="Left" MaxLines="1" MaxLength="40"/>
+                    </Grid>
+
+                    <Grid Height="45" Grid.Column="1" Width="328">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15*"/>
+                            <RowDefinition Height="7*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="Resources/PoweredByAzure.png"/>
+
+                    </Grid>
+
+                    <Grid Height="49" VerticalAlignment="Bottom" Width="323" Grid.Column="2" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="TicketImage_Button" Style="{DynamicResource FooterButton}" ToolTip="Support Ticket">
+                            <Image x:Name="TicketImage" Source="Resources/Ticket.png" />
+                        </Button>
+                        <Button x:Name="SupportImage_Button" Grid.Column="1" Style="{DynamicResource FooterButton}" ToolTip="Remote Support">
+                            <Image x:Name="SupportImage" Source="Resources/RemoteSupport.png" />
+                        </Button>
+                        <Button x:Name="ShopImage_Button" Grid.Column="2" Style="{DynamicResource FooterButton}" ToolTip="ShipRite Shop">
+                            <Image x:Name="ShopImage" Source="Resources/Shop.png" />
+                        </Button>
+                        <Button x:Name="FacebookImage_Button" Grid.Column="3" Style="{DynamicResource FooterButton}" ToolTip="ShipRite Facebook">
+                            <Image x:Name="FacebookImage" Source="Resources/Facebook.png" />
+                        </Button>
+                        <Button x:Name="TwitterImage_Button" Grid.Column="4" Style="{DynamicResource FooterButton}" ToolTip="ShipRite Twitter">
+                            <Image x:Name="TwitterImage" Source="Resources/Twitter.png" />
+                        </Button>
+
+                    </Grid>
+
+                </Grid>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+                <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="38" Margin="423,37,0,0" VerticalAlignment="Top" Width="175" Background="#FFBBBBBB">
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,0,35,2" Source="{StaticResource ShipRiteNextLogo}" Height="36" Width="100">
+
+                    </Image>
+                </Border>
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+
+</local:CommonWindow>
+    
+    

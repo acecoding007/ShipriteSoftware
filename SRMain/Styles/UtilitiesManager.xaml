@@ -1,0 +1,68 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SHIPRITE">
+
+    <!--Utilities Menu: Button Style-->
+    <Style x:Key="UtilityManager_Button" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#FF6876AB" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="SelectedButtonBorder"
+                            CornerRadius="7"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="1"
+                            BorderBrush="#001E4174"
+                            Cursor="Hand"
+                            Margin="5"
+                            >
+
+                        <Border.Effect>
+                            <DropShadowEffect Direction="315" ShadowDepth="5" BlurRadius="10" Opacity="0.5" Color="#FF5A5B82" />
+                        </Border.Effect>
+
+                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF9AA7D4" />
+                            <Setter Property="Effect" TargetName="SelectedButtonBorder" >
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="315" ShadowDepth="10" BlurRadius="20" Opacity="0.5" Color="#FF5A5B82" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="SelectedButtonBorder" Property="Control.Effect" Value="{x:Null}" />
+                            <Setter TargetName="SelectedButtonBorder" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter TargetName="SelectedButtonBorder" Property="Background" Value="#FFBED9F4" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Utilities Menu: Button Label Style-->
+    <Style x:Key="UtilityButton_Label" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Label}">
+                    <Border x:Name="SelectedButtonLabel">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

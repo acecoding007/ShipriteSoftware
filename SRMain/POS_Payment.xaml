@@ -1,0 +1,583 @@
+﻿<local:CommonWindow x:Name="POS_Payment_Window" x:Class="POS_Payment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHIPRITE"
+        mc:Ignorable="d"
+        Style="{DynamicResource BaseWindow}"
+        WindowStartupLocation = "{StaticResource BaseWSL}"
+        Loaded="Window_Loaded"
+        Initialized="Window_Initialized">
+
+    <Grid Style="{DynamicResource ResourceKey=BaseGrid}" >
+
+        <Viewbox Style="{DynamicResource BaseViewbox}">
+
+            <Grid Style="{DynamicResource BaseViewboxGrid}">
+
+                <Grid Style="{DynamicResource HeaderGrid}" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                    <Grid x:Name="ViewControlGrid" Style="{DynamicResource ViewControlGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="MinimizeButton" Style="{DynamicResource MinimizeButton}" Click="MinimizeButton_Click">
+                            <Image x:Name="Minimize_Image" Style="{DynamicResource MinimizeImage}"/>
+                        </Button>
+                        <Button x:Name="MaximizeButton" Style="{DynamicResource MaximizeButton}" Click="MaximizeButton_Click">
+                            <Image x:Name="Maximize_Image" Style="{DynamicResource MaximizeImage}"/>
+                        </Button>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButton}" Click="CloseButton_Click">
+                            <Image x:Name="Close_Image" Style="{DynamicResource CloseImage}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="NavigationGrid" Style="{DynamicResource ControlGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackButton" Style="{DynamicResource ControlButton_Back}" Click="BackButton_Click">
+                        <Image x:Name="Back_Icon" Style="{DynamicResource ControlButtonImage_Back}"/>
+                    </Button>
+                    <Button x:Name="ForwardButton" Style="{DynamicResource ControlButton_Forward}" Click="ForwardButton_Click">
+                        <Image x:Name="Forward_Icon" Style="{DynamicResource ControlButtonImage_Forward}"/>
+                    </Button>
+                    <Button x:Name="RefreshButton" Style="{DynamicResource ControlButton_Refresh}" Click="RefreshButton_Click">
+                        <Image x:Name="Refresh_Icon" Style="{DynamicResource ControlButtonImage_Refresh}"/>
+                    </Button>
+
+                </Grid>
+
+                <Grid x:Name="HeaderLabel_Grid" Style="{DynamicResource HeaderLabelGrid}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Style="{DynamicResource HeaderImage}" Source="Resources/cash.png"/>
+                    <Border Style="{DynamicResource HeaderLabelBorder}" >
+                        <Label Content="PAYMENT" Style="{DynamicResource HeaderLabel}"/>
+                    </Border>
+                </Grid>
+
+                <!--Add, Remove, Save Grid-->
+                <Grid x:Name="ChangesGrid" Style="{DynamicResource ControlGrid}" Width="180" HorizontalAlignment="Right" Margin="0,41,25,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                        <ColumnDefinition Style="{DynamicResource ControlGridColumn}"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PrintButton" Grid.Column="3" ToolTip="Print" Style="{StaticResource AddRemoveSave_Style}">
+                        <Image x:Name="Print_Image" Source="Resources/Printer_Light.png"/>
+                    </Button>
+                </Grid>
+
+                <Border x:Name="PaymentBorder" Style="{DynamicResource BaseBorder}" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.8*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="210*"/>
+                                <!--quick cash-->
+                                <RowDefinition Height="253*"/>
+                                <!--Cash,check,other icons-->
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48*"/>
+                                <ColumnDefinition Width="77*"/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Grid.Column="1" x:Name="QuickCashEntry_GroupBox" Style="{StaticResource POSManagerGroupBox_Style}" Header="Quick Cash Entry" Margin="5,0,5,0" >
+
+                                <!--Quick Cash entry-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="OneDollar" HorizontalAlignment="Center" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Tag="1">
+                                        <Image Source="Resources/DollarBill_1.png" />
+                                    </Button>
+                                    <Button x:Name="TwoDollar" HorizontalAlignment="Center" Tag="2" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Grid.Row="1">
+                                        <Image Source="Resources/DollarBill_2.png" />
+                                    </Button>
+                                    <Button x:Name="FiveDollar" HorizontalAlignment="Center" Tag="5" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Grid.Row="2">
+                                        <Image Source="Resources/DollarBill_5.png" />
+                                    </Button>
+                                    <Button x:Name="TenDollar" HorizontalAlignment="Center" Tag="10" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Grid.Row="3">
+                                        <Image Source="Resources/DollarBill_10.png" />
+                                    </Button>
+                                    <Button x:Name="TwentyDollar" HorizontalAlignment="Center" Tag="20" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Grid.Column="1">
+                                        <Image Source="Resources/DollarBill_20.png"  />
+                                    </Button>
+                                    <Button x:Name="FiftyDollar" HorizontalAlignment="Center" Tag="50" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Grid.Column="1" Grid.Row="1">
+                                        <Image Source="Resources/DollarBill_50.png"  />
+                                    </Button>
+                                    <Button x:Name="HundredDollar" HorizontalAlignment="Center" Tag="100" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Grid.Column="1" Grid.Row="2">
+                                        <Image Source="Resources/DollarBill_100.png"/>
+                                    </Button>
+                                    <Button x:Name="ExactCash" Tag="EXACT" HorizontalAlignment="Center" Style="{StaticResource PaymentType_Button_Style}" VerticalAlignment="Center" Background="#FFA2A9B4" Grid.Column="1" Grid.Row="3" >
+                                        <Image Source="Resources/DollarBill_ExactCash.png" Margin="0" />
+                                        <!--<Label Content="EXACT CASH" Width="131" /-->
+                                    </Button>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="0" Grid.Column="0" x:Name="Options_GroupBox" Style="{StaticResource POSManagerGroupBox_Style}" Header="Options" Margin="5,0,5,0">
+                                <Grid HorizontalAlignment="Stretch" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="Posting Date:" VerticalAlignment="Top" HorizontalAlignment="Left" Height="20" Foreground="Black"/>
+                                    <DatePicker x:Name="PostingDate" HorizontalAlignment="Left" Height="27" Grid.Row="0" VerticalAlignment="Bottom" Width="122"/>
+
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="1" Grid.Column="0" x:Name="AR_Invoices_GroupBox" Style="{StaticResource POSManagerGroupBox_Style}" Header="Accounts Receivable Invoices" Margin="5,5" Grid.ColumnSpan="2">
+                                <Grid HorizontalAlignment="Stretch" >
+                                    <local:CommonListView x:Name="BulkPay_LV" Margin="0,20,0,0" SelectionMode="Multiple">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Width="30" Header="Pay">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}"/>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="85" Header="Date">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding InvDate, StringFormat=d}" TextAlignment="Right" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn Width="70" Header="Invoice#">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding InvoiceNo}" TextAlignment="Right" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="80" Header="Inv. Total">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding InvoiceAmount, StringFormat=c}" TextAlignment="Right" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                                <GridViewColumn Width="75" Header="Balance">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Balance, StringFormat=c}" TextAlignment="Right" FontWeight="Bold"/>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </local:CommonListView>
+                                    <TextBlock HorizontalAlignment="Left" Foreground="black" Margin="10,0,0,0" TextWrapping="Wrap" Text="Select Invoices to pay!" VerticalAlignment="Top" Width="333"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+
+
+                        <!--Keypad Entry-->
+                        <GroupBox Grid.Column="1" x:Name="SKUSearch_GroupBox" Style="{StaticResource POSManagerGroupBox_Style}" Header="Payment Entry" Margin="5,0,221,121" >
+                            <Grid >
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.3*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border CornerRadius="2" Background="Black" BorderBrush="White" BorderThickness="1" VerticalAlignment="Center" Height="40" Margin="5" Grid.ColumnSpan="4">
+                                        <TextBox x:Name="Payment_Entry" Padding="5" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Foreground="White" Background="#FF2B2B2B" FontSize="25" HorizontalContentAlignment="Right" BorderThickness="0" />
+                                    </Border>
+
+
+                                    <Button x:Name="Keypad_7" Grid.Row="1" Style="{StaticResource POSKeypadButton_Style}" Content="7" FontSize="24"/>
+                                    <Button x:Name="Keypad_8" Grid.Row="1" Grid.Column="1" Style="{StaticResource POSKeypadButton_Style}" Content="8" FontSize="24"/>
+                                    <Button x:Name="Keypad_9" Grid.Row="1" Grid.Column="2" Style="{StaticResource POSKeypadButton_Style}" Content="9" FontSize="24"/>
+                                    <Button x:Name="Keypad_DEL" Grid.Row="1" Grid.Column="3" Style="{StaticResource POSKeypadButton_Style}" Content="DEL" FontSize="20"/>
+                                    <Button x:Name="Keypad_4" Grid.Row="2" Grid.Column="0" Style="{StaticResource POSKeypadButton_Style}" Content="4" FontSize="24"/>
+                                    <Button x:Name="Keypad_5" Grid.Row="2" Grid.Column="1" Style="{StaticResource POSKeypadButton_Style}" Content="5" FontSize="24"/>
+                                    <Button x:Name="Keypad_6" Grid.Row="2" Grid.Column="2" Style="{StaticResource POSKeypadButton_Style}" Content="6" FontSize="24"/>
+                                    <Button x:Name="Keypad_MINUS" Grid.Row="2" Grid.Column="3" Style="{StaticResource POSKeypadButton_Style}" Content="-" FontSize="24"/>
+                                    <Button x:Name="Keypad_1" Grid.Row="3" Style="{StaticResource POSKeypadButton_Style}" Content="1" FontSize="24"/>
+                                    <Button x:Name="Keypad_2" Grid.Row="3" Grid.Column="1" Style="{StaticResource POSKeypadButton_Style}" Content="2" FontSize="24"/>
+                                    <Button x:Name="Keypad_3" Grid.Row="3" Grid.Column="2" Style="{StaticResource POSKeypadButton_Style}" Content="3" FontSize="24"/>
+                                    <Button x:Name="Keypad_DOT" Grid.Row="3" Grid.Column="3" Style="{StaticResource POSKeypadButton_Style}" Content="." FontSize="24"/>
+                                    <Button x:Name="Keypad_0" Grid.Row="4" Style="{StaticResource POSKeypadButton_Style}" Content="0" FontSize="24"/>
+                                    <Button x:Name="Keypad_00" Grid.Row="4" Grid.Column="1" Style="{StaticResource POSKeypadButton_Style}" Content="00" FontSize="24"/>
+                                    <Button x:Name="Keypad_ENTER" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource POSKeypadButton_Style}" Content="ENTER" FontSize="24"/>
+
+                                    <Grid x:Name="PayButtonGrid" Grid.Column="5" Grid.RowSpan="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="0.5*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button  Grid.Row="0" Grid.Column="0" x:Name="Cash_Button" Style="{StaticResource PaymentType_Button_Style}" ToolTip="Cash" Margin="1">
+                                            <StackPanel Orientation="Vertical">
+                                                <Label x:Name="Payment_Cash" Margin="3,0" Content="CASH"  VerticalAlignment="Center"/>
+                                                <Image Source="Resources/Cash.png" Margin="2"  ClipToBounds="True" Width="40" />
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button  Grid.Row="1" Grid.Column="0" x:Name="Check_Button" Style="{StaticResource PaymentType_Button_Style}" ToolTip="Check" Margin="1">
+                                            <StackPanel Orientation="Vertical">
+                                                <Label x:Name="Payment_Check" Margin="0,0,0,1" Content="CHECK"/>
+                                                <Image Source="Resources/Check.png" Margin="0"  ClipToBounds="True" Width="40" />
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Grid.Row="0" Grid.Column="1" x:Name="Credit_Button" Style="{StaticResource PaymentType_Button_Style}" ToolTip="Credit Card" Margin="1" >
+                                            <StackPanel Orientation="Vertical">
+                                                <Label x:Name="CC_lbl" Content="CREDIT&#xD;&#xA; CARD" Margin="-1"/>
+                                                <Image x:Name="Payment_CC_Image" Source="Resources/Credit_Card.png" Margin="1,0,0,5" Grid.Column="3" ClipToBounds="True" Width="40"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Grid.Row="1" Grid.Column="1" x:Name="OtherPayment_Button" Style="{StaticResource PaymentType_Button_Style}" ToolTip="Other" Margin="1">
+                                            <StackPanel Orientation="Vertical">
+                                                <Label x:Name="Other_Lbl" Content="OTHER" Margin="0" />
+                                                <Image Source="Resources/Account.png" Margin="3,3,3,3" Grid.Column="1" ClipToBounds="True" Width="40"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Grid.Row="2" x:Name="GiftCard_Button" Style="{StaticResource PaymentType_Button_Style}" ToolTip="Gift" Margin="1">
+                                            <StackPanel Orientation="Vertical">
+                                                <Label x:Name="GiftCard_Lbl" Content=" GIFT CARD" Margin="0" />
+                                                <Image Source="Resources/Account.png" Margin="3,3,3,3" Grid.Column="1" ClipToBounds="True" Width="40"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Grid.Row="2" Grid.Column="1" x:Name="ApplyCredit_Button" Style="{StaticResource PaymentType_Button_Style}" ToolTip="Apply Credit" Margin="1"  >
+                                            <StackPanel Orientation="Vertical">
+                                                <Label Content="APPLY CREDIT&#xD;&#xA;    BALANCE" Margin="0" FontSize="12" Foreground="DarkRed"/>
+                                                <Image Source="Resources/Account.png" Margin="3,3,3,3" Grid.Column="1" ClipToBounds="True" Width="40"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="CardOnFile_Button" Style="{StaticResource PaymentType_Button_Style}" ToolTip="Apply Credit" Margin="1"  >
+                                            <StackPanel x:Name="CardOnFileBTN" Orientation="Horizontal">
+                                                <Label x:Name="UseCardOnFile" Content="Use Card On File" Margin="3" FontSize="15" Foreground="DarkRed"/>
+                                                <Image Source="Resources/Credit_Card.png" Margin="3,3,3,3" Grid.Column="1" ClipToBounds="True" Width="40"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </GroupBox>
+
+
+                        <!-- COLUMN SEPARATOR ................................................................ -->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="347*"/>
+                                <RowDefinition Height="116*"/>
+                            </Grid.RowDefinitions>
+
+
+                            <!--Process Transaction-->
+                            <GroupBox x:Name="InvoiceBalance_GroupBox" Style="{StaticResource POSManagerGroupBox_Style}" Header="Invoice Total" Visibility="Visible" Margin="386,0,5,5" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="2*"/>
+
+                                    </Grid.RowDefinitions>
+
+                                    <Border CornerRadius="2" Background="Black" BorderBrush="White" BorderThickness="1" Margin="5,5,5,35" Grid.ColumnSpan="2">
+                                        <Label x:Name="BalanceDue"     FontFamily="Calibri" FontSize="36" Foreground="Yellow"  BorderThickness="0" VerticalContentAlignment="Center" Padding="5,0,0,0" Content="$ " Margin="8,-10,5,-10" HorizontalAlignment="Right" />
+                                    </Border>
+
+                                    <Label x:Name="RemainingBalance_Lbl" Content="Remaining Balance:" Grid.Row="0" Margin="5,76,63,0"/>
+                                    <Label x:Name="InvoiceBalance_Lbl" Content="$0.00" Grid.Row="0" Margin="135,76,5,0"/>
+
+
+                                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2"  Stroke="#FF5D5D5D" VerticalAlignment="Top" Width="193" Grid.Row="1"/>
+                                    <Label Content="Payments:"  Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="14" Height="25" Margin="0,10,118,0" Width="75" FontWeight="Bold" />
+                                    <Border  CornerRadius="2" Background="White" BorderBrush="White" BorderThickness="1" Margin="5,0,5,45" Grid.Row="1" VerticalAlignment="Bottom" Height="125" >
+                                        <ListBox x:Name="Payments_LB" ItemContainerStyle="{StaticResource ListBoxItem_Color}" BorderThickness="0" Margin="0,3">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding PaymentDisplay}" Width="110" Foreground="#FF78777F"/>
+                                                        <TextBlock Text="{Binding Payment, StringFormat=c}" TextAlignment="Right" Width="60" Foreground="#FF78777F"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </Border>
+
+
+                                    <Label Content="Total:" FontWeight="Bold" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="14" Height="25" Margin="0,0,123,10" Width="41" />
+                                    <Border  CornerRadius="2" Background="White" BorderBrush="White" BorderThickness="1" Margin="75,0,10,10" Grid.Row="1" VerticalAlignment="Bottom" Height="25" >
+                                        <TextBlock x:Name="TotalPaid" FontFamily="Calibri" FontSize="18" Foreground="#FF78777F" TextAlignment="Right" FontWeight="Bold" Margin="0" />
+                                    </Border>
+
+                                </Grid>
+                            </GroupBox>
+
+                            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="2" Margin="5,0,5,5" Background="#FFE0E0E0">
+                                <Grid Margin="2" Background="#FFE0E0E0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="1.9*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="79*"/>
+                                        <RowDefinition Height="26*"/>
+                                    </Grid.RowDefinitions>
+
+
+                                    <Label Grid.Column="0" Content="Email:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,38,0" Height="26" Width="41" Grid.Row="1" />
+                                    <Border Grid.Row="1" Grid.ColumnSpan="4" Margin="51,5,5,5" CornerRadius="2" Background="White" BorderBrush="White" BorderThickness="1" >
+                                        <TextBox x:Name="Email_TxtBox" FontFamily="Calibri" FontSize="14"  BorderThickness="0" VerticalContentAlignment="Center"  MaxLines="1" Text="" Margin="0,0,0,-3" />
+                                    </Border>
+
+                                    <Button Grid.Column="5" Grid.Row="0" x:Name="CompleteSale_Button" Style="{StaticResource POSFunctionButton_Style}" FontWeight="Bold" FontFamily="Calibri" Background="#FF3CBA54" HorizontalAlignment="Stretch" Foreground="White" Margin="1,1,1,1" Grid.RowSpan="2">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Text="Complete Sale" Grid.Row="0" FontSize="24"/>
+                                            <TextBlock x:Name="ARCharge_TxtBx" Text="or Charge To Account" Grid.Row="1" FontSize="12" TextAlignment="Center" FontWeight="Regular"/>
+                                        </Grid>
+                                    </Button>
+
+                                    <Button Grid.Column="4" Grid.Row="0" x:Name="NOReceipt_Button" Style="{StaticResource POSFunctionButton_Style}" Margin="1" Tag="NO">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33*"/>
+                                                <RowDefinition Height="25*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" x:Name="WithReceipt_Icon" Source="Resources/No_Receipt.png" Margin="1" />
+                                            <TextBlock Grid.Row="1" FontSize="11" Foreground="White" Text="NO RECEIPT" Margin="1"/>
+                                        </Grid>
+                                    </Button>
+
+                                    <Button Grid.Column="2" Grid.Row="0" x:Name="PrintInvoice_Button" Style="{StaticResource POSFunctionButton_Style}" Margin="1" Tag="NO" >
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30*"/>
+                                                <RowDefinition Height="25*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" x:Name="PrintInvoice_Icon" Source="Resources/InvoiceLookup.png" Margin="1" />
+                                            <TextBlock Grid.Row="1" FontSize="11" Foreground="White"><Run Text="PRINT 8.5x11"/><LineBreak/><Run Text="    INVOICE"/></TextBlock>
+                                        </Grid>
+                                    </Button>
+
+                                    <Button Grid.Column="3" Grid.Row="0" x:Name="EmailCustomerReview_Button" Style="{StaticResource POSFunctionButton_Style}" Margin="1" Tag="NO" >
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30*"/>
+                                                <RowDefinition Height="25*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" x:Name="EmailCustomerReview_Icon" Source="Resources/CustomerReview.png" Margin="1" />
+                                            <TextBlock Grid.Row="1" FontSize="11" Foreground="White"><Run Text="  CUSTOMER"/><LineBreak/><Run Text="REVIEW EMAIL"/></TextBlock>
+                                        </Grid>
+                                    </Button>
+
+                                    <Button Grid.Column="1" Grid.Row="0" x:Name="EmailInvoice_Button" Style="{StaticResource POSFunctionButton_Style}" Margin="1" Tag="NO" >
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30*"/>
+                                                <RowDefinition Height="25*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" x:Name="EmailInvoice_Icon" Source="Resources/Email_Light.png" Margin="1" />
+                                            <TextBlock Grid.Row="1" FontSize="11" Foreground="White"><Run Text="EMAIL 8.5x11"/><LineBreak/><Run Text="    INVOICE"/></TextBlock>
+                                        </Grid>
+                                    </Button>
+
+                                    <Button Grid.Column="0" Grid.Row="0" x:Name="EmailReceipt_Button" Style="{StaticResource POSFunctionButton_Style}" Margin="1" Tag="NO">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33*"/>
+                                                <RowDefinition Height="25*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" x:Name="PrintInvoice_Icon1" Source="Resources/Email_Light.png" Margin="1" />
+                                            <TextBlock Grid.Row="1" FontSize="11" Foreground="White" ><Run Text="   EMAIL"/><LineBreak/><Run Text=" RECEIPT"/></TextBlock>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <Label Style="{DynamicResource BaseCopyrightLabel}" />
+
+            </Grid>
+
+        </Viewbox>
+
+        <Popup x:Name="CheckPayment_Popup" PlacementTarget="{Binding ElementName=Check_Button}" AllowsTransparency="true" StaysOpen="True" PopupAnimation="Slide" Placement="Left">
+            <Border Style="{DynamicResource BaseBorder}"  BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="450" Margin="0" VerticalAlignment="Top" Width="324">
+                <Grid >
+                    <Image x:Name="CheckPayment_Image" Source="Resources/Check.png"  Margin="10,144,78,6" Opacity="0.2" />
+                    <Label Content="CHECK PAYMENT" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="267" FontWeight="Bold" FontSize="14"/>
+
+                    <Label Content="Check Amount" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold"/>
+                    <TextBox x:Name ="CheckAmount" HorizontalAlignment="Left" Height="23" Margin="10,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" FontSize="14"/>
+
+                    <Label Content="Name On Check" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold"/>
+                    <TextBox x:Name="NameOnCheck" FontSize="14" HorizontalAlignment="Left" Height="23" Margin="10,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267"/>
+
+                    <Label Content="Check Number" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold"/>
+                    <TextBox  x:Name="CheckNumber" FontSize="14" HorizontalAlignment="Left" Height="23" Margin="10,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
+
+                    <Label Content="Name of Bank" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold"/>
+                    <TextBox x:Name="NameOfBank" FontSize="14" HorizontalAlignment="Left" Height="23" Margin="10,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267"/>
+
+                    <Label Content="State of Bank" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold"/>
+                    <TextBox x:Name="StateOfBank" FontSize="14" HorizontalAlignment="Left" Height="23" Margin="10,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
+
+                    <Button x:Name="SaveCheck_Button" Style="{StaticResource POSFunctionButton_Style}" ToolTip="Save Check Payment" Margin="189,344,10,10">
+                        <StackPanel>
+                            <Image x:Name="SaveCheck_Icon" Source="Resources/Save_Icon.png" Height="30" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="4" FontSize="12" Foreground="White" Height="18" Width="30" Text="SAVE" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="Check_Cancel_Btn" Content="X" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" FontSize="14" Height="39" ClipToBounds="True" Grid.Row="0"/>
+                    <Label Content="(Optional)" HorizontalAlignment="Left" Margin="104,199,0,0" VerticalAlignment="Top" Width="56" FontSize="10" RenderTransformOrigin="0.5,0.935"/>
+
+                    <Label Content="(Optional)" HorizontalAlignment="Left" Margin="104,251,0,0" VerticalAlignment="Top" Width="56" FontSize="10"/>
+                </Grid>
+            </Border>
+        </Popup>
+        <Popup x:Name="NewGiftCard_Popup" PlacementTarget="{Binding ElementName=Options_GroupBox}" Placement="Bottom" AllowsTransparency="true" StaysOpen="True" PopupAnimation="Slide">
+            <Border Style="{DynamicResource BaseBorder}" BorderBrush="White" BorderThickness="1" Background="lightGray"  HorizontalAlignment="Left" Height="198" Margin="0" VerticalAlignment="Top" Width="366">
+                <Grid>
+                    <Label Content="New In-Store Gift Card" FontSize="14" FontWeight="Bold" Margin="10,5,168,0" Height="35" VerticalAlignment="Top" />
+                    <TextBox x:Name="GiftCardNumber" FontSize="14" Margin="10,97,0,0" VerticalContentAlignment="Center" Text="" HorizontalAlignment="Left" Width="344" Height="33" VerticalAlignment="Top"/>
+                    <Label Content="Enter Gift Card / Certificate ID#  Or Swipe Your Card Now!" FontSize="12" FontWeight="Bold" Margin="10,69,10,0" Height="28" VerticalAlignment="Top" />
+
+                    <Button x:Name="NewGiftCard_CloseScreen_Btn" Style="{StaticResource POSKeypadButton_Style}" Content="X" Margin="320,0,0,0" FontSize="16" Height="38" VerticalAlignment="Top"/>
+
+                </Grid>
+            </Border>
+        </Popup>
+        <Popup x:Name="CreditCardPayment_Popup" PlacementTarget="{Binding ElementName=Credit_Button}" AllowsTransparency="true" StaysOpen="True" PopupAnimation="Slide" Placement="Left">
+            <Border Style="{DynamicResource BaseBorder}" BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="411" Margin="0" VerticalAlignment="Top" Width="342">
+                <Grid >
+                    <Button x:Name="CC_Cancel_Btn" Content="X" Style="{StaticResource POSKeypadButton_Style}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" FontSize="14" Height="39" ClipToBounds="True" Grid.Row="0"/>
+
+                    <Image x:Name="CreditPayment_Image" Source="Resources/Credit_Card.png"  Margin="153,174,10,59" Opacity="0.2" />
+                    <Label Content="CREDIT CARD PAYMENT" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="267" FontWeight="Bold" FontSize="14"/>
+                    <Label Content="Last 4 Digits of Card" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" Width="138" FontWeight="Bold"/>
+                    <TextBox x:Name="CC_Name" HorizontalAlignment="Left" Height="23" Margin="13,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="287" TabIndex="150"/>
+                    <Label Content="Name On Card" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold"/>
+                    <TextBox x:Name="CC_Last4" HorizontalAlignment="Left" Height="23" Margin="13,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" TabIndex="151"/>
+                    <Label Content="Payment Amount" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="185" FontWeight="Bold"/>
+                    <TextBox x:Name="CC_PaymentAmount" HorizontalAlignment="Left" Height="22" Margin="13,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138"/>
+                    <Label Content="Expiration Date" HorizontalAlignment="Left" Margin="184,151,0,0" VerticalAlignment="Top" Width="116" FontWeight="Bold"/>
+                    <Label Content="Card Type" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold" RenderTransformOrigin="0.5,0.712"/>
+
+                    <Button x:Name="SaveCreditCard_Button" Style="{StaticResource POSFunctionButton_Style}" ToolTip="Save Credit Card Payment" Margin="167,346,10,10" TabIndex="155">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="CreditCard_Icon" Source="Resources/Save_Icon.png" Height="35" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="4" FontSize="16" Foreground="White" Height="18" Width="80" Text="    SAVE" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <TextBox x:Name="CC_ExpireDate"  HorizontalAlignment="Left" Height="22" Margin="184,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" TabIndex="152"/>
+                    <ListBox x:Name="CC_CardType_LB" ItemContainerStyle="{StaticResource ListBoxItem_Color}" HorizontalAlignment="Left" Margin="13,228,0,0" VerticalAlignment="Top" Width="135" TabIndex="153" Height="105">
+                        <ListBoxItem Content="Visa"/>
+                        <ListBoxItem Content="Master Card"/>
+                        <ListBoxItem Content="American Express"/>
+                        <ListBoxItem Content="Discover"/>
+                        <ListBoxItem Content="Unknown"/>
+                    </ListBox>
+                    <TextBlock HorizontalAlignment="Left" Margin="167,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="102" Width="169"><Run Text="This transaction will not charge or authorize the credit card."/><LineBreak/><Run/><LineBreak/><Run Text="The card needs to be run via another Credit Card processing program or terminal."/></TextBlock>
+
+                </Grid>
+            </Border>
+        </Popup>
+
+        <Popup x:Name="ApplyCredit_Popup" PlacementTarget="{Binding ElementName=ApplyCredit_Button}" AllowsTransparency="True" StaysOpen="True" PopupAnimation="Slide" Placement="Left">
+            <Border Style="{DynamicResource BaseBorder}" Margin="0" BorderThickness="1" Grid.ColumnSpan="2" Grid.Column="1" Height="227" Width="283" Background="#FFE5E5E5">
+                <Grid >
+                    <local:CommonListView x:Name="Credit_LV" Margin="10,10,10,39" BorderThickness="0" Background="#FFE5E5E5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Invoice#" DisplayMemberBinding="{Binding InvoiceNo}" Width="125"/>
+                                <GridViewColumn Header="Balance" DisplayMemberBinding="{Binding Balance, StringFormat='c'}" Width="125"/>
+                            </GridView>
+                        </ListView.View>
+                    </local:CommonListView>
+                    <Button x:Name="Credit_Cancel_Btn" Content="Cancel" Margin="15,191,149,6" >
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+
+                    </Button>
+                    <Button x:Name="Credit_Select_Btn" Content="Select" Margin="154,191,10,6" FontWeight="DemiBold">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Popup>
+
+    </Grid>
+
+</local:CommonWindow>
